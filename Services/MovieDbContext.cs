@@ -110,7 +110,11 @@ namespace Raw5MovieDb_WebApi.Services
             modelBuilder.Entity<TitleAkas>().Property(x => x.Attributes).HasColumnName("attributes");
             modelBuilder.Entity<TitleAkas>().Property(x => x.Isoriginaltitle).HasColumnName("isoriginaltitle");
 
-
+            modelBuilder.Entity<TitleEpisode>().ToTable("title_episode");
+            modelBuilder.Entity<TitleEpisode>().Property(x => x.Tconst).HasColumnName("tconst");
+            modelBuilder.Entity<TitleEpisode>().Property(x => x.Parenttconst).HasColumnName("parenttconst");
+            modelBuilder.Entity<TitleEpisode>().Property(x => x.Seasonnumber).HasColumnName("seasonnumber");
+            modelBuilder.Entity<TitleEpisode>().Property(x => x.Episodenumber).HasColumnName("episodenumber");
 
 
 
