@@ -63,6 +63,16 @@ namespace Raw5MovieDb_WebApi.Services
 
 
 
+            modelBuilder.Entity<OmdbData>().ToTable("omdb_data");
+            modelBuilder.Entity<OmdbData>().Property(x => x.Tconst).HasColumnName("tconst");
+            modelBuilder.Entity<OmdbData>().Property(x => x.Poster).HasColumnName("poster");
+            modelBuilder.Entity<OmdbData>().Property(x => x.Awards).HasColumnName("awards");
+            modelBuilder.Entity<OmdbData>().Property(x => x.Plot).HasColumnName("plot");
+
+
+
+
+
 
 
 
