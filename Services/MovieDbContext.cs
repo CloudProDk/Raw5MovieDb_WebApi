@@ -69,6 +69,17 @@ namespace Raw5MovieDb_WebApi.Services
             modelBuilder.Entity<OmdbData>().Property(x => x.Awards).HasColumnName("awards");
             modelBuilder.Entity<OmdbData>().Property(x => x.Plot).HasColumnName("plot");
 
+            modelBuilder.Entity<TitleAkas>().ToTable("title_akas");
+            modelBuilder.Entity<TitleAkas>().Property(x => x.Titleid).HasColumnName("titleid");
+            modelBuilder.Entity<TitleAkas>().Property(x => x.Ordering).HasColumnName("Ordering");
+            modelBuilder.Entity<TitleAkas>().Property(x => x.Title).HasColumnName("Title");
+            modelBuilder.Entity<TitleAkas>().Property(x => x.Region).HasColumnName("region");
+            modelBuilder.Entity<TitleAkas>().Property(x => x.Language).HasColumnName("language");
+            modelBuilder.Entity<TitleAkas>().Property(x => x.Types).HasColumnName("types");
+            modelBuilder.Entity<TitleAkas>().Property(x => x.Attributes).HasColumnName("attributes");
+            modelBuilder.Entity<TitleAkas>().Property(x => x.Isoriginaltitle).HasColumnName("isoriginaltitle");
+
+
 
 
 
