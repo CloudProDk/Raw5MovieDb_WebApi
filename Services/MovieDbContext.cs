@@ -74,9 +74,23 @@ namespace Raw5MovieDb_WebApi.Services
             modelBuilder.Entity<Title>().Property(x => x.Runtimeminutes).HasColumnName("runtimeminutes");
 
 
+            modelBuilder.Entity<TitleCrew>().ToTable("title_crew");
+            modelBuilder.Entity<TitleCrew>().Property(x => x.Tconst).HasColumnName("tconst");
+            modelBuilder.Entity<TitleCrew>().Property(x => x.Directors).HasColumnName("directors");
+            modelBuilder.Entity<TitleCrew>().Property(x => x.Writers).HasColumnName("writers");
 
+            modelBuilder.Entity<TitlePrincipals>().ToTable("title_principals");
+            modelBuilder.Entity<TitlePrincipals>().Property(x => x.Tconst).HasColumnName("tconst");
+            modelBuilder.Entity<TitlePrincipals>().Property(x => x.Ordering).HasColumnName("ordering");
+            modelBuilder.Entity<TitlePrincipals>().Property(x => x.Nconst).HasColumnName("nconst");
+            modelBuilder.Entity<TitlePrincipals>().Property(x => x.Category).HasColumnName("category");
+            modelBuilder.Entity<TitlePrincipals>().Property(x => x.Job).HasColumnName("job");
+            modelBuilder.Entity<TitlePrincipals>().Property(x => x.Characters).HasColumnName("characters");
 
-
+            modelBuilder.Entity<TitleRating>().ToTable("title_ratings");
+            modelBuilder.Entity<TitleRating>().Property(x => x.Averagerating).HasColumnName("averagerating");
+            modelBuilder.Entity<TitleRating>().Property(x => x.Numvotes).HasColumnName("numvotes");
+            modelBuilder.Entity<TitleRating>().Property(x => x.Tconst).HasColumnName("tconst");
 
 
 
