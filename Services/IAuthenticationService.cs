@@ -8,6 +8,6 @@ namespace Raw5MovieDb_WebApi.Services
 {
     public interface IAuthenticationService
     {
-        User Authenticate(string userName, string password);
+        UserAccount Authenticate(string userName, string password);
     }
 }

@@ -5,14 +5,17 @@ using System.Threading.Tasks;
 
 namespace Raw5MovieDb_WebApi.Model
 {
-    public class User
+    public class UserAccount
     {
-        public int UserId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+
+        public int Uconst { get; set; }
         public string UserName { get; set; }
+        public string Email { get; set; }
+        public DateTime Birthdate { get; set; }
         public string Password { get; set; }
         public string Token { get; set; }
 
+        public List<UserRating> Ratings { get; set; }
+        public List<UserSearchHistory> SearchHistory { get; set; }
     }
 }

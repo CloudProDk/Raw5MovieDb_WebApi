@@ -18,11 +18,11 @@ namespace Raw5MovieDb_WebApi.Services
         {
             _appSettings = appSettings.Value;
         }
-        private List<User> users = new List<User>()
+        private List<UserAccount> users = new List<UserAccount>()
         {
-            new User{UserId = 1, FirstName="Patrick", LastName="Ørum", UserName="Legenden", Password="CantBeHacked"}
+            new UserAccount{Uconst = 1, UserName="Patrick", Email="pto@ruc.dk", Birthdate= new DateTime(1986-10-04), Password="CantBeHacked"}
         };
-        public User Authenticate(string userName, string password)
+        public UserAccount Authenticate(string userName, string password)
         {
             //Check user
             var user = users.SingleOrDefault(x => x.UserName == userName && x.Password == password);
@@ -39,7 +39,7 @@ namespace Raw5MovieDb_WebApi.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[] {
-                    new Claim(ClaimTypes.Name, user.UserId.ToString()),
+                    new Claim(ClaimTypes.Name, user.Uconst.ToString()),
                     new Claim(ClaimTypes.Role, "Admin"),
                     new Claim(ClaimTypes.Version, "V3.1")
                 }),

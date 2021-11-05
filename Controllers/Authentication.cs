@@ -22,7 +22,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] User model)
+        public IActionResult Login([FromBody] UserAccount model)
         {
             var user = _authenticationService.Authenticate(model.UserName, model.Password);
 
