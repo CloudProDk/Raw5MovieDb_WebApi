@@ -59,6 +59,23 @@ namespace Raw5MovieDb_WebApi.Services
 
 
             modelBuilder.Entity<Genre>().ToTable("genre");
+            modelBuilder.Entity<Genre>().Property(x => x.Id).HasColumnName("id");
+            modelBuilder.Entity<Genre>().Property(x => x.Name).HasColumnName("name");
+
+
+            modelBuilder.Entity<Title>().ToTable("title_basics");
+            modelBuilder.Entity<Title>().Property(x => x.Tconst).HasColumnName("tconst");
+            modelBuilder.Entity<Title>().Property(x => x.Titletype).HasColumnName("titletype");
+            modelBuilder.Entity<Title>().Property(x => x.Primarytitle).HasColumnName("primarytitle");
+            modelBuilder.Entity<Title>().Property(x => x.Originaltitle).HasColumnName("originaltitle");
+            modelBuilder.Entity<Title>().Property(x => x.Isadult).HasColumnName("isadult");
+            modelBuilder.Entity<Title>().Property(x => x.Startyear).HasColumnName("startyear");
+            modelBuilder.Entity<Title>().Property(x => x.Endyear).HasColumnName("endyear");
+            modelBuilder.Entity<Title>().Property(x => x.Runtimeminutes).HasColumnName("runtimeminutes");
+
+
+
+
 
 
 
