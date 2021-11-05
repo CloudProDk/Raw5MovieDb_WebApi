@@ -52,6 +52,19 @@ namespace Raw5MovieDb_WebApi.Services
             modelBuilder.Entity<BookmarkActor>().Property(x => x.Uconst).HasColumnName("uconst");
             modelBuilder.Entity<BookmarkActor>().Property(x => x.Nconst).HasColumnName("nconst");
 
+            modelBuilder.Entity<BookmarkTitle>().ToTable("bookmark_title");
+            modelBuilder.Entity<BookmarkTitle>().Property(x => x.Tconst).HasColumnName("tconst");
+            modelBuilder.Entity<BookmarkTitle>().Property(x => x.Uconst).HasColumnName("uconst");
+
+
+
+
+
+
+
+
+
+
 
 
 
