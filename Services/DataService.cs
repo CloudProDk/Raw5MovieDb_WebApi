@@ -57,7 +57,7 @@ namespace Raw5MovieDb_WebApi.Services
 
         public IList<Title> GetPopularTitles()
         {
-            throw new System.NotImplementedException();
+            return _titles.Skip(1).ToList();
         }
 
         public Title GetTitle(string tconst)
