@@ -58,6 +58,8 @@ namespace Raw5MovieDb_WebApi.Services
 
 
 
+            modelBuilder.Entity<Genre>().ToTable("genre");
+
 
 
 
