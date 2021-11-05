@@ -56,12 +56,15 @@ namespace Raw5MovieDb_WebApi.Services
             modelBuilder.Entity<BookmarkTitle>().Property(x => x.Tconst).HasColumnName("tconst");
             modelBuilder.Entity<BookmarkTitle>().Property(x => x.Uconst).HasColumnName("uconst");
 
-
-
             modelBuilder.Entity<Genre>().ToTable("genre");
             modelBuilder.Entity<Genre>().Property(x => x.Id).HasColumnName("id");
             modelBuilder.Entity<Genre>().Property(x => x.Name).HasColumnName("name");
 
+            modelBuilder.Entity<OmdbData>().ToTable("omdb_data");
+            modelBuilder.Entity<OmdbData>().Property(x => x.Tconst).HasColumnName("tconst");
+            modelBuilder.Entity<OmdbData>().Property(x => x.Poster).HasColumnName("poster");
+            modelBuilder.Entity<OmdbData>().Property(x => x.Awards).HasColumnName("awards");
+            modelBuilder.Entity<OmdbData>().Property(x => x.Plot).HasColumnName("plot");
 
             modelBuilder.Entity<Title>().ToTable("title_basics");
             modelBuilder.Entity<Title>().Property(x => x.Tconst).HasColumnName("tconst");
@@ -73,11 +76,27 @@ namespace Raw5MovieDb_WebApi.Services
             modelBuilder.Entity<Title>().Property(x => x.Endyear).HasColumnName("endyear");
             modelBuilder.Entity<Title>().Property(x => x.Runtimeminutes).HasColumnName("runtimeminutes");
 
+            modelBuilder.Entity<TitleAkas>().ToTable("title_akas");
+            modelBuilder.Entity<TitleAkas>().Property(x => x.Titleid).HasColumnName("titleid");
+            modelBuilder.Entity<TitleAkas>().Property(x => x.Ordering).HasColumnName("Ordering");
+            modelBuilder.Entity<TitleAkas>().Property(x => x.Title).HasColumnName("Title");
+            modelBuilder.Entity<TitleAkas>().Property(x => x.Region).HasColumnName("region");
+            modelBuilder.Entity<TitleAkas>().Property(x => x.Language).HasColumnName("language");
+            modelBuilder.Entity<TitleAkas>().Property(x => x.Types).HasColumnName("types");
+            modelBuilder.Entity<TitleAkas>().Property(x => x.Attributes).HasColumnName("attributes");
+            modelBuilder.Entity<TitleAkas>().Property(x => x.Isoriginaltitle).HasColumnName("isoriginaltitle");
+
 
             modelBuilder.Entity<TitleCrew>().ToTable("title_crew");
             modelBuilder.Entity<TitleCrew>().Property(x => x.Tconst).HasColumnName("tconst");
             modelBuilder.Entity<TitleCrew>().Property(x => x.Directors).HasColumnName("directors");
             modelBuilder.Entity<TitleCrew>().Property(x => x.Writers).HasColumnName("writers");
+
+            modelBuilder.Entity<TitleEpisode>().ToTable("title_episode");
+            modelBuilder.Entity<TitleEpisode>().Property(x => x.Tconst).HasColumnName("tconst");
+            modelBuilder.Entity<TitleEpisode>().Property(x => x.Parenttconst).HasColumnName("parenttconst");
+            modelBuilder.Entity<TitleEpisode>().Property(x => x.Seasonnumber).HasColumnName("seasonnumber");
+            modelBuilder.Entity<TitleEpisode>().Property(x => x.Episodenumber).HasColumnName("episodenumber");
 
             modelBuilder.Entity<TitlePrincipals>().ToTable("title_principals");
             modelBuilder.Entity<TitlePrincipals>().Property(x => x.Tconst).HasColumnName("tconst");
@@ -92,29 +111,13 @@ namespace Raw5MovieDb_WebApi.Services
             modelBuilder.Entity<TitleRating>().Property(x => x.Numvotes).HasColumnName("numvotes");
             modelBuilder.Entity<TitleRating>().Property(x => x.Tconst).HasColumnName("tconst");
 
+         
 
+         
 
-            modelBuilder.Entity<OmdbData>().ToTable("omdb_data");
-            modelBuilder.Entity<OmdbData>().Property(x => x.Tconst).HasColumnName("tconst");
-            modelBuilder.Entity<OmdbData>().Property(x => x.Poster).HasColumnName("poster");
-            modelBuilder.Entity<OmdbData>().Property(x => x.Awards).HasColumnName("awards");
-            modelBuilder.Entity<OmdbData>().Property(x => x.Plot).HasColumnName("plot");
+          
 
-            modelBuilder.Entity<TitleAkas>().ToTable("title_akas");
-            modelBuilder.Entity<TitleAkas>().Property(x => x.Titleid).HasColumnName("titleid");
-            modelBuilder.Entity<TitleAkas>().Property(x => x.Ordering).HasColumnName("Ordering");
-            modelBuilder.Entity<TitleAkas>().Property(x => x.Title).HasColumnName("Title");
-            modelBuilder.Entity<TitleAkas>().Property(x => x.Region).HasColumnName("region");
-            modelBuilder.Entity<TitleAkas>().Property(x => x.Language).HasColumnName("language");
-            modelBuilder.Entity<TitleAkas>().Property(x => x.Types).HasColumnName("types");
-            modelBuilder.Entity<TitleAkas>().Property(x => x.Attributes).HasColumnName("attributes");
-            modelBuilder.Entity<TitleAkas>().Property(x => x.Isoriginaltitle).HasColumnName("isoriginaltitle");
-
-            modelBuilder.Entity<TitleEpisode>().ToTable("title_episode");
-            modelBuilder.Entity<TitleEpisode>().Property(x => x.Tconst).HasColumnName("tconst");
-            modelBuilder.Entity<TitleEpisode>().Property(x => x.Parenttconst).HasColumnName("parenttconst");
-            modelBuilder.Entity<TitleEpisode>().Property(x => x.Seasonnumber).HasColumnName("seasonnumber");
-            modelBuilder.Entity<TitleEpisode>().Property(x => x.Episodenumber).HasColumnName("episodenumber");
+           
 
 
 
