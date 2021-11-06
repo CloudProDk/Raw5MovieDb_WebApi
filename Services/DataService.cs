@@ -31,6 +31,7 @@ namespace Raw5MovieDb_WebApi.Services
         };
 
         private readonly List<BookmarkTitle> _titleBookmarks = new List<BookmarkTitle>();
+        private readonly List<BookmarkActor> _actorBookmarks = new List<BookmarkActor>();
 
         public DataService()
         {
@@ -108,6 +109,29 @@ namespace Raw5MovieDb_WebApi.Services
         public TitleRating UpdateTitleRating(Title title, User user, int rating)
         {
             throw new System.NotImplementedException();
+        }
+
+        public IList<Actor> GetPopularActors()
+        {
+            return _actors.Skip(1).ToList();
+        }
+
+        public IList<Actor> FindActor(string searchQuery)
+        {
+            return _actors.Where(x => x.Primaryname.Contains(searchQuery)).ToList();
+        }
+
+        public BookmarkActor AddActorBookmark(Actor actor, User user)
+        {
+            var bookmark = new BookmarkActor { Nconst = actor.Nconst, Uconst = user.Uconst };
+            _actorBookmarks.Add(bookmark);
+            return bookmark;
+        }
+
+        public bool DeleteActorBookmark(Actor actor, User user)
+        {
+            var bookmark = _actorBookmarks.FirstOrDefault(x => x.Uconst == user.Uconst && x.Nconst == actor.Nconst);
+            return _actorBookmarks.Remove(bookmark);
         }
     }
 }

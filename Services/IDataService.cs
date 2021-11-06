@@ -16,13 +16,19 @@ namespace Raw5MovieDb_WebApi.Services
         // Actors
         IList<Actor> GetActors();
         Actor GetActor(string nconst);
+        IList<Actor> GetPopularActors();
+        IList<Actor> FindActor(string searchQuery);
 
         // Users
         User GetUser(string uconst);
 
-        // Bookmarks
+        // Title Bookmarks
         BookmarkTitle AddTitleBookmark(Title title, User user);
         bool DeleteTitleBookmark(Title title, User user);
+
+        // Actor Bookmarks
+        BookmarkActor AddActorBookmark(Actor actor, User user);
+        bool DeleteActorBookmark(Actor actor, User user);
         
         // Ratings
         TitleRating AddTitleRating(Title title, User user, int rating);
