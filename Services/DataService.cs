@@ -25,24 +25,44 @@ namespace Raw5MovieDb_WebApi.Services
         };
 
         private readonly List<User> _users = new List<User> {
-            new User{ UserId = 1, FirstName = "John", LastName = "Doe", UserName = "MrJohnDoe", Password = "Windows>macOS", Token = "" },
-            new User{ UserId = 2, FirstName = "Jane", LastName = "Doe", UserName = "MsJaneDoe", Password = "macOS>Windows", Token = "" },
-            new User{ UserId = 3, FirstName = "Sebastian", LastName = "Linux", UserName = "MrLinux", Password = "Linux>*", Token = "" },
+            new User{ Uconst = "u00001", FirstName = "John", LastName = "Doe", UserName = "MrJohnDoe", Password = "Windows>macOS", Token = "" },
+            new User{ Uconst = "u00002", FirstName = "Jane", LastName = "Doe", UserName = "MsJaneDoe", Password = "macOS>Windows", Token = "" },
+            new User{ Uconst = "u00003", FirstName = "Sebastian", LastName = "Linux", UserName = "MrLinux", Password = "Linux>*", Token = "" },
         };
+
+        private readonly List<BookmarkTitle> _titleBookmarks = new List<BookmarkTitle>();
 
         public DataService()
         {
             //AddTitleBookmark();
         }
 
-        public bool AddTitleBookmark(Title title, User user)
+        public BookmarkTitle AddTitleBookmark(Title title, User user)
         {
-            throw new System.NotImplementedException();
+            var bookmark = new BookmarkTitle { Tconst = title.Tconst, Uconst = user.Uconst };
+            _titleBookmarks.Add(bookmark);
+            return bookmark;
         }
 
         public bool DeleteTitleBookmark(Title title, User user)
         {
+            var bookmark = _titleBookmarks.FirstOrDefault(x => x.Uconst == user.Uconst && x.Tconst == title.Tconst);
+            return _titleBookmarks.Remove(bookmark);
+        }
+
+        public TitleRating AddTitleRating(Title title, User user, int rating)
+        {
             throw new System.NotImplementedException();
+        }
+
+        public bool DeleteTitleRating(Title title, User user)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IList<Title> FindTitle(string searchQuery)
+        {
+            return _titles.Where(x => x.Primarytitle.Contains(searchQuery)).ToList();
         }
 
         public Actor GetActor(string nconst)
@@ -53,6 +73,11 @@ namespace Raw5MovieDb_WebApi.Services
         public IList<Actor> GetActors()
         {
             return _actors;
+        }
+
+        public IList<Title> GetLatestTitles()
+        {
+            return _titles.Skip(3).ToList();
         }
 
         public IList<Title> GetPopularTitles()
@@ -70,9 +95,19 @@ namespace Raw5MovieDb_WebApi.Services
             return _titles;
         }
 
-        public User GetUser(int userId)
+        public IList<Title> GetTitlesByGenre(int genreId)
         {
-            return _users.FirstOrDefault(x => x.UserId == userId);
+            throw new System.NotImplementedException();
+        }
+
+        public User GetUser(string uconst)
+        {
+            return _users.FirstOrDefault(x => x.Uconst == uconst);
+        }
+
+        public TitleRating UpdateTitleRating(Title title, User user, int rating)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
