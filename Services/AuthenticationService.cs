@@ -20,7 +20,7 @@ namespace Raw5MovieDb_WebApi.Services
         }
         private List<User> users = new List<User>()
         {
-            new User{UserId = 1, FirstName="Patrick", LastName="Ørum", UserName="Legenden", Password="CantBeHacked"}
+            new User{Uconst = "u00007", FirstName="Patrick", LastName="Ørum", UserName="Legenden", Password="CantBeHacked"}
         };
         public User Authenticate(string userName, string password)
         {
@@ -39,7 +39,7 @@ namespace Raw5MovieDb_WebApi.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[] {
-                    new Claim(ClaimTypes.Name, user.UserId.ToString()),
+                    new Claim(ClaimTypes.Name, user.Uconst.ToString()),
                     new Claim(ClaimTypes.Role, "Admin"),
                     new Claim(ClaimTypes.Version, "V3.1")
                 }),

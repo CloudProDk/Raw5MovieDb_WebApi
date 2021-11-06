@@ -63,7 +63,7 @@ namespace Raw5MovieDb_WebApi.Services
 
         public IList<Title> FindTitle(string searchQuery)
         {
-            return _titles.Where(x => x.Primarytitle.Contains(searchQuery)).ToList();
+            return _titles.Where(x => x.Primarytitle.ToLower().Contains(searchQuery.ToLower())).ToList();
         }
 
         public Actor GetActor(string nconst)
