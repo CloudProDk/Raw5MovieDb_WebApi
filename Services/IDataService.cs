@@ -12,7 +12,10 @@ namespace Raw5MovieDb_WebApi.Services
         Actor GetActor(string nconst);
         User GetUser(int userId);
 
-        bool AddTitleBookmark(Title title, User user);
+        bool AddTitleBookmark(Title title, User user); 
         bool DeleteTitleBookmark(Title title, User user);
+
+        bool AddActorBookmark(Actor actor, User user);
+        bool DeleteActorBookmark(Actor actor, User user);
     }
 }
