@@ -74,5 +74,18 @@ namespace Raw5MovieDb_WebApi.Services
         {
             return _users.FirstOrDefault(x => x.UserId == userId);
         }
+
+
+        //Here we implement with the context
+
+        //actor methods
+        public IList<Actor> GetActors()
+        {
+            var ctx = new MovieDbContext();
+            return ctx.actors.tolist();
+        }
+
+
+
     }
 }
