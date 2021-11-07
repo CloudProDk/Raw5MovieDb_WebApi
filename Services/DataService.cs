@@ -118,7 +118,7 @@ namespace Raw5MovieDb_WebApi.Services
 
         public IList<Actor> FindActor(string searchQuery)
         {
-            return _actors.Where(x => x.Primaryname.Contains(searchQuery)).ToList();
+            return _actors.Where(x => x.Primaryname.ToLower().Contains(searchQuery.ToLower())).ToList();
         }
 
         public BookmarkActor AddActorBookmark(Actor actor, User user)

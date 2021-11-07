@@ -53,7 +53,8 @@ namespace Raw5MovieDb_WebApi.Controllers
         public IActionResult GetPopularTitles()
         {
             IList<Title> titles = _dataService.GetPopularTitles();
-            return Ok(titles);
+            var model = titles.Select(CreateTitleViewModel);
+            return Ok(model);
         }
 
         [HttpGet("search")]
