@@ -30,7 +30,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         public IActionResult GetActors()
         {
             IList<Actor> actors = _dataService.GetActors();
-            var model = actors.Select(CreateActorViewModel);
+            var model = actors.Select(GetActorViewModel);
             return Ok(model);
         }
 
@@ -38,7 +38,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         public IActionResult GetActor(string nconst)
         {
             Actor actor = _dataService.GetActor(nconst);
-            var model = CreateActorViewModel(actor);
+            var model = GetActorViewModel(actor);
             return Ok(model);
         }
 
@@ -52,11 +52,11 @@ namespace Raw5MovieDb_WebApi.Controllers
 
             IList<Actor> actors = _dataService.FindActor(q);
 
-            var model = actors.Select(CreateActorViewModel);
+            var model = actors.Select(GetActorViewModel);
             return Ok(model);
         }
 
-        private ActorViewModel CreateActorViewModel(Actor actor)
+        private ActorViewModel GetActorViewModel(Actor actor)
         {
             var model = _mapper.Map<ActorViewModel>(actor);
             model.Url = GetUrl(actor);

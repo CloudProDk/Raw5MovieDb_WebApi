@@ -31,7 +31,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         public IActionResult GetTitles()
         {
             IList<Title> titles = _dataService.GetTitles();
-            var model = titles.Select(CreateTitleViewModel);
+            var model = titles.Select(GetTitleViewModel);
             return Ok(model);
         }
 
@@ -45,7 +45,7 @@ namespace Raw5MovieDb_WebApi.Controllers
                 return NotFound();
             }
 
-            var model = CreateTitleViewModel(title);
+            var model = GetTitleViewModel(title);
             return Ok(model);
         }
 
@@ -53,7 +53,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         public IActionResult GetPopularTitles()
         {
             IList<Title> titles = _dataService.GetPopularTitles();
-            var model = titles.Select(CreateTitleViewModel);
+            var model = titles.Select(GetTitleViewModel);
             return Ok(model);
         }
 
@@ -67,11 +67,11 @@ namespace Raw5MovieDb_WebApi.Controllers
 
             IList<Title> titles = _dataService.FindTitle(q);
 
-            var model = titles.Select(CreateTitleViewModel);
+            var model = titles.Select(GetTitleViewModel);
             return Ok(model);
         }
 
-        private TitleViewModel CreateTitleViewModel(Title title)
+        private TitleViewModel GetTitleViewModel(Title title)
         {
             var model = _mapper.Map<TitleViewModel>(title);
             model.Url = GetUrl(title);
