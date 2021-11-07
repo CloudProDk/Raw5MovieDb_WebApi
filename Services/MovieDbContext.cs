@@ -111,12 +111,12 @@ namespace Raw5MovieDb_WebApi.Services
             modelBuilder.Entity<TitleRating>().Property(x => x.Numvotes).HasColumnName("numvotes");
             modelBuilder.Entity<TitleRating>().Property(x => x.Tconst).HasColumnName("tconst");
 
-            modelBuilder.Entity<User>().ToTable("user_account");
-            //modelBuilder.Entity<User>().Property(x => x.Uconst).HasColumnName("uconst");
-            modelBuilder.Entity<User>().Property(x => x.UserName).HasColumnName("username");
-            //modelBuilder.Entity<User>().Property(x => x.Email).HasColumnName("email");
-            //modelBuilder.Entity<User>().Property(x => x.Birthdate).HasColumnName("birthdate");
-            modelBuilder.Entity<User>().Property(x => x.Password).HasColumnName("password");
+            modelBuilder.Entity<UserAccount>().ToTable("user_account");
+            modelBuilder.Entity<UserAccount>().Property(x => x.Uconst).HasColumnName("uconst");
+            modelBuilder.Entity<UserAccount>().Property(x => x.UserName).HasColumnName("username");
+            modelBuilder.Entity<UserAccount>().Property(x => x.Email).HasColumnName("email");
+            modelBuilder.Entity<UserAccount>().Property(x => x.Birthdate).HasColumnName("birthdate");
+            modelBuilder.Entity<UserAccount>().Property(x => x.Password).HasColumnName("password");
 
             modelBuilder.Entity<UserRating>().ToTable("user_rating");
             modelBuilder.Entity<UserRating>().Property(x => x.Rating).HasColumnName("rating");

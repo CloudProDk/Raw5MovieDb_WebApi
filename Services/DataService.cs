@@ -35,48 +35,61 @@ namespace Raw5MovieDb_WebApi.Services
             //AddTitleBookmark();
         }
 
-        public bool AddTitleBookmark(Title title, User user)
+
+
+        public IList<BookmarkTitle> GetAllBookmarkTitles()
         {
             throw new System.NotImplementedException();
         }
 
+        public BookmarkTitle GetBookmarkTitle(string uconst, string tconst)
+        {
+            throw new System.NotImplementedException();
+        }
+        public bool AddTitleBookmark(Title title, User user)
+        {
+            throw new System.NotImplementedException();
+        }
+        
         public bool DeleteTitleBookmark(Title title, User user)
         {
             throw new System.NotImplementedException();
         }
 
-        public Actor GetActor(string nconst)
-        {
-            return _actors.FirstOrDefault(x => x.Nconst == nconst);
-        }
 
-        public IList<Actor> GetActors()
-        {
-            return _actors;
-        }
 
-        public IList<Title> GetPopularTitles()
+        public Ilist<BookmarkActor> GetAllActorBookmarks()
         {
             throw new System.NotImplementedException();
         }
 
-        public Title GetTitle(string tconst)
+        public BookmarkActor GetActorBookmark(string uconst, string nconst)
         {
-            return _titles.FirstOrDefault(x => x.Tconst == tconst);
+            throw new System.NotImplementedException();
         }
 
-        public IList<Title> GetTitles()
+        public bool AddActorBookmark()
         {
-            return _titles;
+            throw new System.NotImplementedException();
         }
 
-        public User GetUser(int userId)
+        public bool DeleteActorBookmark()
         {
-            return _users.FirstOrDefault(x => x.UserId == userId);
+            throw new System.NotImplementedException();
         }
 
 
-        //Here we implement with the context
+
+        
+
+        //User methods
+        
+
+        public UserAccount GetUser(int uconst)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.users.FirstOrDefault(x => x.Uconst == uconst);
+        }
 
         //actor methods
         public IList<Actor> GetActors()
@@ -84,6 +97,34 @@ namespace Raw5MovieDb_WebApi.Services
             var ctx = new MovieDbContext();
             return ctx.actors.ToList();
         }
+
+        public Actor getActor(string nconst)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.actors.FirstOrDefault(x => x.Nconst == nconst);
+        }
+
+        //title Methods
+
+        public IList<Title> GetTitles()
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.ToList();
+        }
+
+        public Title GetTitle(string tconst)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.FirstOrDefault(x => x.Tconst == tconst);
+        }
+        // TODO: implement this
+        
+        public IList<Title> GetPopularTitles()
+        {
+            throw new System.NotImplementedException();
+        }
+
+
 
 
 
