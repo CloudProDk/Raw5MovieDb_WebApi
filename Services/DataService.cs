@@ -82,7 +82,7 @@ namespace Raw5MovieDb_WebApi.Services
         public IList<Actor> GetActors()
         {
             var ctx = new MovieDbContext();
-            return ctx.actors.tolist();
+            return ctx.actors.ToList();
         }
 
 
