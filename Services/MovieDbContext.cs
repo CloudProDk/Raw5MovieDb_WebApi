@@ -22,7 +22,7 @@ namespace Raw5MovieDb_WebApi.Services
         public DbSet<TitleEpisode> titleEpisodes { get; set; }
         public DbSet<TitlePrincipals> titlePrincipals { get; set; }
         public DbSet<TitleRating>  titleRatings { get; set; }
-        public DbSet<User> users { get; set; }
+        public DbSet<UserAccount> users { get; set; }
         public DbSet<UserRating> userRatings { get; set; }
         public DbSet<UserSearchHistory> userSearchHistories { get; set; }
 
@@ -33,6 +33,8 @@ namespace Raw5MovieDb_WebApi.Services
             optionsBuilder.EnableSensitiveDataLogging();
 
         }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
