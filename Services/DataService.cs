@@ -75,48 +75,95 @@ namespace Raw5MovieDb_WebApi.Services
 
 
 
-
+        /*
+         *
+         * BOOKMARK TITLE CRUD
+         * SHOULD BE DONE
+         */
 
         public IList<BookmarkTitle> GetAllBookmarkTitles()
         {
-            throw new System.NotImplementedException();
+            var ctx = new MovieDbContext();
+            return ctx.bookmarkTitles.ToList();
         }
 
         public BookmarkTitle GetBookmarkTitle(string uconst, string tconst)
         {
-            throw new System.NotImplementedException();
+            var ctx = new MovieDbContext();
+            return ctx.bookmarkTitles.Find(uconst, tconst);
         }
 
-        public bool AddTitleBookmark(Title title, UserAccount user)
+        //TODO test this, not sure if works
+        public BookmarkTitle AddTitleBookmark(string tconst, string uconst)
         {
-            throw new System.NotImplementedException();
+            var ctx = new MovieDbContext();
+            var act = new BookmarkTitle
+            {
+                Tconst = ctx.bookmarkTitles.Max(x => x.Tconst) + 1,
+                Uconst = uconst
+            };
+            ctx.Add(act);
+            ctx.SaveChanges();
+            return act;
         }
 
-        public bool DeleteTitleBookmark(Title title, UserAccount user)
+        public bool DeleteTitleBookmark(string tconst, string uconst)
         {
-            throw new System.NotImplementedException();
+            var ctx = new MovieDbContext();
+            var act = ctx.bookmarkTitles.Find(tconst, uconst);
+
+            if (act != null)
+            {
+                ctx.bookmarkTitles.Remove(act);
+                return ctx.SaveChanges() > 0;
+            }
+            else return false;
         }
 
 
+        /*
+         *
+         * BOOKMARK ACTOR CRUD
+         * SHOULD BE DONE
+         */
 
         public IList<BookmarkActor> GetAllActorBookmarks()
         {
-            throw new System.NotImplementedException();
+            var ctx = new MovieDbContext();
+            return ctx.bookmarkActors.ToList();
         }
 
         public BookmarkActor GetActorBookmark(string uconst, string nconst)
         {
-            throw new System.NotImplementedException();
+            var ctx = new MovieDbContext();
+            return ctx.bookmarkActors.Find(uconst,nconst);
         }
 
-        public bool AddActorBookmark()
+        //TODO test this, not sure if works
+        public BookmarkActor AddActorBookmark(string uconst, string nconst)
         {
-            throw new System.NotImplementedException();
+            var ctx = new MovieDbContext();
+            var act = new BookmarkActor
+            {
+                Nconst = ctx.bookmarkActors.Max(x => x.Nconst) + 1,
+                Uconst = uconst
+            };
+            ctx.Add(act);
+            ctx.SaveChanges();
+            return act;
         }
 
-        public bool DeleteActorBookmark()
+        public bool DeleteActorBookmark(string uconst, string nconst)
         {
-            throw new System.NotImplementedException();
+            var ctx = new MovieDbContext();
+            var act = ctx.bookmarkActors.Find(nconst,uconst);
+
+            if (act != null)
+            {
+                ctx.bookmarkActors.Remove(act);
+                return ctx.SaveChanges() > 0;
+            }
+            else return false;
         }
 
 
@@ -132,7 +179,19 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.users.FirstOrDefault(x => x.Uconst == uconst);
         }
 
-        //actor methods
+        public static void GetAllUsersFunctionFromDatabase()
+        {
+            var ctx = new MovieDbContext();
+            ctx.users.FromSqlInterpolated($"SELECT * FROM get_all_users()");
+        }
+
+     
+        /*
+         * ACTOR METHODS
+         * SHOULD BE DONE
+         */
+
+        
         public IList<Actor> GetActors()
         {
             var ctx = new MovieDbContext();
@@ -145,10 +204,24 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.actors.FirstOrDefault(x => x.Nconst == nconst);
         }
 
+
+
+        
         public Actor CreateActor(string nconst, string primaryname, string birthyear, string deathyear,
             string primaryprofession, string knownfortitles, double namerating)
         {
-            throw new System.NotImplementedException();
+            var ctx = new MovieDbContext();
+            var act = new Actor { Nconst = ctx.actors.Max(x => x.Nconst) + 1, 
+                Primaryname = primaryname,
+                Birthyear = birthyear, 
+                Deathyear = deathyear, 
+                Primaryprofession = primaryprofession, 
+                Knownfortitles = knownfortitles, 
+                Namerating = namerating     
+            };
+            ctx.Add(act);
+            ctx.SaveChanges();
+            return act;
         }
 
         public bool DeleteActor(string nconst)
@@ -202,6 +275,8 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.titles.FirstOrDefault(x => x.Tconst == tconst);
         }
 
+        
+
 
 
         // TODO: implement this
@@ -210,10 +285,13 @@ namespace Raw5MovieDb_WebApi.Services
             throw new System.NotImplementedException();
         }
 
-        public static void GetAllUsersFunctionFromDatabase()
+        //TODO shoooould work... not sure at all
+        public IQueryable<Actor> GetCoActors(string actorname)
         {
             var ctx = new MovieDbContext();
-            ctx.users.FromSqlInterpolated($"SELECT * FROM get_all_users()");
+            return ctx.actors.FromSqlInterpolated($"SELECT * FROM find_coplayers('{actorname}')");
         }
+
+        
     }
 }

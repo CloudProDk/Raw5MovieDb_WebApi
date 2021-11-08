@@ -17,13 +17,6 @@ namespace Raw5MovieDb_WebApi
         {
             CreateHostBuilder(args).Build().Run();
 
-
-            //trying to get the ADO / ENTITYFRAMWORK TO WORK
-             var connectionstring = "host=rawdata.ruc.dk;db=Raw5;uid=postgres;pwd=Tristan!";
-             GetAllUsersFunctionFromDatabase(connectionstring);
-
-
-
             IHostBuilder CreateHostBuilder(string[] args) =>
                 Host.CreateDefaultBuilder(args)
                     .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
@@ -33,10 +26,6 @@ namespace Raw5MovieDb_WebApi
 
         }
 
-        public static void GetAllUsersFunctionFromDatabase(string connectionstring)
-        {
-            var ctx = new MovieDbContext(connectionstring);
-            ctx.users.FromSqlInterpolated($"SELECT * FROM get_all_users()");
-        }
+       
     }
 }

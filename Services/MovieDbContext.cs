@@ -10,13 +10,7 @@ namespace Raw5MovieDb_WebApi.Services
 {
     public class MovieDbContext : DbContext
     {
-        private readonly string _connectionstring;
-
-        public MovieDbContext(string connectionstring)
-        {
-            _connectionstring = connectionstring;
-        }
-
+        
         public DbSet<Actor> actors { get; set; }
         public DbSet<AppSettings> appSettings { get; set; }
         public DbSet<BookmarkActor> bookmarkActors { get; set; }
@@ -36,7 +30,7 @@ namespace Raw5MovieDb_WebApi.Services
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);     
-            optionsBuilder.UseNpgsql(_connectionstring);
+            optionsBuilder.UseNpgsql("host=rawdata.ruc.dk;db=Raw5;uid=postgres;pwd=Tristan!");
             optionsBuilder.EnableSensitiveDataLogging();
 
         }
