@@ -16,13 +16,11 @@ namespace Raw5MovieDb_WebApi.Services
         //actor
         IList<Actor> GetActors();
         Actor GetActor(string nconst);
-        Actor CreateActor(string nconst, string primaryname, string birthyear, string deathyear,
-            string primaryprofession, string knownfortitles, double namerating);
+        Actor CreateActor(string nconst, string primaryname);
 
         bool DeleteActor(string nconst);
 
-        bool UpdateActor(string nconst, string primaryname, string birthyear, string deathyear,
-            string primaryprofession, string knownfortitles, double namerating);
+        bool UpdateActor(string nconst, string primaryname);
 
         // Bookmarkactor
         IList<BookmarkActor> GetAllActorBookmarks();
@@ -32,7 +30,7 @@ namespace Raw5MovieDb_WebApi.Services
         // User
         
         
-        UserAccount GetUser(int userId);
+        UserAccount GetUser(string userId);
 
 
         /*

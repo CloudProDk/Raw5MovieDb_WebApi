@@ -43,26 +43,26 @@ namespace Raw5MovieDb_WebApi.Services
 
         private readonly List<Actor> _actors = new List<Actor>
         {
-            new Actor
-            {
-                Nconst = "n00001", Primaryname = "Brad Pitt", Birthyear = "1963", Deathyear = null, Knownfortitles = "",
-                Primaryprofession = "actor,writer,producer", Namerating = 8.41
-            },
-            new Actor
-            {
-                Nconst = "n00002", Primaryname = "Matt Damon", Birthyear = "1970", Deathyear = null,
-                Knownfortitles = "t00001", Primaryprofession = "actor,writer,producer", Namerating = 7.58
-            },
-            new Actor
-            {
-                Nconst = "n00003", Primaryname = "Sigourney Weaver", Birthyear = "1949", Deathyear = null,
-                Knownfortitles = "t00002", Primaryprofession = "actor,writer", Namerating = 7.94
-            },
-            new Actor
-            {
-                Nconst = "n00004", Primaryname = "Timothée Chalamet", Birthyear = "1995", Deathyear = null,
-                Knownfortitles = "t00005", Primaryprofession = "actor", Namerating = 7.50
-            },
+            //new Actor
+            //{
+            //    Nconst = "n00001", Primaryname = "Brad Pitt", Birthyear = "1963", Deathyear = null, Knownfortitles = "",
+            //    Primaryprofession = "actor,writer,producer", Namerating = 8.41
+            //},
+            //new Actor
+            //{
+            //    Nconst = "n00002", Primaryname = "Matt Damon", Birthyear = "1970", Deathyear = null,
+            //    Knownfortitles = "t00001", Primaryprofession = "actor,writer,producer", Namerating = 7.58
+            //},
+            //new Actor
+            //{
+            //    Nconst = "n00003", Primaryname = "Sigourney Weaver", Birthyear = "1949", Deathyear = null,
+            //    Knownfortitles = "t00002", Primaryprofession = "actor,writer", Namerating = 7.94
+            //},
+            //new Actor
+            //{
+            //    Nconst = "n00004", Primaryname = "Timothée Chalamet", Birthyear = "1995", Deathyear = null,
+            //    Knownfortitles = "t00005", Primaryprofession = "actor", Namerating = 7.50
+            //},
         };
 
         /* private readonly List<User> _users = new List<User> {
@@ -173,16 +173,16 @@ namespace Raw5MovieDb_WebApi.Services
         //User methods
 
 
-        public UserAccount GetUser(int uconst)
+        public UserAccount GetUser(string uconst)
         {
             var ctx = new MovieDbContext();
             return ctx.users.FirstOrDefault(x => x.Uconst == uconst);
         }
 
-        public static void GetAllUsersFunctionFromDatabase()
+        public IList<UserAccount> GetAllUsersFunctionFromDatabase()
         {
             var ctx = new MovieDbContext();
-            ctx.users.FromSqlInterpolated($"SELECT * FROM get_all_users()");
+            return ctx.users.FromSqlInterpolated($"SELECT * FROM get_all_users()").ToList();
         }
 
      
@@ -207,17 +207,16 @@ namespace Raw5MovieDb_WebApi.Services
 
 
         
-        public Actor CreateActor(string nconst, string primaryname, string birthyear, string deathyear,
-            string primaryprofession, string knownfortitles, double namerating)
+        public Actor CreateActor(string nconst, string primaryname)
         {
             var ctx = new MovieDbContext();
             var act = new Actor { Nconst = ctx.actors.Max(x => x.Nconst) + 1, 
                 Primaryname = primaryname,
-                Birthyear = birthyear, 
-                Deathyear = deathyear, 
-                Primaryprofession = primaryprofession, 
-                Knownfortitles = knownfortitles, 
-                Namerating = namerating     
+                //Birthyear = birthyear, 
+                //Deathyear = deathyear, 
+                //Primaryprofession = primaryprofession, 
+                //Knownfortitles = knownfortitles, 
+                //Namerating = namerating     
             };
             ctx.Add(act);
             ctx.SaveChanges();
@@ -237,8 +236,7 @@ namespace Raw5MovieDb_WebApi.Services
             else return false;
         }
 
-        public bool UpdateActor(string nconst, string primaryname, string birthyear, string deathyear,
-            string primaryprofession, string knownfortitles, double namerating)
+        public bool UpdateActor(string nconst, string primaryname)
         {
             var ctx = new MovieDbContext();
             var act = ctx.actors.Find(nconst);
@@ -247,11 +245,11 @@ namespace Raw5MovieDb_WebApi.Services
             {
                 act.Nconst = nconst;
                 act.Primaryname = primaryname;
-                act.Birthyear = birthyear;
-                act.Deathyear = deathyear;
-                act.Primaryprofession = primaryprofession;
-                act.Knownfortitles = knownfortitles;
-                act.Namerating = namerating;
+                //act.Birthyear = birthyear;
+                //act.Deathyear = deathyear;
+                //act.Primaryprofession = primaryprofession;
+                //act.Knownfortitles = knownfortitles;
+                //act.Namerating = namerating;
                 return ctx.SaveChanges() > 0;
             }
             else return false;
@@ -286,10 +284,10 @@ namespace Raw5MovieDb_WebApi.Services
         }
 
         //TODO shoooould work... not sure at all
-        public IQueryable<Actor> GetCoActors(string actorname)
+        public IList<Actor> GetCoActors(string actorname)
         {
             var ctx = new MovieDbContext();
-            return ctx.actors.FromSqlInterpolated($"SELECT * FROM find_coplayers('{actorname}')");
+            return ctx.actors.FromSqlInterpolated($"SELECT nconst, primaryname FROM find_coplayers({actorname})").ToList();
         }
 
         
