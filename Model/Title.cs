@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -9,6 +10,7 @@ namespace Raw5MovieDb_WebApi.Model
 {
     public partial class Title
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [JsonProperty("tconst")]
         public string Tconst { get; set; }
 
