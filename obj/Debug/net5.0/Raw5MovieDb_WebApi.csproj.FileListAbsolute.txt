@@ -41,3 +41,13 @@
 /Users/patrickorum/Development/RUC/RAWDATA/Raw5MovieDb_WebApi/bin/Debug/net5.0/Newtonsoft.Json.dll
 /Users/patrickorum/Development/RUC/RAWDATA/Raw5MovieDb_WebApi/bin/Debug/net5.0/System.Diagnostics.DiagnosticSource.dll
 /Users/patrickorum/Development/RUC/RAWDATA/Raw5MovieDb_WebApi/bin/Debug/net5.0/System.IdentityModel.Tokens.Jwt.dll
+C:\Users\rex19\Documents\GitHub\Raw5MovieDb_WebApi\obj\Debug\net5.0\Raw5MovieDb_WebApi.csproj.AssemblyReference.cache
+C:\Users\rex19\Documents\GitHub\Raw5MovieDb_WebApi\obj\Debug\net5.0\Raw5MovieDb_WebApi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rex19\Documents\GitHub\Raw5MovieDb_WebApi\obj\Debug\net5.0\Raw5MovieDb_WebApi.AssemblyInfoInputs.cache
+C:\Users\rex19\Documents\GitHub\Raw5MovieDb_WebApi\obj\Debug\net5.0\Raw5MovieDb_WebApi.AssemblyInfo.cs
+C:\Users\rex19\Documents\GitHub\Raw5MovieDb_WebApi\obj\Debug\net5.0\Raw5MovieDb_WebApi.csproj.CoreCompileInputs.cache
+C:\Users\rex19\Documents\GitHub\Raw5MovieDb_WebApi\obj\Debug\net5.0\Raw5MovieDb_WebApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\rex19\Documents\GitHub\Raw5MovieDb_WebApi\obj\Debug\net5.0\Raw5MovieDb_WebApi.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\rex19\Documents\GitHub\Raw5MovieDb_WebApi\obj\Debug\net5.0\Raw5MovieDb_WebApi.dll
+C:\Users\rex19\Documents\GitHub\Raw5MovieDb_WebApi\obj\Debug\net5.0\ref\Raw5MovieDb_WebApi.dll
+C:\Users\rex19\Documents\GitHub\Raw5MovieDb_WebApi\obj\Debug\net5.0\Raw5MovieDb_WebApi.pdb

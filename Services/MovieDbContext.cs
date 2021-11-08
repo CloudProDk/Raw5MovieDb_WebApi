@@ -10,6 +10,13 @@ namespace Raw5MovieDb_WebApi.Services
 {
     public class MovieDbContext : DbContext
     {
+        private readonly string _connectionstring;
+
+        public MovieDbContext(string connectionstring)
+        {
+            _connectionstring = connectionstring;
+        }
+
         public DbSet<Actor> actors { get; set; }
         public DbSet<AppSettings> appSettings { get; set; }
         public DbSet<BookmarkActor> bookmarkActors { get; set; }
@@ -29,7 +36,7 @@ namespace Raw5MovieDb_WebApi.Services
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);     
-            optionsBuilder.UseNpgsql("host=rawdata.ruc.dk;db=Raw5;uid=postgres;pwd=Tristan!");
+            optionsBuilder.UseNpgsql(_connectionstring);
             optionsBuilder.EnableSensitiveDataLogging();
 
         }
@@ -39,6 +46,7 @@ namespace Raw5MovieDb_WebApi.Services
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
 
             modelBuilder.Entity<Actor>().ToTable("name_basics");
             modelBuilder.Entity<Actor>().Property(x => x.Nconst).HasColumnName("nconst");
@@ -50,9 +58,12 @@ namespace Raw5MovieDb_WebApi.Services
             modelBuilder.Entity<Actor>().Property(x => x.Namerating).HasColumnName("namerating");
 
 
+
             modelBuilder.Entity<BookmarkActor>().ToTable("bookmark_actor");
             modelBuilder.Entity<BookmarkActor>().Property(x => x.Uconst).HasColumnName("uconst");
             modelBuilder.Entity<BookmarkActor>().Property(x => x.Nconst).HasColumnName("nconst");
+            
+
 
             modelBuilder.Entity<BookmarkTitle>().ToTable("bookmark_title");
             modelBuilder.Entity<BookmarkTitle>().Property(x => x.Tconst).HasColumnName("tconst");
