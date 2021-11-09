@@ -93,7 +93,7 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.bookmarkTitles.Find(uconst, tconst);
         }
 
-        //TODO test this, not sure if works
+        //TODO test this, not sure if the right output comes
         public BookmarkTitle AddTitleBookmark(string tconst, string uconst)
         {
             var ctx = new MovieDbContext();
@@ -185,13 +185,18 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.users.FromSqlInterpolated($"SELECT * FROM get_all_users()").ToList();
         }
 
-     
+        //TODO: Adduser function
+        //TODO: Delete User function
+        //TODO: Update User
+
+
+
         /*
          * ACTOR METHODS
          * SHOULD BE DONE
          */
 
-        
+
         public IList<Actor> GetActors()
         {
             var ctx = new MovieDbContext();
@@ -283,13 +288,33 @@ namespace Raw5MovieDb_WebApi.Services
             throw new System.NotImplementedException();
         }
 
-        //TODO shoooould work... not sure at all
+       
         public IList<Actor> GetCoActors(string actorname)
         {
             var ctx = new MovieDbContext();
             return ctx.actors.FromSqlInterpolated($"SELECT nconst, primaryname FROM find_coplayers({actorname})").ToList();
         }
 
-        
+
+        //TODO: Best Match Function(string 1, string 2, string 3 inputs)
+        //TODO: Count words function? do we need this?
+        //TODO: Exact Match Dynamic(Arraylist input)
+        //TODO: Find Similar function(bpchar input)
+        //TODO: GetAllBookmarksFromUserFunction(Uconst input)
+        //TODO: Get all ratings, is this based on user or just all ratings? or both?
+        //TODO: Get rating(uconst, tconst inputs), probably the one rating for a specific movie
+        //TODO: Popular actors by movie (string movie_input)
+        //TODO: Rate procedure?
+        //TODO: String_Search(String input, userid input)
+        //TODO: Structured search
+        //TODO: Structured Name Search
+        //TODO: Structured string search
+        //TODO: WordToWord 
+
+
+
+
+
+
     }
 }

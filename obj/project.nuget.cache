@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "AOx0Bg0ODSA44+FZCLbnuMcMbM2fPCct8xUV7H2I7/UKYraex2fk7DiBaMXzsJm0cmjJqQJwAxMXDfE669jqzg==",
+  "dgSpecHash": "3o2P91PpWw9a2V96EENOc/SRJSDCmmxq9EGprr9yJ92ZMrXkNtCKetLt4KJHaEPhEgqXxHjigGB7kVgHRD/4kA==",
   "success": true,
   "projectFilePath": "C:\\Users\\rex19\\Documents\\GitHub\\Raw5MovieDb_WebApi\\Raw5MovieDb_WebApi.csproj",
   "expectedPackageFiles": [
@@ -143,7 +143,8 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.threading.tasks.extensions\\4.3.0\\system.threading.tasks.extensions.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\rex19\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.12\\microsoft.netcore.app.host.win-x64.5.0.12.nupkg.sha512"
   ],
   "logs": []
 }
