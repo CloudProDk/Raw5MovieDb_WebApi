@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Npgsql;
 using Raw5MovieDb_WebApi.Model;
@@ -54,6 +55,8 @@ namespace Raw5MovieDb_WebApi.Services
         IList<Title> FindSimilarSearch(string input);
         
         //TODO: GetAllBookmarksFromUserFunction(Uconst input)
+
+        
         //TODO: Get all ratings, is this based on user or just all ratings? or both?
         //TODO: Get rating(uconst, tconst inputs), probably the one rating for a specific movie
         //TODO: Popular actors by movie (string movie_input)
