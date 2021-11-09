@@ -41,5 +41,28 @@ namespace Raw5MovieDb_WebApi.Services
         bool DeleteActorBookmark(Actor actor, UserAccount user);
         */
 
+        //TODO: Count words function? do we need this?
+
+
+        //TODO: Best Match Function(string 1, string 2, string 3 inputs)
+        IList<Title> BestMatchFunction(string input1, string input2, string input3);
+        
+        //TODO: Exact Match Dynamic(Arraylist input)
+        IList<Title> ExactMatchDynamicSearch(string[] input);
+
+        //TODO: Find Similar function(bpchar input)
+        IList<Title> FindSimilarSearch(string input);
+        
+        //TODO: GetAllBookmarksFromUserFunction(Uconst input)
+        //TODO: Get all ratings, is this based on user or just all ratings? or both?
+        //TODO: Get rating(uconst, tconst inputs), probably the one rating for a specific movie
+        //TODO: Popular actors by movie (string movie_input)
+        //TODO: Rate procedure?
+        //TODO: String_Search(String input, userid input)
+        //TODO: Structured search
+        //TODO: Structured Name Search
+        //TODO: Structured string search
+        //TODO: WordToWord 
+
     }
 }
