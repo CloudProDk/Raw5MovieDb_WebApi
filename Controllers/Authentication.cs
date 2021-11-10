@@ -21,17 +21,17 @@ namespace Raw5MovieDb_WebApi.Controllers
             _authenticationService = authenticationService;
         }
 
-        [HttpPost]
-        public IActionResult Post([FromBody] User model)
-        {
-            var user = _authenticationService.Authenticate(model.UserName, model.Password);
+        //[HttpPost]
+        //public IActionResult Post([FromBody] User model)
+        //{
+        //    var user = _authenticationService.Authenticate(model.UserName, model.Password);
 
-            if (user == null)
-            {
-                return BadRequest(new {message = "Username or password is incorrect"});
-            } 
+        //    if (user == null)
+        //    {
+        //        return BadRequest(new {message = "Username or password is incorrect"});
+        //    } 
 
-            return Ok(user);
-        }
+        //    return Ok(user);
+        //}
     }
 }

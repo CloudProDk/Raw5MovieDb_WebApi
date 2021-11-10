@@ -1,38 +1,45 @@
+using System;
 using System.Collections.Generic;
+using Npgsql;
 using Raw5MovieDb_WebApi.Model;
 
 namespace Raw5MovieDb_WebApi.Services
 {
     public interface IDataService
     {
-        // Titles
+
+        //title
         IList<Title> GetTitles();
         Title GetTitle(string tconst);
         IList<Title> GetPopularTitles();
-        IList<Title> GetLatestTitles();
-        IList<Title> GetTitlesByGenre(int genreId);
-        IList<Title> FindTitle(string searchQuery);
 
-        // Actors
+        //actor
         IList<Actor> GetActors();
         Actor GetActor(string nconst);
-        IList<Actor> GetPopularActors();
-        IList<Actor> FindActor(string searchQuery);
+        Actor CreateActor(string nconst, string primaryname);
 
-        // Users
-        User GetUser(string uconst);
+        bool DeleteActor(string nconst);
 
-        // Title Bookmarks
-        BookmarkTitle AddTitleBookmark(Title title, User user);
-        bool DeleteTitleBookmark(Title title, User user);
+        bool UpdateActor(string nconst, string primaryname);
 
-        // Actor Bookmarks
-        BookmarkActor AddActorBookmark(Actor actor, User user);
-        bool DeleteActorBookmark(Actor actor, User user);
-        
-        // Ratings
-        TitleRating AddTitleRating(Title title, User user, int rating);
-        TitleRating UpdateTitleRating(Title title, User user, int rating);
-        bool DeleteTitleRating(Title title, User user);
+        // Bookmarkactor
+        IList<BookmarkActor> GetAllActorBookmarks();
+        BookmarkActor GetActorBookmark(string nconst,string uconst);
+
+
+        // User
+
+
+        UserAccount GetUser(string userId);
+
+
+        /*
+        bool AddTitleBookmark(Title title, UserAccount user);
+        bool DeleteTitleBookmark(Title title, UserAccount user);
+
+        bool AddActorBookmark(Actor actor, UserAccount user);
+        bool DeleteActorBookmark(Actor actor, UserAccount user);
+        */
+
     }
 }

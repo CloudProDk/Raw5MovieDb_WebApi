@@ -1,6 +1,11 @@
+using System;
 using Raw5MovieDb_WebApi.Model;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
+
+
 
 
 namespace Raw5MovieDb_WebApi.Services
@@ -9,129 +14,282 @@ namespace Raw5MovieDb_WebApi.Services
     {
         private readonly List<Title> _titles = new List<Title>
         {
-            new Title{ Tconst = "t00001", Primarytitle = "Interstellar", Originaltitle = "Interstellar", Startyear = "2014", Endyear = "2014", Isadult = false, Runtimeminutes = 169, Titletype = "movie" },
-            new Title{ Tconst = "t00002", Primarytitle = "Alien", Originaltitle = "Alien", Startyear = "1979", Endyear = "1979", Isadult = false, Runtimeminutes = 117, Titletype = "movie" },
-            new Title{ Tconst = "t00003", Primarytitle = "Squid Game", Originaltitle = "Squid Game", Startyear = "2021", Endyear = "2021", Isadult = false, Runtimeminutes = 60, Titletype = "tvMiniSeries" },
-            new Title{ Tconst = "t00004", Primarytitle = "Breaking Bad", Originaltitle = "Breaking Bad", Startyear = "2008", Endyear = "2013", Isadult = false, Runtimeminutes = 49, Titletype = "tvSeries" },
-            new Title{ Tconst = "t00005", Primarytitle = "Dune", Originaltitle = "Dune", Startyear = "2021", Endyear = "2021", Isadult = false, Runtimeminutes = 155, Titletype = "movie" },
+            new Title
+            {
+                Tconst = "t00001", Primarytitle = "Interstellar", Originaltitle = "Interstellar", Startyear = "2014",
+                Endyear = "2014", Isadult = false, Runtimeminutes = 169, Titletype = "movie"
+            },
+            new Title
+            {
+                Tconst = "t00002", Primarytitle = "Alien", Originaltitle = "Alien", Startyear = "1979",
+                Endyear = "1979", Isadult = false, Runtimeminutes = 117, Titletype = "movie"
+            },
+            new Title
+            {
+                Tconst = "t00003", Primarytitle = "Squid Game", Originaltitle = "Squid Game", Startyear = "2021",
+                Endyear = "2021", Isadult = false, Runtimeminutes = 60, Titletype = "tvMiniSeries"
+            },
+            new Title
+            {
+                Tconst = "t00004", Primarytitle = "Breaking Bad", Originaltitle = "Breaking Bad", Startyear = "2008",
+                Endyear = "2013", Isadult = false, Runtimeminutes = 49, Titletype = "tvSeries"
+            },
+            new Title
+            {
+                Tconst = "t00005", Primarytitle = "Dune", Originaltitle = "Dune", Startyear = "2021", Endyear = "2021",
+                Isadult = false, Runtimeminutes = 155, Titletype = "movie"
+            },
         };
 
         private readonly List<Actor> _actors = new List<Actor>
         {
-            new Actor{ Nconst = "n00001", Primaryname = "Brad Pitt", Birthyear = "1963", Deathyear = null, Knownfortitles = "", Primaryprofession = "actor,writer,producer", Namerating = 8.41 },
-            new Actor{ Nconst = "n00002", Primaryname = "Matt Damon", Birthyear = "1970", Deathyear = null, Knownfortitles = "t00001", Primaryprofession = "actor,writer,producer", Namerating = 7.58 },
-            new Actor{ Nconst = "n00003", Primaryname = "Sigourney Weaver", Birthyear = "1949", Deathyear = null, Knownfortitles = "t00002", Primaryprofession = "actor,writer", Namerating = 7.94 },
-            new Actor{ Nconst = "n00004", Primaryname = "Timothée Chalamet", Birthyear = "1995", Deathyear = null, Knownfortitles = "t00005", Primaryprofession = "actor", Namerating = 7.50 },
+            //new Actor
+            //{
+            //    Nconst = "n00001", Primaryname = "Brad Pitt", Birthyear = "1963", Deathyear = null, Knownfortitles = "",
+            //    Primaryprofession = "actor,writer,producer", Namerating = 8.41
+            //},
+            //new Actor
+            //{
+            //    Nconst = "n00002", Primaryname = "Matt Damon", Birthyear = "1970", Deathyear = null,
+            //    Knownfortitles = "t00001", Primaryprofession = "actor,writer,producer", Namerating = 7.58
+            //},
+            //new Actor
+            //{
+            //    Nconst = "n00003", Primaryname = "Sigourney Weaver", Birthyear = "1949", Deathyear = null,
+            //    Knownfortitles = "t00002", Primaryprofession = "actor,writer", Namerating = 7.94
+            //},
+            //new Actor
+            //{
+            //    Nconst = "n00004", Primaryname = "Timothée Chalamet", Birthyear = "1995", Deathyear = null,
+            //    Knownfortitles = "t00005", Primaryprofession = "actor", Namerating = 7.50
+            //},
         };
 
-        private readonly List<User> _users = new List<User> {
-            new User{ Uconst = "u00001", FirstName = "John", LastName = "Doe", UserName = "MrJohnDoe", Password = "Windows>macOS", Token = "" },
-            new User{ Uconst = "u00002", FirstName = "Jane", LastName = "Doe", UserName = "MsJaneDoe", Password = "macOS>Windows", Token = "" },
-            new User{ Uconst = "u00003", FirstName = "Sebastian", LastName = "Linux", UserName = "MrLinux", Password = "Linux>*", Token = "" },
-        };
+        /* private readonly List<User> _users = new List<User> {
+             new User{ UserId = 1, FirstName = "John", LastName = "Doe", UserName = "MrJohnDoe", Password = "Windows>macOS", Token = "" },
+             new User{ UserId = 2, FirstName = "Jane", LastName = "Doe", UserName = "MsJaneDoe", Password = "macOS>Windows", Token = "" },
+             new User{ UserId = 3, FirstName = "Sebastian", LastName = "Linux", UserName = "MrLinux", Password = "Linux>*", Token = "" },
+         };*/
 
-        private readonly List<BookmarkTitle> _titleBookmarks = new List<BookmarkTitle>();
-        private readonly List<BookmarkActor> _actorBookmarks = new List<BookmarkActor>();
 
-        public DataService()
+
+
+
+        /*
+         *
+         * BOOKMARK TITLE CRUD
+         * SHOULD BE DONE
+         */
+
+        public IList<BookmarkTitle> GetAllBookmarkTitles()
         {
-            //AddTitleBookmark();
+            var ctx = new MovieDbContext();
+            return ctx.bookmarkTitles.ToList();
         }
 
-        public BookmarkTitle AddTitleBookmark(Title title, User user)
+        public BookmarkTitle GetBookmarkTitle(string uconst, string tconst)
         {
-            var bookmark = new BookmarkTitle { Tconst = title.Tconst, Uconst = user.Uconst };
-            _titleBookmarks.Add(bookmark);
-            return bookmark;
+            var ctx = new MovieDbContext();
+            return ctx.bookmarkTitles.Find(uconst, tconst);
         }
 
-        public bool DeleteTitleBookmark(Title title, User user)
+        //TODO test this, not sure if works
+        public BookmarkTitle AddTitleBookmark(string tconst, string uconst)
         {
-            var bookmark = _titleBookmarks.FirstOrDefault(x => x.Uconst == user.Uconst && x.Tconst == title.Tconst);
-            return _titleBookmarks.Remove(bookmark);
+            var ctx = new MovieDbContext();
+            var act = new BookmarkTitle
+            {
+                Tconst = ctx.bookmarkTitles.Max(x => x.Tconst) + 1,
+                Uconst = uconst
+            };
+            ctx.Add(act);
+            ctx.SaveChanges();
+            return act;
         }
 
-        public TitleRating AddTitleRating(Title title, User user, int rating)
+        public bool DeleteTitleBookmark(string tconst, string uconst)
         {
-            throw new System.NotImplementedException();
+            var ctx = new MovieDbContext();
+            var act = ctx.bookmarkTitles.Find(tconst, uconst);
+
+            if (act != null)
+            {
+                ctx.bookmarkTitles.Remove(act);
+                return ctx.SaveChanges() > 0;
+            }
+            else return false;
         }
 
-        public bool DeleteTitleRating(Title title, User user)
+
+        /*
+         *
+         * BOOKMARK ACTOR CRUD
+         * SHOULD BE DONE
+         */
+
+        public IList<BookmarkActor> GetAllActorBookmarks()
         {
-            throw new System.NotImplementedException();
+            var ctx = new MovieDbContext();
+            return ctx.bookmarkActors.ToList();
         }
 
-        public IList<Title> FindTitle(string searchQuery)
+        public BookmarkActor GetActorBookmark(string uconst, string nconst)
         {
-            return _titles.Where(x => x.Primarytitle.ToLower().Contains(searchQuery.ToLower())).ToList();
+            var ctx = new MovieDbContext();
+            return ctx.bookmarkActors.Find(uconst,nconst);
+        }
+
+        //TODO test this, not sure if works
+        public BookmarkActor AddActorBookmark(string uconst, string nconst)
+        {
+            var ctx = new MovieDbContext();
+            var act = new BookmarkActor
+            {
+                Nconst = ctx.bookmarkActors.Max(x => x.Nconst) + 1,
+                Uconst = uconst
+            };
+            ctx.Add(act);
+            ctx.SaveChanges();
+            return act;
+        }
+
+        public bool DeleteActorBookmark(string uconst, string nconst)
+        {
+            var ctx = new MovieDbContext();
+            var act = ctx.bookmarkActors.Find(nconst,uconst);
+
+            if (act != null)
+            {
+                ctx.bookmarkActors.Remove(act);
+                return ctx.SaveChanges() > 0;
+            }
+            else return false;
+        }
+
+
+
+
+
+        //User methods
+
+
+        public UserAccount GetUser(string uconst)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.users.FirstOrDefault(x => x.Uconst == uconst);
+        }
+
+        public IList<UserAccount> GetAllUsersFunctionFromDatabase()
+        {
+            var ctx = new MovieDbContext();
+            return ctx.users.FromSqlInterpolated($"SELECT * FROM get_all_users()").ToList();
+        }
+
+
+        /*
+         * ACTOR METHODS
+         * SHOULD BE DONE
+         */
+
+
+        public IList<Actor> GetActors()
+        {
+            var ctx = new MovieDbContext();
+            return ctx.actors.ToList();
         }
 
         public Actor GetActor(string nconst)
         {
-            return _actors.FirstOrDefault(x => x.Nconst == nconst);
+            var ctx = new MovieDbContext();
+            return ctx.actors.FirstOrDefault(x => x.Nconst == nconst);
         }
 
-        public IList<Actor> GetActors()
+
+
+
+        public Actor CreateActor(string nconst, string primaryname)
         {
-            return _actors;
+            var ctx = new MovieDbContext();
+            var act = new Actor { Nconst = ctx.actors.Max(x => x.Nconst) + 1,
+                Primaryname = primaryname,
+                //Birthyear = birthyear,
+                //Deathyear = deathyear,
+                //Primaryprofession = primaryprofession,
+                //Knownfortitles = knownfortitles,
+                //Namerating = namerating
+            };
+            ctx.Add(act);
+            ctx.SaveChanges();
+            return act;
         }
 
-        public IList<Title> GetLatestTitles()
+        public bool DeleteActor(string nconst)
         {
-            return _titles.Skip(3).ToList();
+            var ctx = new MovieDbContext();
+            var act = ctx.actors.Find(nconst);
+
+            if (act != null)
+            {
+                ctx.actors.Remove(act);
+                return ctx.SaveChanges() > 0;
+            }
+            else return false;
         }
 
-        public IList<Title> GetPopularTitles()
+        public bool UpdateActor(string nconst, string primaryname)
         {
-            return _titles.Skip(1).ToList();
+            var ctx = new MovieDbContext();
+            var act = ctx.actors.Find(nconst);
+
+            if (act != null)
+            {
+                act.Nconst = nconst;
+                act.Primaryname = primaryname;
+                //act.Birthyear = birthyear;
+                //act.Deathyear = deathyear;
+                //act.Primaryprofession = primaryprofession;
+                //act.Knownfortitles = knownfortitles;
+                //act.Namerating = namerating;
+                return ctx.SaveChanges() > 0;
+            }
+            else return false;
+        }
+
+
+
+
+
+        //title Methods
+
+        public IList<Title> GetTitles()
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.ToList();
         }
 
         public Title GetTitle(string tconst)
         {
-            return _titles.FirstOrDefault(x => x.Tconst == tconst);
+            var ctx = new MovieDbContext();
+            return ctx.titles.FirstOrDefault(x => x.Tconst == tconst);
         }
 
-        public IList<Title> GetTitles()
-        {
-            return _titles;
-        }
 
-        public IList<Title> GetTitlesByGenre(int genreId)
-        {
-            throw new System.NotImplementedException();
-        }
 
-        public User GetUser(string uconst)
-        {
-            return _users.FirstOrDefault(x => x.Uconst == uconst);
-        }
 
-        public TitleRating UpdateTitleRating(Title title, User user, int rating)
+
+        // TODO: implement this
+        public IList<Title> GetPopularTitles()
         {
             throw new System.NotImplementedException();
         }
 
-        public IList<Actor> GetPopularActors()
+        //TODO shoooould work... not sure at all
+        public IList<Actor> GetCoActors(string actorname)
         {
-            return _actors.Skip(1).ToList();
+            var ctx = new MovieDbContext();
+            return ctx.actors.FromSqlInterpolated($"SELECT nconst, primaryname FROM find_coplayers({actorname})").ToList();
         }
 
-        public IList<Actor> FindActor(string searchQuery)
-        {
-            return _actors.Where(x => x.Primaryname.ToLower().Contains(searchQuery.ToLower())).ToList();
-        }
 
-        public BookmarkActor AddActorBookmark(Actor actor, User user)
-        {
-            var bookmark = new BookmarkActor { Nconst = actor.Nconst, Uconst = user.Uconst };
-            _actorBookmarks.Add(bookmark);
-            return bookmark;
-        }
-
-        public bool DeleteActorBookmark(Actor actor, User user)
-        {
-            var bookmark = _actorBookmarks.FirstOrDefault(x => x.Uconst == user.Uconst && x.Nconst == actor.Nconst);
-            return _actorBookmarks.Remove(bookmark);
-        }
     }
 }
