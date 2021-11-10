@@ -57,19 +57,19 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(model);
         }
 
-        [HttpGet("search")]
-        public IActionResult FindTitle([FromQuery] string q = "")
-        {
-            if (q == null || q == "")
-            {
-                return new JsonResult(new EmptyResult());
-            }
+        //[HttpGet("search")]
+        //public IActionResult FindTitle([FromQuery] string q = "")
+        //{
+        //    if (q == null || q == "")
+        //    {
+        //        return new JsonResult(new EmptyResult());
+        //    }
 
-            IList<Title> titles = _dataService.FindTitle(q);
+        //    IList<Title> titles = _dataService.FindTitle(q);
 
-            var model = titles.Select(GetTitleViewModel);
-            return Ok(model);
-        }
+        //    var model = titles.Select(GetTitleViewModel);
+        //    return Ok(model);
+        //}
 
         private TitleViewModel GetTitleViewModel(Title title)
         {
