@@ -295,8 +295,14 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.actors.FromSqlInterpolated($"SELECT nconst, primaryname FROM find_coplayers({actorname})").ToList();
         }
 
+        
+        IList<Title> BestMatchFunction(string input1, int input2, string input3)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM bestmatch({input1 + "," + input2 + "," + input3})").ToList();
+        }
 
-        //TODO: Best Match Function(string 1, string 2, string 3 inputs)
+
         //TODO: Count words function? do we need this?
         //TODO: Exact Match Dynamic(Arraylist input)
         //TODO: Find Similar function(bpchar input)
