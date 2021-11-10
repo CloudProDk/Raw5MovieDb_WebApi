@@ -5,9 +5,6 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
-
-
-
 namespace Raw5MovieDb_WebApi.Services
 {
     public class DataService : IDataService
@@ -261,10 +258,10 @@ namespace Raw5MovieDb_WebApi.Services
 
         //title Methods
 
-        public IList<Title> GetTitles()
+        public IList<Title> GetTitles(QueryString queryString)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.ToList();
+            return ctx.titles.Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize).ToList();
         }
 
         public Title GetTitle(string tconst)
@@ -273,6 +270,11 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.titles.FirstOrDefault(x => x.Tconst == tconst);
         }
 
+        public int TitlesCount()
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.Count();
+        }
 
 
 
@@ -289,7 +291,5 @@ namespace Raw5MovieDb_WebApi.Services
             var ctx = new MovieDbContext();
             return ctx.actors.FromSqlInterpolated($"SELECT nconst, primaryname FROM find_coplayers({actorname})").ToList();
         }
-
-
     }
 }

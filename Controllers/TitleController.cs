@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Raw5MovieDb_WebApi.Model;
@@ -27,12 +26,12 @@ namespace Raw5MovieDb_WebApi.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public IActionResult GetTitles()
+        [HttpGet(Name = nameof(GetTitles))]
+        public IActionResult GetTitles([FromQuery] QueryString queryString)
         {
-            IList<Title> titles = _dataService.GetTitles();
+            IList<Title> titles = _dataService.GetTitles(queryString);
             var model = titles.Select(GetTitleViewModel);
-            return Ok(model);
+            return Ok(CreateResponseObj(model, queryString, _dataService.TitlesCount()));
         }
 
         [HttpGet("{tconst}", Name = nameof(GetTitle))]
@@ -71,6 +70,51 @@ namespace Raw5MovieDb_WebApi.Controllers
         //    return Ok(model);
         //}
 
+
+        /*
+         *
+         * Helper methods
+         *
+         */
+
+        private object CreateResponseObj(IEnumerable<TitleViewModel> model, QueryString queryString, int total)
+        {
+            return new
+            {
+                total,
+                previousPage = CreatePreviousPageLink(queryString),
+                currentPage = CreateCurrentPageLink(queryString),
+                nextPage = CreateNextPageLink(queryString, total),
+                results = model
+            };
+        }
+
+        private string CreateNextPageLink(QueryString queryString, int total)
+        {
+            var lastPage = GetLastPage(queryString.PageSize, total);
+            return queryString.Page >= lastPage ? null : GetTitlesUrl(queryString.Page + 1, queryString.PageSize);
+        }
+
+        private string CreateCurrentPageLink(QueryString queryString)
+        {
+            return GetTitlesUrl(queryString.Page, queryString.PageSize);
+        }
+
+        private string CreatePreviousPageLink(QueryString queryString)
+        {
+            return queryString.Page <= 0 ? null : GetTitlesUrl(queryString.Page - 1, queryString.PageSize);
+        }
+
+        private string GetTitlesUrl(int page, int pageSize)
+        {
+            return _linkGenerator.GetUriByName(HttpContext, nameof(GetTitles), new { page, pageSize });
+        }
+
+        private static int GetLastPage(int pageSize, int total)
+        {
+            return (int)Math.Ceiling(total / (double)pageSize) - 1;
+        }
+
         private TitleViewModel GetTitleViewModel(Title title)
         {
             var model = _mapper.Map<TitleViewModel>(title);
@@ -80,7 +124,7 @@ namespace Raw5MovieDb_WebApi.Controllers
 
         private string GetUrl(Title title)
         {
-            return _linkGenerator.GetUriByName(HttpContext, nameof(GetTitle), new { title.Tconst });
+            return _linkGenerator.GetUriByName(HttpContext, nameof(GetTitle), new { Tconst = title.Tconst.TrimEnd() });
         }
     }
 }
