@@ -26,15 +26,15 @@ namespace Raw5MovieDb_WebApi.Services
         IList<BookmarkActor> GetAllActorBookmarks();
         BookmarkActor GetActorBookmark(string nconst,string uconst);
 
-        
+
         // User
-        
-        
+
+
         UserAccount GetUser(string userId);
 
 
         /*
-        bool AddTitleBookmark(Title title, UserAccount user); 
+        bool AddTitleBookmark(Title title, UserAccount user);
         bool DeleteTitleBookmark(Title title, UserAccount user);
 
         bool AddActorBookmark(Actor actor, UserAccount user);

@@ -63,6 +63,7 @@ namespace Raw5MovieDb_WebApi
             });
 
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSingleton<IDataService, DataService>();
         }
 

@@ -33,6 +33,6 @@ namespace Raw5MovieDb_WebApi.Model
         public string Endyear { get; set; }
 
         [JsonProperty("runtimeminutes")]
-        public int Runtimeminutes { get; set; }
+        public int? Runtimeminutes { get; set; }
     }
 }

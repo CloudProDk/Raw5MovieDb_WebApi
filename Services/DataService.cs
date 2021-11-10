@@ -185,13 +185,13 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.users.FromSqlInterpolated($"SELECT * FROM get_all_users()").ToList();
         }
 
-     
+
         /*
          * ACTOR METHODS
          * SHOULD BE DONE
          */
 
-        
+
         public IList<Actor> GetActors()
         {
             var ctx = new MovieDbContext();
@@ -206,17 +206,17 @@ namespace Raw5MovieDb_WebApi.Services
 
 
 
-        
+
         public Actor CreateActor(string nconst, string primaryname)
         {
             var ctx = new MovieDbContext();
-            var act = new Actor { Nconst = ctx.actors.Max(x => x.Nconst) + 1, 
+            var act = new Actor { Nconst = ctx.actors.Max(x => x.Nconst) + 1,
                 Primaryname = primaryname,
-                //Birthyear = birthyear, 
-                //Deathyear = deathyear, 
-                //Primaryprofession = primaryprofession, 
-                //Knownfortitles = knownfortitles, 
-                //Namerating = namerating     
+                //Birthyear = birthyear,
+                //Deathyear = deathyear,
+                //Primaryprofession = primaryprofession,
+                //Knownfortitles = knownfortitles,
+                //Namerating = namerating
             };
             ctx.Add(act);
             ctx.SaveChanges();
@@ -273,7 +273,7 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.titles.FirstOrDefault(x => x.Tconst == tconst);
         }
 
-        
+
 
 
 
@@ -290,6 +290,6 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.actors.FromSqlInterpolated($"SELECT nconst, primaryname FROM find_coplayers({actorname})").ToList();
         }
 
-        
+
     }
 }
