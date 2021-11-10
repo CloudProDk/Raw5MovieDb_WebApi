@@ -56,16 +56,37 @@ namespace Raw5MovieDb_WebApi.Services
         
         //TODO: GetAllBookmarksFromUserFunction(Uconst input)
 
-        
-        //TODO: Get all ratings, is this based on user or just all ratings? or both?
-        //TODO: Get rating(uconst, tconst inputs), probably the one rating for a specific movie
+        IList<BookmarkTitle> GetAllTitleBookmarksByUser(string uconst);
+
+        //TODO: get_all_rating() 
+
+        IList<UserRating> GetAllUserRatings();
+
+        //TODO: get_rating( uconst,tconst)    Get rating movie(uconst, tconst inputs), probably the one rating for a specific movie
+
+        IList<UserRating> GetUserRatingBasedOnUser(string uconst, string tconst);
+
         //TODO: Popular actors by movie (string movie_input)
+
+        IList<Title> GetPopularActorsRankedByTitles(string tconst);
+
         //TODO: Rate procedure?
+
         //TODO: String_Search(String input, userid input)
-        //TODO: Structured search
+        IList<Title> StringSearch(string searchparams, string userid);
+
         //TODO: Structured Name Search
+
+        IList<Actor> StructuredNameSearch(string input);
+
         //TODO: Structured string search
+
+        IList<Title> StructuredStringSearch(string titleinput, string plotinput, string characterinput,
+            string personnameinput, string useridinput);
+
         //TODO: WordToWord 
+
+        IList<Title> WordToWord(string[] input);
 
     }
 }
