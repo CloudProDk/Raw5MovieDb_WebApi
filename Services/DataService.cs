@@ -296,18 +296,34 @@ namespace Raw5MovieDb_WebApi.Services
         }
 
         
-        IList<Title> BestMatchFunction(string input1, int input2, string input3)
+        public IList<Title> BestMatchFunction(string input1, int input2, string input3)
         {
             var ctx = new MovieDbContext();
             return ctx.titles.FromSqlInterpolated($"SELECT * FROM bestmatch({input1 + "," + input2 + "," + input3})").ToList();
         }
 
+        public IList<Title> ExactMatchDynamicSearch(string[] input)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM exact_match_dynamic({input})").ToList();
+        }
 
+        public IList<Title> FindSimilar(string input)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM find_similar({input})").ToList();
+        }
+
+
+<<<<<<< HEAD
         //TODO: Count words function? do we need this?
         //TODO: Exact Match Dynamic(Arraylist input)
         //TODO: Find Similar function(bpchar input)
         //TODO: GetAllBookmarksFromUserFunction(Uconst input
 
+=======
+        //TODO: GetAllBookmarksFromUserFunction(Uconst input)
+>>>>>>> 49fa089143a564eb3ab54c64eaa2abcc9e594795
         //TODO: Get all ratings, is this based on user or just all ratings? or both?
         //TODO: Get rating(uconst, tconst inputs), probably the one rating for a specific movie
         //TODO: Popular actors by movie (string movie_input)
