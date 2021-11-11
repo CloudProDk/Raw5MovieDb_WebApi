@@ -368,6 +368,7 @@ namespace Raw5MovieDb_WebApi.Services
         }
 
 
+
         public IList<UserRating> GetAllUserRatings()
         {
             var ctx = new MovieDbContext();
@@ -387,9 +388,36 @@ namespace Raw5MovieDb_WebApi.Services
         }
 
         
+       
+        IList<UserRating> RateProcedure(string uid, string tid, int rating)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.userRatings.FromSqlInterpolated($"SELECT * FROM rate({uid + "," + tid + "," + rating})").ToList();
+        }
+  
+        IList<Title> StringSearch(string searchparams, string userid)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM string_search({searchparams + "," + userid})").ToList();
+        }
 
+        IList<Actor> StructuredNameSearch(string input)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.actors.FromSqlInterpolated($"SELECT * FROM structured_name_search({input})").ToList();
+        }
 
+        IList<Title> StructuredStringSearch(string titleinput, string plotinput, string characterinput, string personnameinput, string useridinput)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM structured_string_search({titleinput + ","+ plotinput + "," + characterinput + "," + personnameinput + "," + useridinput})").ToList();
+        }
 
+        IList<Title> WordToWord(string[] input)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM word_to_word({input})").ToList();
 
+        }
     }
 }

@@ -69,6 +69,9 @@ namespace Raw5MovieDb_WebApi.Services
         IList<Title> GetPopularActorsRankedByTitles(string tconst);
 
         
+        //TODO: Rate procedure?
+        IList<UserRating> RateProcedure(string uid, string tid, int rating);
+
 
         IList<Title> StringSearch(string searchparams, string userid);
 
