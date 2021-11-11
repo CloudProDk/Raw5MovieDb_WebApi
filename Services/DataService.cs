@@ -314,103 +314,123 @@ namespace Raw5MovieDb_WebApi.Services
 
 
         //title Methods
+        //linq
 
         public IList<Title> GetTitles()
         {
             var ctx = new MovieDbContext();
             return ctx.titles.ToList();
         }
-
+        //linq
         public Title GetTitle(string tconst)
         {
             var ctx = new MovieDbContext();
             return ctx.titles.FirstOrDefault(x => x.Tconst == tconst);
         }
-
+        //TODO: not implementet
         public IList<Title> GetPopularTitles()
         {
             throw new NotImplementedException();
         }
 
 
-        //works
-        public IList<Actor> GetCoActors(string actorname)
+        //Works
+        public IList<Actor> find_coplayers(string actorname)
         {
             var ctx = new MovieDbContext();
-            return ctx.actors.FromSqlInterpolated($"SELECT nconst, primaryname FROM find_coplayers({actorname})").ToList();
+            return ctx.actors.FromSqlInterpolated($"SELECT * FROM find_coplayers({actorname}) NATURAL JOIN name_basics").ToList();
         }
 
-        //do not work, need help it says endyear required
+        // works
         public IList<Title> BestMatchFunction(string input1, string input2, string input3)
         {
             var ctx = new MovieDbContext();
-           return ctx.titles.FromSqlInterpolated($"SELECT * FROM bestmatch('{input1}','{input2}','{input3}')").ToList();
+            return ctx.titles
+                .FromSqlInterpolated(
+                    $"SELECT * FROM bestmatch({input1},{input2},{input3}) NATURAL JOIN title_basics").ToList();
         }
 
-        public IList<Title> ExactMatchDynamicSearch(string[] input)
+        //WORKS - needs the position in the array specified
+        public IList<Title> ExactMatchDynamicSearch(string[] words)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.FromSqlInterpolated($"SELECT * FROM exact_match_dynamic({input})").ToList();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM exact_match_dynamic({words[0]}) NATURAL JOIN title_basics").ToList();
         }
-
-        public IList<Title> FindSimilarSearch(string input)
+        // Works!!
+        // Needs specific tconst as input 
+        public IList<Title> FindSimilarSearch(string tconst)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.FromSqlInterpolated($"SELECT * FROM find_similar({input})").ToList();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM find_similar({tconst}) NATURAL JOIN title_basics LIMIT 100").ToList();
         }
-
-        public IList<BookmarkTitle> GetAllTitleBookmarksByUser(string userid)
+        //TODO; not done, not a bookmark title, it is both a bookmark title and bookmark actor 
+        public IList<BookmarkTitle> GetAllBookmarksByUser(string userid)
         {
             var ctx = new MovieDbContext();
-            return ctx.bookmarkTitles.FromSqlInterpolated($"SELECT * FROM get_all_bookmarks_from_user({userid})").ToList();
+            return ctx.bookmarkTitles.FromSqlInterpolated($"SELECT * FROM get_all_bookmarks_from_user({userid})     ").ToList();
         }
 
+
+
+        //TODO does not work, it says that it needs useraccount.uconst for some reason
         public IList<UserRating> GetAllUserRatings()
         {
             var ctx = new MovieDbContext();
-            return ctx.userRatings.FromSqlInterpolated($"SELECT * FROM get_all_rating()").ToList();
+            return ctx.userRatings.ToList();
         }
 
+        //TODO for some reason, we can seem to get this to work. Neither in db or here.  LINQ VERSION BELOW
+        /*public IList<UserRating> GetUserRatingFromSpecificUser(string uconst, string tconst)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.userRatings.FromSqlRaw($"SELECT * FROM get_rating({uconst},{tconst})").ToList();
+        }*/
         public IList<UserRating> GetUserRatingFromSpecificUser(string uconst, string tconst)
         {
             var ctx = new MovieDbContext();
-            return ctx.userRatings.FromSqlInterpolated($"SELECT * FROM get_rating({uconst + "," + tconst})").ToList();
+            return ctx.userRatings.Where(x => x.Uconst == uconst && x.Tconst == tconst).ToList();
         }
 
+
+
+        //WORKS
         public IList<Title> GetPopularActorsRankedByTitles(string tconst)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.FromSqlInterpolated($"SELECT * FROM popular_actors_ranked_by_movie({tconst})").ToList();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM popular_actors_ranked_by_movie({tconst}) NATURAL JOIN title_basics NATURAL JOIN name_basics NATURAL JOIN title_principals").ToList();
         }
 
+
+        //TODO: not sure how procedures are supposed to work here
         public IList<UserRating> RateProcedure(string uid, string tid, int rating)
         {
             var ctx = new MovieDbContext();
-            return ctx.userRatings.FromSqlInterpolated($"SELECT * FROM rate({uid + "," + tid + "," + rating})").ToList();
+            return ctx.userRatings.FromSqlInterpolated($"SELECT * FROM rate({uid},{tid},{rating})").ToList();
         }
 
+        //WORKS
         public IList<Title> StringSearch(string searchparams, string userid)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.FromSqlInterpolated($"SELECT * FROM string_search({searchparams + "," + userid})").ToList();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM string_search({searchparams},{userid}) NATURAL JOIN title_basics NATURAL JOIN omdb_data").ToList();
         }
-
+        //works
         public IList<Actor> StructuredNameSearch(string input)
         {
             var ctx = new MovieDbContext();
-            return ctx.actors.FromSqlInterpolated($"SELECT * FROM structured_name_search({input})").ToList();
+            return ctx.actors.FromSqlInterpolated($"SELECT * FROM structured_name_search({input}) NATURAL JOIN name_basics").ToList();
         }
-
+        //works
         public IList<Title> StructuredStringSearch(string titleinput, string plotinput, string characterinput, string personnameinput, string useridinput)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.FromSqlInterpolated($"SELECT * FROM structured_string_search({titleinput + "," + plotinput + "," + characterinput + "," + personnameinput + "," + useridinput})").ToList();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM structured_string_search({titleinput}, {plotinput}, {characterinput} , {personnameinput}, {useridinput}) NATURAL JOIN omdb_data natural JOIN title_principals NATURAL join name_basics NATURAL JOIN title_basics").ToList();
         }
-
-        public IList<Title> WordToWord(string[] input)
+        //works
+            public IList<Title> WordToWord(string[] input)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.FromSqlInterpolated($"SELECT * FROM word_to_word({input})").ToList();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM word_to_word({input[0]}) NATURAL JOIN title_basics").ToList();
 
         }
     }

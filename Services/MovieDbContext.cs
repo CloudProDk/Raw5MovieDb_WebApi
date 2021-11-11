@@ -45,11 +45,11 @@ namespace Raw5MovieDb_WebApi.Services
             modelBuilder.Entity<Actor>().ToTable("name_basics");
             modelBuilder.Entity<Actor>().Property(x => x.Nconst).HasColumnName("nconst");
             modelBuilder.Entity<Actor>().Property(x => x.Primaryname).HasColumnName("primaryname");
-            //modelBuilder.Entity<Actor>().Property(x => x.Birthyear).HasColumnName("birthyear");
-            //modelBuilder.Entity<Actor>().Property(x => x.Deathyear).HasColumnName("deathyear");
-            //modelBuilder.Entity<Actor>().Property(x => x.Primaryprofession).HasColumnName("primaryprofession");
-            //modelBuilder.Entity<Actor>().Property(x => x.Knownfortitles).HasColumnName("knownfortitles");
-            //modelBuilder.Entity<Actor>().Property(x => x.Namerating).HasColumnName("namerating");
+            modelBuilder.Entity<Actor>().Property(x => x.Birthyear).HasColumnName("birthyear");
+            modelBuilder.Entity<Actor>().Property(x => x.Deathyear).HasColumnName("deathyear");
+            modelBuilder.Entity<Actor>().Property(x => x.Primaryprofession).HasColumnName("primaryprofession");
+            modelBuilder.Entity<Actor>().Property(x => x.Knownfortitles).HasColumnName("knownfortitles");
+            modelBuilder.Entity<Actor>().Property(x => x.Namerating).HasColumnName("namerating");
 
 
 
@@ -80,7 +80,7 @@ namespace Raw5MovieDb_WebApi.Services
             modelBuilder.Entity<Title>().Property(x => x.Originaltitle).HasColumnName("originaltitle");
             modelBuilder.Entity<Title>().Property(x => x.Isadult).HasColumnName("isadult");
             modelBuilder.Entity<Title>().Property(x => x.Startyear).HasColumnName("startyear");
-            //modelBuilder.Entity<Title>().Property(x => x.Endyear).HasColumnName("endyear");
+            modelBuilder.Entity<Title>().Property(x => x.Endyear).HasColumnName("endyear");
             modelBuilder.Entity<Title>().Property(x => x.Runtimeminutes).HasColumnName("runtimeminutes");
 
             modelBuilder.Entity<TitleAkas>().ToTable("title_akas");
