@@ -306,21 +306,43 @@ namespace Raw5MovieDb_WebApi.Services
         //TODO: Count words function? do we need this?
         //TODO: Exact Match Dynamic(Arraylist input)
         //TODO: Find Similar function(bpchar input)
-        //TODO: GetAllBookmarksFromUserFunction(Uconst input)
+        //TODO: GetAllBookmarksFromUserFunction(Uconst input
+
         //TODO: Get all ratings, is this based on user or just all ratings? or both?
         //TODO: Get rating(uconst, tconst inputs), probably the one rating for a specific movie
         //TODO: Popular actors by movie (string movie_input)
-        //TODO: Rate procedure?
-        //TODO: String_Search(String input, userid input)
-        //TODO: Structured search
-        //TODO: Structured Name Search
-        //TODO: Structured string search
-        //TODO: WordToWord 
 
 
+       
+        IList<UserRating> RateProcedure(string uid, string tid, int rating)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.userRatings.FromSqlInterpolated($"SELECT * FROM rate({uid + "," + tid + "," + rating})").ToList();
+        }
+  
+        IList<Title> StringSearch(string searchparams, string userid)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM string_search({searchparams + "," + userid})").ToList();
+        }
 
+        IList<Actor> StructuredNameSearch(string input)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.actors.FromSqlInterpolated($"SELECT * FROM structured_name_search({input})").ToList();
+        }
 
+        IList<Title> StructuredStringSearch(string titleinput, string plotinput, string characterinput, string personnameinput, string useridinput)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM structured_string_search({titleinput + ","+ plotinput + "," + characterinput + "," + personnameinput + "," + useridinput})").ToList();
+        }
 
+        IList<Title> WordToWord(string[] input)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM word_to_word({input})").ToList();
 
+        }
     }
 }
