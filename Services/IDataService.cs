@@ -49,31 +49,27 @@ namespace Raw5MovieDb_WebApi.Services
         
 
 
-        //TODO: Exact Match Dynamic(Arraylist input)
+  
         IList<Title> ExactMatchDynamicSearch(string[] input);
 
-        //TODO: Find Similar function(bpchar input)
+   
         IList<Title> FindSimilarSearch(string input);
         
-        //TODO: GetAllBookmarksFromUserFunction(Uconst input)
+  
 
         IList<BookmarkTitle> GetAllTitleBookmarksByUser(string uconst);
 
-        //TODO: get_all_rating() 
-
         IList<UserRating> GetAllUserRatings();
 
-        //TODO: get_rating( uconst,tconst)    Get rating movie(uconst, tconst inputs), probably the one rating for a specific movie
+        
+        IList<UserRating> GetUserRatingFromSpecificUser(string uconst, string tconst);
 
-        IList<UserRating> GetUserRatingBasedOnUser(string uconst, string tconst);
-
-        //TODO: Popular actors by movie (string movie_input)
+        
 
         IList<Title> GetPopularActorsRankedByTitles(string tconst);
 
-        //TODO: Rate procedure?
+        
 
-        //TODO: String_Search(String input, userid input)
         IList<Title> StringSearch(string searchparams, string userid);
 
         //TODO: Structured Name Search

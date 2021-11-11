@@ -185,10 +185,57 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.users.FromSqlInterpolated($"SELECT * FROM get_all_users()").ToList();
         }
 
-        //TODO: Adduser function
-        //TODO: Delete User function
-        //TODO: Update User
+        public UserAccount AddUser(string uconst,string username,string Email, DateTime birthdate, string password)
+        {
+            var ctx = new MovieDbContext();
+            var user = new UserAccount
+            {
+                Uconst = ctx.bookmarkTitles.Max(x => x.Uconst) + 1,
+                UserName = username,
+                Email = Email,
+                Birthdate = birthdate,
+                Password = password
+                
+            };
+            ctx.Add(user);
+            ctx.SaveChanges();
+            return user;
+        }
 
+
+        
+        public bool DeleteUser(string uconst)
+        {
+            var ctx = new MovieDbContext();
+            var user = ctx.users.Find(uconst);
+
+            if (user != null)
+            {
+                ctx.users.Remove(user);
+                return ctx.SaveChanges() > 0;
+            }
+            else return false;
+        }
+
+
+        
+        public bool UpdateUser(string uconst, string username, string email, DateTime birthdate, string password)
+        {
+            var ctx = new MovieDbContext();
+            var user = ctx.users.Find(uconst);
+
+            if (user != null)
+            {
+                user.Uconst = uconst;
+                user.UserName = username;
+                user.Email = email;
+                user.Birthdate = birthdate;
+                user.Password = password;
+                
+                return ctx.SaveChanges() > 0;
+            }
+            else return false;
+        }
 
 
         /*
@@ -314,19 +361,32 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.titles.FromSqlInterpolated($"SELECT * FROM find_similar({input})").ToList();
         }
 
-
-        //TODO: GetAllBookmarksFromUserFunction(Uconst input)
-        //TODO: Get all ratings, is this based on user or just all ratings? or both?
-        //TODO: Get rating(uconst, tconst inputs), probably the one rating for a specific movie
-        //TODO: Popular actors by movie (string movie_input)
-        //TODO: Rate procedure?
-        //TODO: String_Search(String input, userid input)
-        //TODO: Structured search
-        //TODO: Structured Name Search
-        //TODO: Structured string search
-        //TODO: WordToWord 
+        public IList<BookmarkTitle> GetAllBookmarksFromUser(string userid)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.bookmarkTitles.FromSqlInterpolated($"SELECT * FROM get_all_bookmarks_from_user({userid})").ToList();
+        }
 
 
+        public IList<UserRating> GetAllUserRatings()
+        {
+            var ctx = new MovieDbContext();
+            return ctx.userRatings.FromSqlInterpolated($"SELECT * FROM get_all_rating()").ToList();
+        }
+
+        public IList<UserRating> GetUserRatingFromSpecificUser(string uconst, string tconst)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.userRatings.FromSqlInterpolated($"SELECT * FROM get_rating({uconst + "," + tconst})").ToList();
+        }
+
+        public IList<Title> GetPopularActorsRankedByTitles(string tconst)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM popular_actors_ranked_by_movie({tconst})").ToList();
+        }
+
+        
 
 
 
