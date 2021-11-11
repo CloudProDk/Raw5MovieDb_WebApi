@@ -93,7 +93,7 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.bookmarkTitles.Find(uconst, tconst);
         }
 
-        //TODO test this, not sure if works
+        //TODO test this, not sure if the right output comes
         public BookmarkTitle AddTitleBookmark(string tconst, string uconst)
         {
             var ctx = new MovieDbContext();
@@ -136,7 +136,7 @@ namespace Raw5MovieDb_WebApi.Services
         public BookmarkActor GetActorBookmark(string uconst, string nconst)
         {
             var ctx = new MovieDbContext();
-            return ctx.bookmarkActors.Find(uconst,nconst);
+            return ctx.bookmarkActors.Find(uconst, nconst);
         }
 
         //TODO test this, not sure if works
@@ -156,7 +156,7 @@ namespace Raw5MovieDb_WebApi.Services
         public bool DeleteActorBookmark(string uconst, string nconst)
         {
             var ctx = new MovieDbContext();
-            var act = ctx.bookmarkActors.Find(nconst,uconst);
+            var act = ctx.bookmarkActors.Find(nconst, uconst);
 
             if (act != null)
             {
@@ -185,6 +185,58 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.users.FromSqlInterpolated($"SELECT * FROM get_all_users()").ToList();
         }
 
+        public UserAccount AddUser(string uconst, string username, string Email, DateTime birthdate, string password)
+        {
+            var ctx = new MovieDbContext();
+            var user = new UserAccount
+            {
+                Uconst = ctx.bookmarkTitles.Max(x => x.Uconst) + 1,
+                UserName = username,
+                Email = Email,
+                Birthdate = birthdate,
+                Password = password
+
+            };
+            ctx.Add(user);
+            ctx.SaveChanges();
+            return user;
+        }
+
+
+
+        public bool DeleteUser(string uconst)
+        {
+            var ctx = new MovieDbContext();
+            var user = ctx.users.Find(uconst);
+
+            if (user != null)
+            {
+                ctx.users.Remove(user);
+                return ctx.SaveChanges() > 0;
+            }
+            else return false;
+        }
+
+
+
+        public bool UpdateUser(string uconst, string username, string email, DateTime birthdate, string password)
+        {
+            var ctx = new MovieDbContext();
+            var user = ctx.users.Find(uconst);
+
+            if (user != null)
+            {
+                user.Uconst = uconst;
+                user.UserName = username;
+                user.Email = email;
+                user.Birthdate = birthdate;
+                user.Password = password;
+
+                return ctx.SaveChanges() > 0;
+            }
+            else return false;
+        }
+
 
         /*
          * ACTOR METHODS
@@ -210,13 +262,15 @@ namespace Raw5MovieDb_WebApi.Services
         public Actor CreateActor(string nconst, string primaryname)
         {
             var ctx = new MovieDbContext();
-            var act = new Actor { Nconst = ctx.actors.Max(x => x.Nconst) + 1,
+            var act = new Actor
+            {
+                Nconst = ctx.actors.Max(x => x.Nconst) + 1,
                 Primaryname = primaryname,
-                //Birthyear = birthyear,
-                //Deathyear = deathyear,
-                //Primaryprofession = primaryprofession,
-                //Knownfortitles = knownfortitles,
-                //Namerating = namerating
+                //Birthyear = birthyear, 
+                //Deathyear = deathyear, 
+                //Primaryprofession = primaryprofession, 
+                //Knownfortitles = knownfortitles, 
+                //Namerating = namerating     
             };
             ctx.Add(act);
             ctx.SaveChanges();
@@ -273,17 +327,13 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.titles.FirstOrDefault(x => x.Tconst == tconst);
         }
 
-
-
-
-
-        // TODO: implement this
         public IList<Title> GetPopularTitles()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        //TODO shoooould work... not sure at all
+
+        //works
         public IList<Actor> GetCoActors(string actorname)
         {
             var ctx = new MovieDbContext();
@@ -291,5 +341,77 @@ namespace Raw5MovieDb_WebApi.Services
         }
 
 
+        public IList<Title> BestMatchFunction(string input1, int input2, string input3)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM bestmatch({input1 + "," + input2 + "," + input3})").ToList();
+        }
+
+        public IList<Title> ExactMatchDynamicSearch(string[] input)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM exact_match_dynamic({input})").ToList();
+        }
+
+        public IList<Title> FindSimilarSearch(string input)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM find_similar({input})").ToList();
+        }
+
+        public IList<BookmarkTitle> GetAllTitleBookmarksByUser(string userid)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.bookmarkTitles.FromSqlInterpolated($"SELECT * FROM get_all_bookmarks_from_user({userid})").ToList();
+        }
+
+        public IList<UserRating> GetAllUserRatings()
+        {
+            var ctx = new MovieDbContext();
+            return ctx.userRatings.FromSqlInterpolated($"SELECT * FROM get_all_rating()").ToList();
+        }
+
+        public IList<UserRating> GetUserRatingFromSpecificUser(string uconst, string tconst)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.userRatings.FromSqlInterpolated($"SELECT * FROM get_rating({uconst + "," + tconst})").ToList();
+        }
+
+        public IList<Title> GetPopularActorsRankedByTitles(string tconst)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM popular_actors_ranked_by_movie({tconst})").ToList();
+        }
+
+        public IList<UserRating> RateProcedure(string uid, string tid, int rating)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.userRatings.FromSqlInterpolated($"SELECT * FROM rate({uid + "," + tid + "," + rating})").ToList();
+        }
+
+        public IList<Title> StringSearch(string searchparams, string userid)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM string_search({searchparams + "," + userid})").ToList();
+        }
+
+        public IList<Actor> StructuredNameSearch(string input)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.actors.FromSqlInterpolated($"SELECT * FROM structured_name_search({input})").ToList();
+        }
+
+        public IList<Title> StructuredStringSearch(string titleinput, string plotinput, string characterinput, string personnameinput, string useridinput)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM structured_string_search({titleinput + "," + plotinput + "," + characterinput + "," + personnameinput + "," + useridinput})").ToList();
+        }
+
+        public IList<Title> WordToWord(string[] input)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM word_to_word({input})").ToList();
+
+        }
     }
 }
