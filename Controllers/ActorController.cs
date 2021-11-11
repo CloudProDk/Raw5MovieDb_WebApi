@@ -26,12 +26,13 @@ namespace Raw5MovieDb_WebApi.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public IActionResult GetActors()
+        [HttpGet(Name = nameof(GetActors))]
+        public IActionResult GetActors([FromQuery] QueryString queryString)
         {
-            IList<Actor> actors = _dataService.GetActors();
+            IList<Actor> actors = _dataService.GetActors(queryString);
             var model = actors.Select(GetActorViewModel);
-            return Ok(model);
+            var response = CreateResponseObj(model, queryString, _dataService.ActorsCount());
+            return Ok(response);
         }
 
         [HttpGet("{nconst}", Name = nameof(GetActor))]
@@ -56,6 +57,51 @@ namespace Raw5MovieDb_WebApi.Controllers
         //    return Ok(model);
         //}
 
+
+        /*
+         *
+         * Helper methods
+         *
+         */
+
+        private object CreateResponseObj(IEnumerable<ActorViewModel> model, QueryString queryString, int total)
+        {
+            return new
+            {
+                total,
+                previousPage = CreatePreviousPageLink(queryString),
+                currentPage = CreateCurrentPageLink(queryString),
+                nextPage = CreateNextPageLink(queryString, total),
+                results = model
+            };
+        }
+
+        private string CreateNextPageLink(QueryString queryString, int total)
+        {
+            var lastPage = GetLastPage(queryString.PageSize, total);
+            return queryString.Page >= lastPage ? null : GetActorsUrl(queryString.Page + 1, queryString.PageSize);
+        }
+
+        private string CreateCurrentPageLink(QueryString queryString)
+        {
+            return GetActorsUrl(queryString.Page, queryString.PageSize);
+        }
+
+        private string CreatePreviousPageLink(QueryString queryString)
+        {
+            return queryString.Page <= 0 ? null : GetActorsUrl(queryString.Page - 1, queryString.PageSize);
+        }
+
+        private string GetActorsUrl(int page, int pageSize)
+        {
+            return _linkGenerator.GetUriByName(HttpContext, nameof(GetActors), new { page, pageSize });
+        }
+
+        private static int GetLastPage(int pageSize, int total)
+        {
+            return (int)Math.Ceiling(total / (double)pageSize) - 1;
+        }
+
         private ActorViewModel GetActorViewModel(Actor actor)
         {
             var model = _mapper.Map<ActorViewModel>(actor);
@@ -65,7 +111,7 @@ namespace Raw5MovieDb_WebApi.Controllers
 
         private string GetUrl(Actor actor)
         {
-            return _linkGenerator.GetUriByName(HttpContext, nameof(GetActor), new { actor.Nconst });
+            return _linkGenerator.GetUriByName(HttpContext, nameof(GetActor), new { Nconst = actor.Nconst.TrimEnd() });
         }
     }
 }

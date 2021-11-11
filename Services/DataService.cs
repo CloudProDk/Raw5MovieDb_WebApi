@@ -189,10 +189,10 @@ namespace Raw5MovieDb_WebApi.Services
          */
 
 
-        public IList<Actor> GetActors()
+        public IList<Actor> GetActors(QueryString queryString)
         {
             var ctx = new MovieDbContext();
-            return ctx.actors.ToList();
+            return ctx.actors.Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize).ToList();
         }
 
         public Actor GetActor(string nconst)
@@ -201,6 +201,11 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.actors.FirstOrDefault(x => x.Nconst == nconst);
         }
 
+        public int ActorsCount()
+        {
+            var ctx = new MovieDbContext();
+            return ctx.actors.Count();
+        }
 
 
 

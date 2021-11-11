@@ -15,9 +15,10 @@ namespace Raw5MovieDb_WebApi.Services
         int TitlesCount();
 
         //actor
-        IList<Actor> GetActors();
+        IList<Actor> GetActors(QueryString queryString);
         Actor GetActor(string nconst);
         Actor CreateActor(string nconst, string primaryname);
+        int ActorsCount();
 
         bool DeleteActor(string nconst);
 

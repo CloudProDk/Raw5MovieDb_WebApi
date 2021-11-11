@@ -31,7 +31,8 @@ namespace Raw5MovieDb_WebApi.Controllers
         {
             IList<Title> titles = _dataService.GetTitles(queryString);
             var model = titles.Select(GetTitleViewModel);
-            return Ok(CreateResponseObj(model, queryString, _dataService.TitlesCount()));
+            var response = CreateResponseObj(model, queryString, _dataService.TitlesCount());
+            return Ok(response);
         }
 
         [HttpGet("{tconst}", Name = nameof(GetTitle))]
