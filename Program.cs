@@ -15,7 +15,7 @@ namespace Raw5MovieDb_WebApi
     {
         public static void Main(string[] args)
         {
-            var actorname = "Elena";
+           /* var actorname = "Elena";
             var ds = new DataService();
             var actors = ds.GetCoActors(actorname);
 
@@ -24,7 +24,20 @@ namespace Raw5MovieDb_WebApi
             foreach (var actor in actors)
             {
                 Console.WriteLine(actor.Primaryname);
-            }
+            }*/
+
+           var input1 = "a";
+           var input2 = "b";
+           var input3 = "c";
+           var ds = new DataService();
+           var bestmatchs = ds.BestMatchFunction(input1, input2, input3);
+           Console.WriteLine("best match:");
+           foreach (var Title in bestmatchs)
+           {
+               Console.WriteLine(Title.Endyear, Title.Primarytitle);
+           }
+
+
 
             CreateHostBuilder(args).Build().Run();
 

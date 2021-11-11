@@ -340,11 +340,11 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.actors.FromSqlInterpolated($"SELECT nconst, primaryname FROM find_coplayers({actorname})").ToList();
         }
 
-
-        public IList<Title> BestMatchFunction(string input1, int input2, string input3)
+        //do not work, need help it says endyear required
+        public IList<Title> BestMatchFunction(string input1, string input2, string input3)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.FromSqlInterpolated($"SELECT * FROM bestmatch({input1 + "," + input2 + "," + input3})").ToList();
+           return ctx.titles.FromSqlInterpolated($"SELECT * FROM bestmatch('{input1}','{input2}','{input3}')").ToList();
         }
 
         public IList<Title> ExactMatchDynamicSearch(string[] input)

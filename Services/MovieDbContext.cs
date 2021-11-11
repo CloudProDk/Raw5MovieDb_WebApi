@@ -80,7 +80,7 @@ namespace Raw5MovieDb_WebApi.Services
             modelBuilder.Entity<Title>().Property(x => x.Originaltitle).HasColumnName("originaltitle");
             modelBuilder.Entity<Title>().Property(x => x.Isadult).HasColumnName("isadult");
             modelBuilder.Entity<Title>().Property(x => x.Startyear).HasColumnName("startyear");
-            modelBuilder.Entity<Title>().Property(x => x.Endyear).HasColumnName("endyear");
+            //modelBuilder.Entity<Title>().Property(x => x.Endyear).HasColumnName("endyear");
             modelBuilder.Entity<Title>().Property(x => x.Runtimeminutes).HasColumnName("runtimeminutes");
 
             modelBuilder.Entity<TitleAkas>().ToTable("title_akas");
