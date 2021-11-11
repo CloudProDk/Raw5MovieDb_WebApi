@@ -325,15 +325,6 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.titles.FirstOrDefault(x => x.Tconst == tconst);
         }
 
-        
-
-
-
-        // TODO: implement this
-        public IList<Title> GetPopularTitles()
-        {
-            throw new System.NotImplementedException();
-        }
 
        
         public IList<Actor> GetCoActors(string actorname)
@@ -367,7 +358,6 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.bookmarkTitles.FromSqlInterpolated($"SELECT * FROM get_all_bookmarks_from_user({userid})").ToList();
         }
 
-
         public IList<UserRating> GetAllUserRatings()
         {
             var ctx = new MovieDbContext();
@@ -386,8 +376,6 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.titles.FromSqlInterpolated($"SELECT * FROM popular_actors_ranked_by_movie({tconst})").ToList();
         }
 
-        
-       
         public IList<UserRating> RateProcedure(string uid, string tid, int rating)
         {
             var ctx = new MovieDbContext();
