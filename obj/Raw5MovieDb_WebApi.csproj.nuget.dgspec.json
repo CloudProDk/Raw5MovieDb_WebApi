@@ -1,32 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\rex19\\Documents\\GitHub\\Raw5MovieDb_WebApi\\Raw5MovieDb_WebApi.csproj": {}
+    "/Users/patrickorum/Development/RUC/RAWDATA/Raw5MovieDb_WebApi/Raw5MovieDb_WebApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\rex19\\Documents\\GitHub\\Raw5MovieDb_WebApi\\Raw5MovieDb_WebApi.csproj": {
+    "/Users/patrickorum/Development/RUC/RAWDATA/Raw5MovieDb_WebApi/Raw5MovieDb_WebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rex19\\Documents\\GitHub\\Raw5MovieDb_WebApi\\Raw5MovieDb_WebApi.csproj",
+        "projectUniqueName": "/Users/patrickorum/Development/RUC/RAWDATA/Raw5MovieDb_WebApi/Raw5MovieDb_WebApi.csproj",
         "projectName": "Raw5MovieDb_WebApi",
-        "projectPath": "C:\\Users\\rex19\\Documents\\GitHub\\Raw5MovieDb_WebApi\\Raw5MovieDb_WebApi.csproj",
-        "packagesPath": "C:\\Users\\rex19\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rex19\\Documents\\GitHub\\Raw5MovieDb_WebApi\\obj\\",
+        "projectPath": "/Users/patrickorum/Development/RUC/RAWDATA/Raw5MovieDb_WebApi/Raw5MovieDb_WebApi.csproj",
+        "packagesPath": "/Users/patrickorum/.nuget/packages/",
+        "outputPath": "/Users/patrickorum/Development/RUC/RAWDATA/Raw5MovieDb_WebApi/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\rex19\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/patrickorum/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -45,6 +38,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.1.1, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[3.1.20, )"
@@ -60,6 +57,10 @@
             "Microsoft.EntityFrameworkCore.Tools": {
               "target": "Package",
               "version": "[5.0.11, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.2.0, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -80,6 +81,14 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.0, )"
+            },
+            "xunit.runner.visualstudio": {
+              "target": "Package",
+              "version": "[2.4.0, )"
             }
           },
           "imports": [
@@ -100,7 +109,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100-rc.2.21505.57\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
         }
       }
     }

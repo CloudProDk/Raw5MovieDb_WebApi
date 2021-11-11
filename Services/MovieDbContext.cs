@@ -30,7 +30,7 @@ namespace Raw5MovieDb_WebApi.Services
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);     
-            optionsBuilder.UseNpgsql("host=rawdata.ruc.dk;db=Raw5;uid=postgres;pwd=Tristan!");
+            optionsBuilder.UseNpgsql("host=localhost;db=imdb_small2;uid=postgres;pwd=Palle0410");
             optionsBuilder.EnableSensitiveDataLogging();
 
         }
