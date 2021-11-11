@@ -326,7 +326,7 @@ namespace Raw5MovieDb_WebApi.Services
         }
 
 
-       
+       //works
         public IList<Actor> GetCoActors(string actorname)
         {
             var ctx = new MovieDbContext();
@@ -346,13 +346,13 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.titles.FromSqlInterpolated($"SELECT * FROM exact_match_dynamic({input})").ToList();
         }
 
-        public IList<Title> FindSimilar(string input)
+        public IList<Title> FindSimilarSearch(string input)
         {
             var ctx = new MovieDbContext();
             return ctx.titles.FromSqlInterpolated($"SELECT * FROM find_similar({input})").ToList();
         }
 
-        public IList<BookmarkTitle> GetAllBookmarksFromUser(string userid)
+        public IList<BookmarkTitle> GetAllTitleBookmarksByUser(string userid)
         {
             var ctx = new MovieDbContext();
             return ctx.bookmarkTitles.FromSqlInterpolated($"SELECT * FROM get_all_bookmarks_from_user({userid})").ToList();

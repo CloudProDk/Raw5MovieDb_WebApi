@@ -12,7 +12,6 @@ namespace Raw5MovieDb_WebApi.Services
         //title
         IList<Title> GetTitles();
         Title GetTitle(string tconst);
-        IList<Title> GetPopularTitles();
 
         //actor
         IList<Actor> GetActors();
@@ -45,7 +44,7 @@ namespace Raw5MovieDb_WebApi.Services
         //TODO: Count words function? do we need this?
 
 
-        IList<Title> BestMatchFunction(string input1, string input2, string input3);
+        IList<Title> BestMatchFunction(string input1, int input2, string input3);
         
 
 

@@ -15,16 +15,18 @@ namespace Raw5MovieDb_WebApi
     {
         public static void Main(string[] args)
         {
-            //var actorname = "tristan";
-            //var ds = new DataService();
-            //var actors = ds.GetCoActors(actorname);
+            var input1 = "a";
+            int input2 = 1;
+            var input3 = "c";
+            var ds = new DataService();
+            var actors = ds.BestMatchFunction(input1, input2, input3);
 
-            //Console.WriteLine("ACTORS:");
+            Console.WriteLine("best mach:");
 
-            //foreach (var actor in actors)
-            //{
-            //    Console.WriteLine(actor.Primaryname);
-            //}
+            foreach (var title in actors)
+            {
+                Console.WriteLine(title.Primarytitle);
+            }
 
             CreateHostBuilder(args).Build().Run();
 
