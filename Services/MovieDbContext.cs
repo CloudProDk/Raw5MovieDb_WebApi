@@ -32,8 +32,8 @@ namespace Raw5MovieDb_WebApi.Services
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {   
-            base.OnConfiguring(optionsBuilder);     
-            optionsBuilder.UseNpgsql("host=localhost;db=imdb_small2;uid=postgres;pwd=Palle0410");
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
             optionsBuilder.EnableSensitiveDataLogging();
 
         }
@@ -69,6 +69,10 @@ namespace Raw5MovieDb_WebApi.Services
             modelBuilder.Entity<Genre>().ToTable("genre");
             modelBuilder.Entity<Genre>().Property(x => x.Id).HasColumnName("id");
             modelBuilder.Entity<Genre>().Property(x => x.Name).HasColumnName("name");
+
+            modelBuilder.Entity<TitleGenre>().ToTable("title_genre").HasKey(c => new { c.TitleTconst, c.GenreId });
+            modelBuilder.Entity<TitleGenre>().Property(x => x.TitleTconst).HasColumnName("tconst");
+            modelBuilder.Entity<TitleGenre>().Property(x => x.GenreId).HasColumnName("genreid");
 
             modelBuilder.Entity<OmdbData>().ToTable("omdb_data");
             modelBuilder.Entity<OmdbData>().Property(x => x.Tconst).HasColumnName("tconst");

@@ -34,5 +34,8 @@ namespace Raw5MovieDb_WebApi.Model
 
         [JsonProperty("runtimeminutes")]
         public int? Runtimeminutes { get; set; }
+
+        //[JsonIgnore]
+        public IList<TitleGenre> Genres { get; set; }
     }
 }

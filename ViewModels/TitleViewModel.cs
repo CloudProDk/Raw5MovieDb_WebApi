@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Raw5MovieDb_WebApi.Model;
+using System;
+using System.Collections.Generic;
+
 namespace Raw5MovieDb_WebApi.ViewModels
 {
     public class TitleViewModel
@@ -11,5 +14,6 @@ namespace Raw5MovieDb_WebApi.ViewModels
         public string Startyear { get; set; }
         public string Endyear { get; set; }
         public int Runtimeminutes { get; set; }
+        public IList<TitleGenre> Genres { get; set; }
     }
 }

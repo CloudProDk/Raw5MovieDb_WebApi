@@ -213,7 +213,7 @@ namespace Raw5MovieDb_WebApi.Services
         public Title GetTitle(string tconst)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.FirstOrDefault(x => x.Tconst == tconst);
+            return ctx.titles.Include(title => title.Genres).ThenInclude(titlegenre => titlegenre.Genre).FirstOrDefault(x => x.Tconst == tconst);
         }
         //TODO: not implementet
         public IList<Title> GetPopularTitles()
