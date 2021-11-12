@@ -350,5 +350,11 @@ namespace Raw5MovieDb_WebApi.Services
             var ctx = new MovieDbContext();
             return ctx.titles.FromSqlInterpolated($"SELECT * FROM get_titles_by_genre({genreId}, {queryString.Page}, {queryString.PageSize})").ToList();
         }
+
+        public int TitlesByGenreCount(int genreId)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlInterpolated($"SELECT tconst FROM get_titles_by_genre({genreId}, 0, 99999999)").Count();
+        }
     }
 }

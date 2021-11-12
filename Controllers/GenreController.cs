@@ -53,7 +53,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         {
             IList<Title> titles = _dataService.GetTitlesByGenre(genreId, queryString);
             var model = titles.Select(GetTitleViewModel);
-            var response = CreateTitlesResponseObj(genreId, model, queryString, _dataService.TitlesCount());
+            var response = CreateTitlesResponseObj(genreId, model, queryString, _dataService.TitlesByGenreCount(genreId));
             return Ok(response);
         }
 
@@ -103,7 +103,7 @@ namespace Raw5MovieDb_WebApi.Controllers
             return queryString.Page <= 0 ? null : GetTitlesUrl(genreId, queryString.Page - 1, queryString.PageSize);
         }
 
-        private string GetTitlesUrl(int genreId, int page, int pageSize)
+        private string GetTitlesUrl(int genreId, int page = 0, int pageSize = 25)
         {
             return _linkGenerator.GetUriByName(HttpContext, nameof(GetTitlesByGenre), new { genreId = genreId, page, pageSize });
         }
@@ -138,6 +138,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         {
             var model = _mapper.Map<GenreViewModel>(genre);
             model.Url = GetGenreUrl(genre);
+            model.Titles = GetTitlesUrl(genre.Id);
             return model;
         }
 
