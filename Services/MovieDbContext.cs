@@ -11,9 +11,7 @@ using System.Text;
 namespace Raw5MovieDb_WebApi.Services
 {
     public class MovieDbContext : DbContext
-    {   
-    
-        
+    {
         public DbSet<Actor> actors { get; set; }
         //public DbSet<AppSettings> appSettings { get; set; }
         public DbSet<BookmarkActor> bookmarkActors { get; set; }
@@ -31,9 +29,10 @@ namespace Raw5MovieDb_WebApi.Services
         public DbSet<UserSearchHistory> userSearchHistories { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {   
+        {
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
+            optionsBuilder.UseNpgsql("host=localhost;db=imdb;uid=postgres;pwd=");
             optionsBuilder.EnableSensitiveDataLogging();
 
         }
@@ -59,7 +58,7 @@ namespace Raw5MovieDb_WebApi.Services
             modelBuilder.Entity<BookmarkActor>().ToTable("bookmark_actor").HasKey(c => new { c.Nconst, c.Uconst });
             modelBuilder.Entity<BookmarkActor>().Property(x => x.Uconst).HasColumnName("uconst");
             modelBuilder.Entity<BookmarkActor>().Property(x => x.Nconst).HasColumnName("nconst");
-            
+
 
 
             modelBuilder.Entity<BookmarkTitle>().ToTable("bookmark_title").HasKey(c => new { c.Tconst, c.Uconst });
