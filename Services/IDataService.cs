@@ -11,9 +11,11 @@ namespace Raw5MovieDb_WebApi.Services
         //title
         IList<Title> GetTitles(QueryString queryString);
         Title GetTitle(string tconst);
-
+        IList<Title> FindSimilarSearch(string tconst);
         IList<Title> GetPopularTitles();
         int TitlesCount();
+        IList<Title> StringSearch(string searchparams, string userid);
+        IList<Title> WordToWord(string[] input);
 
         //actor
         IList<Actor> GetActors(QueryString queryString);

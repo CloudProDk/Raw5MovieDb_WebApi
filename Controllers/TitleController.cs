@@ -49,6 +49,20 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(model);
         }
 
+        [HttpGet("similar/{tconst}")]
+        public IActionResult GetSimilar(string tconst)
+        {
+            IList<Title> titles = _dataService.FindSimilarSearch(tconst);
+
+            if (titles == null)
+            {
+                return NotFound();
+            }
+
+            var model = titles.Select(GetTitleViewModel);
+            return Ok(model);
+        }
+
         [HttpGet("popular")]
         public IActionResult GetPopularTitles()
         {
@@ -57,19 +71,34 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(model);
         }
 
-        //[HttpGet("search")]
-        //public IActionResult FindTitle([FromQuery] string q = "")
-        //{
-        //    if (q == null || q == "")
-        //    {
-        //        return new JsonResult(new EmptyResult());
-        //    }
+        [HttpGet("search")]
+        public IActionResult FindTitle([FromQuery] QueryString queryString)
+        {
+            if (queryString.SearchQuery == null || queryString.SearchQuery == "")
+            {
+                return new JsonResult(new EmptyResult());
+            }
 
-        //    IList<Title> titles = _dataService.FindTitle(q);
+            IList<Title> titles = _dataService.StringSearch(queryString.SearchQuery, "1");
 
-        //    var model = titles.Select(GetTitleViewModel);
-        //    return Ok(model);
-        //}
+            var model = titles.Select(GetTitleViewModel);
+            return Ok(model);
+        }
+
+        [HttpGet("searchadv")]
+        public IActionResult FindTitleAdv([FromQuery] QueryString queryString)
+        {
+            if (queryString.SearchQuery == null || queryString.SearchQuery == "")
+            {
+                return new JsonResult(new EmptyResult());
+            }
+
+            string[] words = { queryString.SearchQuery };
+            IList<Title> titles = _dataService.WordToWord(words);
+
+            var model = titles.Select(GetTitleViewModel);
+            return Ok(model);
+        }
 
 
         /*
