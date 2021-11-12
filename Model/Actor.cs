@@ -30,7 +30,7 @@ namespace Raw5MovieDb_WebApi.Model
         public string Knownfortitles { get; set; }
 
         [JsonProperty("namerating")] 
-        public double Namerating { get; set; }
+        public double? Namerating { get; set; }
 
         public Actor()
         {

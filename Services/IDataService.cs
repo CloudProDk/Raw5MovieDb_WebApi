@@ -12,17 +12,20 @@ namespace Raw5MovieDb_WebApi.Services
         //title
         IList<Title> GetTitles(QueryString queryString);
         Title GetTitle(string tconst);
+        IList<Title> FindSimilarSearch(string tconst);
         IList<Title> GetPopularTitles();
         int TitlesCount();
+        IList<Title> StringSearch(string searchparams, string userid);
+        IList<Title> WordToWord(string[] input);
 
 
         //actor
         IList<Actor> GetActors(QueryString queryString);
         Actor GetActor(string nconst);
-        Actor CreateActor(string nconst, string primaryname);
+        IList<Actor> StructuredNameSearch(string input);
         int ActorsCount();
-        bool DeleteActor(string nconst);
-        bool UpdateActor(string nconst, string primaryname);
+        IList<Actor> find_coplayers(string actorname);
+
         // Bookmarkactor
 
 
@@ -35,7 +38,7 @@ namespace Raw5MovieDb_WebApi.Services
         UserAccount RegisterUser(CreateUserAccountViewModel model);
         IList<UserAccount> GetAllUsers();
         bool DeleteUser(string uconst);
-        
+
         bool UpdateUser(UserAccount model);
 
         /*
