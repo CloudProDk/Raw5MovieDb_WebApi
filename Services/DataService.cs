@@ -3,80 +3,18 @@ using Raw5MovieDb_WebApi.Model;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
+using Raw5MovieDb_WebApi.ViewModels;
 
 namespace Raw5MovieDb_WebApi.Services
 {
     public class DataService : IDataService
     {
-        private readonly List<Title> _titles = new List<Title>
-        {
-            new Title
-            {
-                Tconst = "t00001", Primarytitle = "Interstellar", Originaltitle = "Interstellar", Startyear = "2014",
-                Endyear = "2014", Isadult = false, Runtimeminutes = 169, Titletype = "movie"
-            },
-            new Title
-            {
-                Tconst = "t00002", Primarytitle = "Alien", Originaltitle = "Alien", Startyear = "1979",
-                Endyear = "1979", Isadult = false, Runtimeminutes = 117, Titletype = "movie"
-            },
-            new Title
-            {
-                Tconst = "t00003", Primarytitle = "Squid Game", Originaltitle = "Squid Game", Startyear = "2021",
-                Endyear = "2021", Isadult = false, Runtimeminutes = 60, Titletype = "tvMiniSeries"
-            },
-            new Title
-            {
-                Tconst = "t00004", Primarytitle = "Breaking Bad", Originaltitle = "Breaking Bad", Startyear = "2008",
-                Endyear = "2013", Isadult = false, Runtimeminutes = 49, Titletype = "tvSeries"
-            },
-            new Title
-            {
-                Tconst = "t00005", Primarytitle = "Dune", Originaltitle = "Dune", Startyear = "2021", Endyear = "2021",
-                Isadult = false, Runtimeminutes = 155, Titletype = "movie"
-            },
-        };
-
-        private readonly List<Actor> _actors = new List<Actor>
-        {
-            //new Actor
-            //{
-            //    Nconst = "n00001", Primaryname = "Brad Pitt", Birthyear = "1963", Deathyear = null, Knownfortitles = "",
-            //    Primaryprofession = "actor,writer,producer", Namerating = 8.41
-            //},
-            //new Actor
-            //{
-            //    Nconst = "n00002", Primaryname = "Matt Damon", Birthyear = "1970", Deathyear = null,
-            //    Knownfortitles = "t00001", Primaryprofession = "actor,writer,producer", Namerating = 7.58
-            //},
-            //new Actor
-            //{
-            //    Nconst = "n00003", Primaryname = "Sigourney Weaver", Birthyear = "1949", Deathyear = null,
-            //    Knownfortitles = "t00002", Primaryprofession = "actor,writer", Namerating = 7.94
-            //},
-            //new Actor
-            //{
-            //    Nconst = "n00004", Primaryname = "Timothée Chalamet", Birthyear = "1995", Deathyear = null,
-            //    Knownfortitles = "t00005", Primaryprofession = "actor", Namerating = 7.50
-            //},
-        };
-
-        /* private readonly List<User> _users = new List<User> {
-             new User{ UserId = 1, FirstName = "John", LastName = "Doe", UserName = "MrJohnDoe", Password = "Windows>macOS", Token = "" },
-             new User{ UserId = 2, FirstName = "Jane", LastName = "Doe", UserName = "MsJaneDoe", Password = "macOS>Windows", Token = "" },
-             new User{ UserId = 3, FirstName = "Sebastian", LastName = "Linux", UserName = "MrLinux", Password = "Linux>*", Token = "" },
-         };*/
-
-
-
-
-
         /*
          *
          * BOOKMARK TITLE CRUD
          * SHOULD BE DONE
          */
+        
 
         public IList<BookmarkTitle> GetAllBookmarkTitles()
         {
@@ -173,30 +111,33 @@ namespace Raw5MovieDb_WebApi.Services
         public UserAccount GetUser(string uconst)
         {
             var ctx = new MovieDbContext();
-            return ctx.users.FirstOrDefault(x => x.Uconst == uconst);
+            return ctx.userAccounts.FirstOrDefault(x => x.Uconst == uconst);
         }
 
-        public IList<UserAccount> GetAllUsersFunctionFromDatabase()
+        public IList<UserAccount> GetAllUsers()
         {
             var ctx = new MovieDbContext();
-            return ctx.users.FromSqlInterpolated($"SELECT * FROM get_all_users()").ToList();
+            //return ctx.userAccountss.FromSqlInterpolated($"SELECT * FROM get_all_users()").ToList();
+            return ctx.userAccounts.ToList();
         }
 
-        public UserAccount AddUser(string uconst, string username, string Email, DateTime birthdate, string password)
+        public UserAccount RegisterUser(CreateUserAccountViewModel user)
         {
             var ctx = new MovieDbContext();
-            var user = new UserAccount
+            
+            var newUser = new UserAccount
             {
-                Uconst = ctx.bookmarkTitles.Max(x => x.Uconst) + 1,
-                UserName = username,
-                Email = Email,
-                Birthdate = birthdate,
-                Password = password
-
+                Uconst = (Int32.Parse(ctx.userAccounts.Max(x => x.Uconst)) + 1).ToString(),
+                UserName = user.UserName,
+                Email = user.Email,
+                Password = user.Password,
+                Birthdate = user.Birthdate
             };
-            ctx.Add(user);
+
+
+            ctx.Add(newUser);
             ctx.SaveChanges();
-            return user;
+            return newUser;
         }
 
 
@@ -204,11 +145,11 @@ namespace Raw5MovieDb_WebApi.Services
         public bool DeleteUser(string uconst)
         {
             var ctx = new MovieDbContext();
-            var user = ctx.users.Find(uconst);
+            var user = ctx.userAccounts.Find(uconst);
 
             if (user != null)
             {
-                ctx.users.Remove(user);
+                ctx.userAccounts.Remove(user);
                 return ctx.SaveChanges() > 0;
             }
             else return false;
@@ -216,18 +157,18 @@ namespace Raw5MovieDb_WebApi.Services
 
 
 
-        public bool UpdateUser(string uconst, string username, string email, DateTime birthdate, string password)
+        public bool UpdateUser(UserAccount model)
         {
             var ctx = new MovieDbContext();
-            var user = ctx.users.Find(uconst);
+            var user = ctx.userAccounts.Find(model.Uconst);
 
             if (user != null)
             {
-                user.Uconst = uconst;
-                user.UserName = username;
-                user.Email = email;
-                user.Birthdate = birthdate;
-                user.Password = password;
+                user.Uconst = user.Uconst;
+                user.UserName = model.UserName;
+                user.Email = model.Email;
+                user.Birthdate = model.Birthdate;
+                user.Password = model.Password;
 
                 return ctx.SaveChanges() > 0;
             }
@@ -434,7 +375,7 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.titles.FromSqlInterpolated($"SELECT * FROM structured_string_search({titleinput}, {plotinput}, {characterinput} , {personnameinput}, {useridinput}) NATURAL JOIN omdb_data natural JOIN title_principals NATURAL join name_basics NATURAL JOIN title_basics").ToList();
         }
         //works
-            public IList<Title> WordToWord(string[] input)
+        public IList<Title> WordToWord(string[] input)
         {
             var ctx = new MovieDbContext();
             return ctx.titles.FromSqlInterpolated($"SELECT * FROM word_to_word({input[0]}) NATURAL JOIN title_basics").ToList();
