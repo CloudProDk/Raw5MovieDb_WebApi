@@ -216,10 +216,7 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.titles.FirstOrDefault(x => x.Tconst == tconst);
         }
         //TODO: not implementet
-        public IList<Title> GetPopularTitles()
-        {
-            throw new NotImplementedException();
-        }
+
 
         public int TitlesCount()
         {
@@ -326,5 +323,63 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.titles.FromSqlInterpolated($"SELECT * FROM word_to_word({input[0]}) NATURAL JOIN title_basics").ToList();
 
         }
+
+
+        //browse titles by genre
+        //latest titles
+
+
+
+
+        //view popular titles
+        //får alle sammen, så skal nok limites senere henne
+        public IList<TitleRating> GetPopularTitles()
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titleRatings.FromSqlInterpolated($"SELECT * FROM title_ratings ORDER BY averagerating DESC").ToList();
+        }
+
+
+        //view search history
+        public IList<UserSearchHistory> GetUserSearchHistory(string uconst)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.userSearchHistories.Where(x => x.Uconst == uconst).ToList();
+        }
+
+
+        //RATE TITLE
+        //TODO: needs a check if the rating allready exists, because otherwise, one can keep rating the same movie. 
+        public UserRating CreateTitleRating(long rating, string tconst, string uconst)
+        {
+            var ctx = new MovieDbContext();
+            var newrating = new UserRating { Rating = rating, Tconst = tconst, Uconst = uconst };
+            ctx.Add(newrating);
+            ctx.SaveChanges();
+            return newrating;
+
+        }
+
+
+
+        //Update Rating Title
+
+
+        public bool UpdateTitleRating(long rating, string tconst, string uconst)
+        {
+            var ctx = new MovieDbContext();
+            var rat = ctx.userRatings.Find(rating,tconst, uconst);
+
+            if (rat != null)
+            {
+                rat.Rating = rating;
+                rat.Tconst = tconst;
+                rat.Uconst = uconst;
+                return ctx.SaveChanges() > 0;
+            }
+            else return false;
+        }
+
+
     }
 }
