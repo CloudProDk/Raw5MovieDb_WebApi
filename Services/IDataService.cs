@@ -18,8 +18,9 @@ namespace Raw5MovieDb_WebApi.Services
         //actor
         IList<Actor> GetActors(QueryString queryString);
         Actor GetActor(string nconst);
-        Actor CreateActor(string nconst, string primaryname);
+        IList<Actor> StructuredNameSearch(string input);
         int ActorsCount();
+        IList<Actor> find_coplayers(string actorname);
 
         bool DeleteActor(string nconst);
 

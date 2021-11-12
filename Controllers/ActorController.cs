@@ -43,19 +43,27 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(model);
         }
 
-        //[HttpGet("search")]
-        //public IActionResult FindActor([FromQuery] string q = "")
-        //{
-        //    if (q == null || q == "")
-        //    {
-        //        return new JsonResult(new EmptyResult());
-        //    }
+        [HttpGet("coplayers/{primaryname}")]
+        public IActionResult GetActorCoPlayers(string actorname)
+        {
+            IList<Actor> actors = _dataService.find_coplayers(actorname);
+            var model = actors.Select(GetActorViewModel);
+            return Ok(model);
+        }
 
-        //    IList<Actor> actors = _dataService.FindActor(q);
+        [HttpGet("search")]
+        public IActionResult FindActor([FromQuery] QueryString queryString)
+        {
+            if (queryString.SearchQuery == null || queryString.SearchQuery == "")
+            {
+                return new EmptyResult();
+            }
 
-        //    var model = actors.Select(GetActorViewModel);
-        //    return Ok(model);
-        //}
+            IList<Actor> actors = _dataService.StructuredNameSearch(queryString.SearchQuery);
+
+            var model = actors.Select(GetActorViewModel);
+            return Ok(model);
+        }
 
 
         /*

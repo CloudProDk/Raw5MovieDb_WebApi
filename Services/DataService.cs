@@ -260,61 +260,6 @@ namespace Raw5MovieDb_WebApi.Services
         }
 
 
-
-        public Actor CreateActor(string nconst, string primaryname)
-        {
-            var ctx = new MovieDbContext();
-            var act = new Actor
-            {
-                Nconst = ctx.actors.Max(x => x.Nconst) + 1,
-                Primaryname = primaryname,
-                //Birthyear = birthyear,
-                //Deathyear = deathyear,
-                //Primaryprofession = primaryprofession,
-                //Knownfortitles = knownfortitles,
-                //Namerating = namerating
-            };
-            ctx.Add(act);
-            ctx.SaveChanges();
-            return act;
-        }
-
-        public bool DeleteActor(string nconst)
-        {
-            var ctx = new MovieDbContext();
-            var act = ctx.actors.Find(nconst);
-
-            if (act != null)
-            {
-                ctx.actors.Remove(act);
-                return ctx.SaveChanges() > 0;
-            }
-            else return false;
-        }
-
-        public bool UpdateActor(string nconst, string primaryname)
-        {
-            var ctx = new MovieDbContext();
-            var act = ctx.actors.Find(nconst);
-
-            if (act != null)
-            {
-                act.Nconst = nconst;
-                act.Primaryname = primaryname;
-                //act.Birthyear = birthyear;
-                //act.Deathyear = deathyear;
-                //act.Primaryprofession = primaryprofession;
-                //act.Knownfortitles = knownfortitles;
-                //act.Namerating = namerating;
-                return ctx.SaveChanges() > 0;
-            }
-            else return false;
-        }
-
-
-
-
-
         //title Methods
         //linq
 
