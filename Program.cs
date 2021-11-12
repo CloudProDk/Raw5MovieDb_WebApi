@@ -18,27 +18,25 @@ namespace Raw5MovieDb_WebApi
         public static void Main(string[] args)
         {
 
-            /*var actorname = "Elena";
+
+
             var ds = new DataService();
-            var actors = ds.find_coplayers(actorname);
+            var ctx = new MovieDbContext();
 
-            Console.WriteLine("ACTORS:");
-
-            foreach (var actor in actors)
-            {
-                Console.WriteLine(actor.Primaryname);
-            }*/
+            
 
 
 
-            /*var input = "tt10850402";
-            var ds = new DataService();
-            var findsimilarsearch = ds.FindSimilarSearch(input);
-            Console.WriteLine("best match:");
-            foreach (var Title in findsimilarsearch)
-            {
-                Console.WriteLine(Title.Primarytitle);
-            }*/
+
+
+            // var input = "tt10850402";
+            // var ds = new DataService();
+            // var findsimilarsearch = ds.FindSimilarSearch(input);
+            // Console.WriteLine("best match:");
+            // foreach (var Title in findsimilarsearch)
+            // {
+            //     Console.WriteLine(Title.Primarytitle);
+            // }
 
 
 
@@ -141,15 +139,15 @@ namespace Raw5MovieDb_WebApi
 
             CreateHostBuilder(args).Build().Run();
 
-IHostBuilder CreateHostBuilder(string[] args) =>
-    Host.CreateDefaultBuilder(args)
-        .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+            IHostBuilder CreateHostBuilder(string[] args) =>
+                Host.CreateDefaultBuilder(args)
+                    .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
 
 
 
 
-}
+        }
 
 
-}
+    }
 }

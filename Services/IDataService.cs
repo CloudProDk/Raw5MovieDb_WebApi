@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Npgsql;
 using Raw5MovieDb_WebApi.Model;
+using Raw5MovieDb_WebApi.ViewModels;
 
 namespace Raw5MovieDb_WebApi.Services
 {
@@ -17,6 +18,7 @@ namespace Raw5MovieDb_WebApi.Services
         IList<Title> StringSearch(string searchparams, string userid);
         IList<Title> WordToWord(string[] input);
 
+
         //actor
         IList<Actor> GetActors(QueryString queryString);
         Actor GetActor(string nconst);
@@ -25,15 +27,19 @@ namespace Raw5MovieDb_WebApi.Services
         IList<Actor> find_coplayers(string actorname);
 
         // Bookmarkactor
+
+
         IList<BookmarkActor> GetAllActorBookmarks();
         BookmarkActor GetActorBookmark(string nconst,string uconst);
 
 
         // User
-
-
         UserAccount GetUser(string userId);
+        UserAccount RegisterUser(CreateUserAccountViewModel model);
+        IList<UserAccount> GetAllUsers();
+        bool DeleteUser(string uconst);
 
+        bool UpdateUser(UserAccount model);
 
         /*
         bool AddTitleBookmark(Title title, UserAccount user);

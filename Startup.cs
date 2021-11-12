@@ -16,6 +16,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Raw5MovieDb_WebApi.Model;
 using Raw5MovieDb_WebApi.Services;
+using System.Reflection;
+using System.IO;
 
 namespace Raw5MovieDb_WebApi
 {
@@ -35,7 +37,19 @@ namespace Raw5MovieDb_WebApi
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Raw5MovieDb_WebApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Raw5MovieDb_WebApi",
+                    Version = "v1",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Group RAW5",
+                        Email = "pto@ruc.dk"
+                    }
+                });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -56,7 +70,7 @@ namespace Raw5MovieDb_WebApi
                 jwt.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey= new SymmetricSecurityKey(key),
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
