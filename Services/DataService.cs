@@ -5,9 +5,6 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
-
-
-
 namespace Raw5MovieDb_WebApi.Services
 {
     public class DataService : IDataService
@@ -244,10 +241,10 @@ namespace Raw5MovieDb_WebApi.Services
          */
 
 
-        public IList<Actor> GetActors()
+        public IList<Actor> GetActors(QueryString queryString)
         {
             var ctx = new MovieDbContext();
-            return ctx.actors.ToList();
+            return ctx.actors.Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize).ToList();
         }
 
         public Actor GetActor(string nconst)
@@ -256,6 +253,11 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.actors.FirstOrDefault(x => x.Nconst == nconst);
         }
 
+        public int ActorsCount()
+        {
+            var ctx = new MovieDbContext();
+            return ctx.actors.Count();
+        }
 
 
 
@@ -266,11 +268,11 @@ namespace Raw5MovieDb_WebApi.Services
             {
                 Nconst = ctx.actors.Max(x => x.Nconst) + 1,
                 Primaryname = primaryname,
-                //Birthyear = birthyear, 
-                //Deathyear = deathyear, 
-                //Primaryprofession = primaryprofession, 
-                //Knownfortitles = knownfortitles, 
-                //Namerating = namerating     
+                //Birthyear = birthyear,
+                //Deathyear = deathyear,
+                //Primaryprofession = primaryprofession,
+                //Knownfortitles = knownfortitles,
+                //Namerating = namerating
             };
             ctx.Add(act);
             ctx.SaveChanges();
@@ -316,10 +318,10 @@ namespace Raw5MovieDb_WebApi.Services
         //title Methods
         //linq
 
-        public IList<Title> GetTitles()
+        public IList<Title> GetTitles(QueryString queryString)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.ToList();
+            return ctx.titles.Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize).ToList();
         }
         //linq
         public Title GetTitle(string tconst)
@@ -333,6 +335,11 @@ namespace Raw5MovieDb_WebApi.Services
             throw new NotImplementedException();
         }
 
+        public int TitlesCount()
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.Count();
+        }
 
         //Works
         public IList<Actor> find_coplayers(string actorname)
@@ -357,13 +364,13 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.titles.FromSqlInterpolated($"SELECT * FROM exact_match_dynamic({words[0]}) NATURAL JOIN title_basics").ToList();
         }
         // Works!!
-        // Needs specific tconst as input 
+        // Needs specific tconst as input
         public IList<Title> FindSimilarSearch(string tconst)
         {
             var ctx = new MovieDbContext();
             return ctx.titles.FromSqlInterpolated($"SELECT * FROM find_similar({tconst}) NATURAL JOIN title_basics LIMIT 100").ToList();
         }
-        //TODO; not done, not a bookmark title, it is both a bookmark title and bookmark actor 
+        //TODO; not done, not a bookmark title, it is both a bookmark title and bookmark actor
         public IList<BookmarkTitle> GetAllBookmarksByUser(string userid)
         {
             var ctx = new MovieDbContext();
