@@ -21,16 +21,16 @@ namespace Raw5MovieDb_WebApi.Tests
             Assert.Null(title.Tconst);
         }
 
-        [Fact]
-        public void ApiTitles_GetWithNoArguments_OkAndAllTitles()
-        {
-            var (data, statusCode) = GetArray(TitlesApi);
-            Console.WriteLine(data.Count);
-            Assert.Equal(HttpStatusCode.OK, statusCode);
-            Assert.Equal(55076, data.Count);
-            Assert.Equal("Çocuk", data.First()["primarytitle"]);
-            Assert.Equal("Catherine: Full Body", data.Last()["primarytitle"]);
-        }
+        // [Fact]
+        // public void ApiTitles_GetWithNoArguments_OkAndAllTitles()
+        // {
+        //     var (data, statusCode) = GetArray(TitlesApi);
+        //     Console.WriteLine(data.Count);
+        //     Assert.Equal(HttpStatusCode.OK, statusCode);
+        //     Assert.Equal(55076, data.Count);
+        //     Assert.Equal("Çocuk", data.First()["primarytitle"]);
+        //     Assert.Equal("Catherine: Full Body", data.Last()["primarytitle"]);
+        // }
 
 
 

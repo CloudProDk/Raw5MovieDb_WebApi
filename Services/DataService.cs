@@ -9,36 +9,7 @@ namespace Raw5MovieDb_WebApi.Services
 {
     public class DataService : IDataService
     {
-        private readonly List<Title> _titles = new List<Title>
-        {
-            new Title
-            {
-                Tconst = "t00001", Primarytitle = "Interstellar", Originaltitle = "Interstellar", Startyear = "2014",
-                Endyear = "2014", Isadult = false, Runtimeminutes = 169, Titletype = "movie"
-            },
-            new Title
-            {
-                Tconst = "t00002", Primarytitle = "Alien", Originaltitle = "Alien", Startyear = "1979",
-                Endyear = "1979", Isadult = false, Runtimeminutes = 117, Titletype = "movie"
-            },
-            new Title
-            {
-                Tconst = "t00003", Primarytitle = "Squid Game", Originaltitle = "Squid Game", Startyear = "2021",
-                Endyear = "2021", Isadult = false, Runtimeminutes = 60, Titletype = "tvMiniSeries"
-            },
-            new Title
-            {
-                Tconst = "t00004", Primarytitle = "Breaking Bad", Originaltitle = "Breaking Bad", Startyear = "2008",
-                Endyear = "2013", Isadult = false, Runtimeminutes = 49, Titletype = "tvSeries"
-            },
-            new Title
-            {
-                Tconst = "t00005", Primarytitle = "Dune", Originaltitle = "Dune", Startyear = "2021", Endyear = "2021",
-                Isadult = false, Runtimeminutes = 155, Titletype = "movie"
-            },
-        };
-
-        private readonly List<Actor> _actors = new List<Actor>
+    ''    private readonly List<Actor> _actors = new List<Actor>
         {
             //new Actor
             //{
@@ -434,7 +405,7 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.titles.FromSqlInterpolated($"SELECT * FROM structured_string_search({titleinput}, {plotinput}, {characterinput} , {personnameinput}, {useridinput}) NATURAL JOIN omdb_data natural JOIN title_principals NATURAL join name_basics NATURAL JOIN title_basics").ToList();
         }
         //works
-            public IList<Title> WordToWord(string[] input)
+        public IList<Title> WordToWord(string[] input)
         {
             var ctx = new MovieDbContext();
             return ctx.titles.FromSqlInterpolated($"SELECT * FROM word_to_word({input[0]}) NATURAL JOIN title_basics").ToList();
