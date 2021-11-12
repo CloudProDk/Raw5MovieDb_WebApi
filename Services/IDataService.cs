@@ -11,6 +11,7 @@ namespace Raw5MovieDb_WebApi.Services
         //title
         IList<Title> GetTitles(QueryString queryString);
         Title GetTitle(string tconst);
+
         IList<Title> GetPopularTitles();
         int TitlesCount();
 

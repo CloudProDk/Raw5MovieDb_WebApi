@@ -30,7 +30,7 @@ namespace Raw5MovieDb_WebApi.Services
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);     
-            optionsBuilder.UseNpgsql("host=rawdata.ruc.dk;db=Raw5;uid=postgres;pwd=Tristan!");
+            optionsBuilder.UseNpgsql("host=rawdata.ruc.dk;db=raw5;uid=raw5;pwd=I4YpESyL");
             optionsBuilder.EnableSensitiveDataLogging();
 
         }
@@ -45,11 +45,11 @@ namespace Raw5MovieDb_WebApi.Services
             modelBuilder.Entity<Actor>().ToTable("name_basics");
             modelBuilder.Entity<Actor>().Property(x => x.Nconst).HasColumnName("nconst");
             modelBuilder.Entity<Actor>().Property(x => x.Primaryname).HasColumnName("primaryname");
-            //modelBuilder.Entity<Actor>().Property(x => x.Birthyear).HasColumnName("birthyear");
-            //modelBuilder.Entity<Actor>().Property(x => x.Deathyear).HasColumnName("deathyear");
-            //modelBuilder.Entity<Actor>().Property(x => x.Primaryprofession).HasColumnName("primaryprofession");
-            //modelBuilder.Entity<Actor>().Property(x => x.Knownfortitles).HasColumnName("knownfortitles");
-            //modelBuilder.Entity<Actor>().Property(x => x.Namerating).HasColumnName("namerating");
+            modelBuilder.Entity<Actor>().Property(x => x.Birthyear).HasColumnName("birthyear");
+            modelBuilder.Entity<Actor>().Property(x => x.Deathyear).HasColumnName("deathyear");
+            modelBuilder.Entity<Actor>().Property(x => x.Primaryprofession).HasColumnName("primaryprofession");
+            modelBuilder.Entity<Actor>().Property(x => x.Knownfortitles).HasColumnName("knownfortitles");
+            modelBuilder.Entity<Actor>().Property(x => x.Namerating).HasColumnName("namerating");
 
 
 

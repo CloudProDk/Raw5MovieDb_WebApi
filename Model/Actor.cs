@@ -17,19 +17,24 @@ namespace Raw5MovieDb_WebApi.Model
         [JsonProperty("primaryname")]
         public string Primaryname { get; set; }
 
-        //[JsonProperty("birthyear")]
-        //public string Birthyear { get; set; }
+        [JsonProperty("birthyear")]
+        public string Birthyear { get; set; }
 
-        //[JsonProperty("deathyear")]
-        //public string Deathyear { get; set; }
+        [JsonProperty("deathyear")]
+        public string Deathyear { get; set; }
 
-        //[JsonProperty("primaryprofession")]
-        //public string Primaryprofession { get; set; }
+        [JsonProperty("primaryprofession")]
+        public string Primaryprofession { get; set; }
 
-        //[JsonProperty("knownfortitles")]
-        //public string Knownfortitles { get; set; }
+        [JsonProperty("knownfortitles")]
+        public string Knownfortitles { get; set; }
 
-        //[JsonProperty("namerating")]
-        //public double Namerating { get; set; }
+        [JsonProperty("namerating")] 
+        public double Namerating { get; set; }
+
+        public Actor()
+        {
+            
+        }
     }
 }
