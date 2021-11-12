@@ -3,6 +3,7 @@ using Raw5MovieDb_WebApi.Model;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Raw5MovieDb_WebApi.ViewModels;
 
 namespace Raw5MovieDb_WebApi.Services
 {
@@ -110,30 +111,33 @@ namespace Raw5MovieDb_WebApi.Services
         public UserAccount GetUser(string uconst)
         {
             var ctx = new MovieDbContext();
-            return ctx.users.FirstOrDefault(x => x.Uconst == uconst);
+            return ctx.userAccounts.FirstOrDefault(x => x.Uconst == uconst);
         }
 
-        public IList<UserAccount> GetAllUsersFunctionFromDatabase()
+        public IList<UserAccount> GetAllUsers()
         {
             var ctx = new MovieDbContext();
-            return ctx.users.FromSqlInterpolated($"SELECT * FROM get_all_users()").ToList();
+            //return ctx.userAccountss.FromSqlInterpolated($"SELECT * FROM get_all_users()").ToList();
+            return ctx.userAccounts.ToList();
         }
 
-        public UserAccount AddUser(string uconst, string username, string Email, DateTime birthdate, string password)
+        public UserAccount RegisterUser(CreateUserAccountViewModel user)
         {
             var ctx = new MovieDbContext();
-            var user = new UserAccount
+            
+            var newUser = new UserAccount
             {
-                Uconst = ctx.bookmarkTitles.Max(x => x.Uconst) + 1,
-                UserName = username,
-                Email = Email,
-                Birthdate = birthdate,
-                Password = password
-
+                Uconst = (Int32.Parse(ctx.userAccounts.Max(x => x.Uconst)) + 1).ToString(),
+                UserName = user.UserName,
+                Email = user.Email,
+                Password = user.Password,
+                Birthdate = user.Birthdate
             };
-            ctx.Add(user);
+
+
+            ctx.Add(newUser);
             ctx.SaveChanges();
-            return user;
+            return newUser;
         }
 
 
@@ -141,11 +145,11 @@ namespace Raw5MovieDb_WebApi.Services
         public bool DeleteUser(string uconst)
         {
             var ctx = new MovieDbContext();
-            var user = ctx.users.Find(uconst);
+            var user = ctx.userAccounts.Find(uconst);
 
             if (user != null)
             {
-                ctx.users.Remove(user);
+                ctx.userAccounts.Remove(user);
                 return ctx.SaveChanges() > 0;
             }
             else return false;
@@ -156,7 +160,7 @@ namespace Raw5MovieDb_WebApi.Services
         public bool UpdateUser(string uconst, string username, string email, DateTime birthdate, string password)
         {
             var ctx = new MovieDbContext();
-            var user = ctx.users.Find(uconst);
+            var user = ctx.userAccounts.Find(uconst);
 
             if (user != null)
             {

@@ -26,14 +26,14 @@ namespace Raw5MovieDb_WebApi.Services
         public DbSet<TitleEpisode> titleEpisodes { get; set; }
         public DbSet<TitlePrincipals> titlePrincipals { get; set; }
         public DbSet<TitleRating>  titleRatings { get; set; }
-        public DbSet<UserAccount> users { get; set; }
+        public DbSet<UserAccount> userAccounts { get; set; }
         public DbSet<UserRating> userRatings { get; set; }
         public DbSet<UserSearchHistory> userSearchHistories { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {   
             base.OnConfiguring(optionsBuilder);     
-            optionsBuilder.UseNpgsql("host=localhost;db=northwind;uid=postgres;pwd=Palle0410");
+            optionsBuilder.UseNpgsql("host=localhost;db=imdb_small2;uid=postgres;pwd=Palle0410");
             optionsBuilder.EnableSensitiveDataLogging();
 
         }
