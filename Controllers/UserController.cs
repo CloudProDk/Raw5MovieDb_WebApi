@@ -25,20 +25,38 @@ namespace Raw5MovieDb_WebApi.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet]
+        public IActionResult GetAllCategories()
+        {
+            return Ok(_dataService.GetAllUsers());
+        }
+
+        [HttpGet("{uconst}")]
+        public IActionResult GetUser(string uconst)
+        {   
+            var user = _dataService.GetUser(uconst);
+
+            if (user != null)
+            {
+                return Ok(user);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
         [HttpPost("Register")]
         public IActionResult RegisterUser([FromQuery] CreateUserAccountViewModel newUser)
         {
             var _user = new CreateUserAccountViewModel
-            {   
+            {
                 Email = newUser.Email,
                 UserName = newUser.UserName,
                 Password = newUser.Password,
                 Birthdate = newUser.Birthdate
             };
-
-            return Ok(_dataService.RegisterUser(_user));
-
-
+            return Created(nameof(GetUser), _dataService.RegisterUser(_user));
         }
     }
 }
