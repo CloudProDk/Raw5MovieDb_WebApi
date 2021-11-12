@@ -80,7 +80,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// <returns></returns>
         [HttpDelete("{uconst}")]
         public IActionResult DeleteUser(string uconst)
-        {   
+        {
 
             var result = _dataService.DeleteUser(uconst);
 
@@ -89,6 +89,23 @@ namespace Raw5MovieDb_WebApi.Controllers
                 return NotFound($"There is no user corresponding to uconst: {uconst}");
             }
             else return Ok($"User with id {uconst} was deleted successfully");
+        }
+
+        /// <summary>
+        /// Updates a single user
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPut("Update")]
+        public IActionResult UpdateUser([FromQuery]UserAccount model)
+        {
+            var result = _dataService.UpdateUser(model);
+
+            if (!result)
+            {
+                return NotFound($"User not found! There is no user corresponding to uconst: {model.Uconst}");
+            }
+            else return Ok($"{model.UserName} updated successfully");
         }
     }
 }

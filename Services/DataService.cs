@@ -157,18 +157,18 @@ namespace Raw5MovieDb_WebApi.Services
 
 
 
-        public bool UpdateUser(string uconst, string username, string email, DateTime birthdate, string password)
+        public bool UpdateUser(UserAccount model)
         {
             var ctx = new MovieDbContext();
-            var user = ctx.userAccounts.Find(uconst);
+            var user = ctx.userAccounts.Find(model.Uconst);
 
             if (user != null)
             {
-                user.Uconst = uconst;
-                user.UserName = username;
-                user.Email = email;
-                user.Birthdate = birthdate;
-                user.Password = password;
+                user.Uconst = user.Uconst;
+                user.UserName = model.UserName;
+                user.Email = model.Email;
+                user.Birthdate = model.Birthdate;
+                user.Password = model.Password;
 
                 return ctx.SaveChanges() > 0;
             }
