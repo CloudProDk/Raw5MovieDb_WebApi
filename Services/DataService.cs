@@ -327,10 +327,22 @@ namespace Raw5MovieDb_WebApi.Services
 
         }
 
+        public IList<Genre> GetGenres(QueryString queryString)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.genres.Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize).ToList();
+        }
+
         public Genre GetGenre(int genreId)
         {
             var ctx = new MovieDbContext();
             return ctx.genres.FirstOrDefault(x => x.Id == genreId);
+        }
+
+        public int GenresCount()
+        {
+            var ctx = new MovieDbContext();
+            return ctx.genres.Count();
         }
     }
 }

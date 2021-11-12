@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -23,6 +25,15 @@ namespace Raw5MovieDb_WebApi.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet(Name = nameof(GetGenres))]
+        public IActionResult GetGenres([FromQuery] QueryString queryString)
+        {
+            IList<Genre> genres = _dataService.GetGenres(queryString);
+            var model = genres.Select(GetGenreViewModel);
+            var response = CreateResponseObj(model, queryString, _dataService.GenresCount());
+            return Ok(response);
+        }
+
         [HttpGet("{genreId}", Name = nameof(GetGenre))]
         public IActionResult GetGenre(int genreId)
         {
@@ -37,6 +48,45 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(model);
         }
 
+        /*
+         *
+         * Helper methods
+         *
+         */
+
+        private object CreateResponseObj(IEnumerable<GenreViewModel> model, QueryString queryString, int total)
+        {
+            return new
+            {
+                total,
+                previousPage = CreatePreviousPageLink(queryString),
+                currentPage = CreateCurrentPageLink(queryString),
+                nextPage = CreateNextPageLink(queryString, total),
+                results = model
+            };
+        }
+
+        private string CreateNextPageLink(QueryString queryString, int total)
+        {
+            var lastPage = GetLastPage(queryString.PageSize, total);
+            return queryString.Page >= lastPage ? null : GetGenresUrl(queryString.Page + 1, queryString.PageSize);
+        }
+
+        private string CreateCurrentPageLink(QueryString queryString)
+        {
+            return GetGenresUrl(queryString.Page, queryString.PageSize);
+        }
+
+        private string CreatePreviousPageLink(QueryString queryString)
+        {
+            return queryString.Page <= 0 ? null : GetGenresUrl(queryString.Page - 1, queryString.PageSize);
+        }
+
+        private static int GetLastPage(int pageSize, int total)
+        {
+            return (int)Math.Ceiling(total / (double)pageSize) - 1;
+        }
+
         private GenreViewModel GetGenreViewModel(Genre genre)
         {
             var model = _mapper.Map<GenreViewModel>(genre);
@@ -44,9 +94,14 @@ namespace Raw5MovieDb_WebApi.Controllers
             return model;
         }
 
+        private string GetGenresUrl(int page, int pageSize)
+        {
+            return _linkGenerator.GetUriByName(HttpContext, nameof(GetGenres), new { page, pageSize });
+        }
+
         private string GetGenreUrl(Genre genre)
         {
-            return _linkGenerator.GetUriByName(HttpContext, nameof(GetGenre), new { genre.Id });
+            return _linkGenerator.GetUriByName(HttpContext, nameof(GetGenre), new { GenreId = genre.Id });
         }
     }
 }
