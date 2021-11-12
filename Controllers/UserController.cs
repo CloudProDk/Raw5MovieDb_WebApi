@@ -13,16 +13,14 @@ using Raw5MovieDb_WebApi.ViewModels;
 
 namespace Raw5MovieDb_WebApi.Controllers
 {
-    [Route("[controller]")]
+    [ApiController]
+    [Route("api/[controller]")]
     public class UserController : Controller
     {
         private readonly IDataService _dataService;
-        private readonly LinkGenerator _linkGenerator;
-        private readonly IMapper _mapper; public UserController(IDataService dataService, LinkGenerator linkGenerator, IMapper mapper)
+        public UserController(IDataService dataService)
         {
             _dataService = dataService;
-            _linkGenerator = linkGenerator;
-            _mapper = mapper;
         }
 
         /// <summary>
@@ -97,7 +95,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPut("Update")]
-        public IActionResult UpdateUser([FromQuery]UserAccount model)
+        public IActionResult UpdateUser([FromQuery] UserAccount model)
         {
             var result = _dataService.UpdateUser(model);
 
