@@ -42,7 +42,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// <returns></returns>
         [HttpGet("{uconst}")]
         public IActionResult GetUser(string uconst)
-        {   
+        {
             var user = _dataService.GetUser(uconst);
 
             if (user != null)
@@ -71,6 +71,24 @@ namespace Raw5MovieDb_WebApi.Controllers
                 Birthdate = newUser.Birthdate
             };
             return Created(nameof(GetUser), _dataService.RegisterUser(_user));
+        }
+
+        /// <summary>
+        /// Deletes a single user
+        /// </summary>
+        /// <param name="uconst"></param>
+        /// <returns></returns>
+        [HttpDelete("{uconst}")]
+        public IActionResult DeleteUser(string uconst)
+        {   
+
+            var result = _dataService.DeleteUser(uconst);
+
+            if (!result)
+            {
+                return NotFound($"There is no user corresponding to uconst: {uconst}");
+            }
+            else return Ok($"User with id {uconst} was deleted successfully");
         }
     }
 }

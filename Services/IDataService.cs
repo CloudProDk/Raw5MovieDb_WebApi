@@ -33,8 +33,8 @@ namespace Raw5MovieDb_WebApi.Services
         // User
         UserAccount GetUser(string userId);
         UserAccount RegisterUser(CreateUserAccountViewModel model);
-
         IList<UserAccount> GetAllUsers();
+        bool DeleteUser(string uconst);
 
 
         /*

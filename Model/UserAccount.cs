@@ -22,8 +22,8 @@ namespace Raw5MovieDb_WebApi.Model
 
         //public string? Token { get; set; } = "";
 
-        public List<UserRating> Ratings { get; set; }
-        public List<UserSearchHistory> SearchHistory { get; set; }
+        // public List<UserRating> Ratings { get; set; }
+        // public List<UserSearchHistory> SearchHistory { get; set; }
 
         public override string ToString()
         {

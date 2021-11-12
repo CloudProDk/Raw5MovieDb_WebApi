@@ -22,17 +22,9 @@ namespace Raw5MovieDb_WebApi
 
             var ds = new DataService();
             var ctx = new MovieDbContext();
-            var users = ds.GetAllUsers();
 
-            // System.Console.WriteLine(ctx.userAccounts.Max(x => Int32.Parse(x.Uconst)) + 1);
-            // var number = Int32.Parse(ctx.userAccounts.Max(x => x.Uconst)) + 1;
-            // System.Console.WriteLine(number + 2);
             
-            //Int32.Parse
-            foreach (var u in users)
-            {   
-                System.Console.WriteLine(u);
-            }
+
 
 
 
