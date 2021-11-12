@@ -326,5 +326,11 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.titles.FromSqlInterpolated($"SELECT * FROM word_to_word({input[0]}) NATURAL JOIN title_basics").ToList();
 
         }
+
+        public Genre GetGenre(int genreId)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.genres.FirstOrDefault(x => x.Id == genreId);
+        }
     }
 }

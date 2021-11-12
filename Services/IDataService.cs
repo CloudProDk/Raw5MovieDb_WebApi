@@ -26,6 +26,9 @@ namespace Raw5MovieDb_WebApi.Services
         int ActorsCount();
         IList<Actor> find_coplayers(string actorname);
 
+        //genre
+        Genre GetGenre(int genreId);
+
         // Bookmarkactor
 
 

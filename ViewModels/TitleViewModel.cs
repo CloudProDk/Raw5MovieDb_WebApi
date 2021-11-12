@@ -14,6 +14,6 @@ namespace Raw5MovieDb_WebApi.ViewModels
         public string Startyear { get; set; }
         public string Endyear { get; set; }
         public int Runtimeminutes { get; set; }
-        public IList<TitleGenre> Genres { get; set; }
+        public IList<GenreViewModel> GenreList { get; set; }
     }
 }
