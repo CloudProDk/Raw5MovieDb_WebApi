@@ -22,10 +22,6 @@ namespace Raw5MovieDb_WebApi.Services
         int ActorsCount();
         IList<Actor> find_coplayers(string actorname);
 
-        bool DeleteActor(string nconst);
-
-        bool UpdateActor(string nconst, string primaryname);
-
         // Bookmarkactor
         IList<BookmarkActor> GetAllActorBookmarks();
         BookmarkActor GetActorBookmark(string nconst,string uconst);
