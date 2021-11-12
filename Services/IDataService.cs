@@ -30,6 +30,7 @@ namespace Raw5MovieDb_WebApi.Services
         IList<Genre> GetGenres(QueryString queryString);
         int GenresCount();
         Genre GetGenre(int genreId);
+        IList<Title> GetTitlesByGenre(int genreId, QueryString queryString);
 
         // Bookmarkactor
 

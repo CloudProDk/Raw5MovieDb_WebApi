@@ -48,6 +48,15 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(model);
         }
 
+        [HttpGet("{genreId}/titles", Name = nameof(GetTitlesByGenre))]
+        public IActionResult GetTitlesByGenre(int genreId, [FromQuery] QueryString queryString)
+        {
+            IList<Title> titles = _dataService.GetTitlesByGenre(genreId, queryString);
+            var model = titles.Select(GetTitleViewModel);
+            var response = CreateTitlesResponseObj(genreId, model, queryString, _dataService.TitlesCount());
+            return Ok(response);
+        }
+
         /*
          *
          * Helper methods
@@ -64,6 +73,44 @@ namespace Raw5MovieDb_WebApi.Controllers
                 nextPage = CreateNextPageLink(queryString, total),
                 results = model
             };
+        }
+
+        private object CreateTitlesResponseObj(int genreId, IEnumerable<TitleViewModel> model, QueryString queryString, int total)
+        {
+            return new
+            {
+                total,
+                previousPage = CreateTitlePreviousPageLink(genreId, queryString),
+                currentPage = CreateTitleCurrentPageLink(genreId, queryString),
+                nextPage = CreateTitleNextPageLink(genreId, queryString, total),
+                results = model
+            };
+        }
+
+        private string CreateTitleNextPageLink(int genreId, QueryString queryString, int total)
+        {
+            var lastPage = GetLastPage(queryString.PageSize, total);
+            return queryString.Page >= lastPage ? null : GetTitlesUrl(genreId, queryString.Page + 1, queryString.PageSize);
+        }
+
+        private string CreateTitleCurrentPageLink(int genreId, QueryString queryString)
+        {
+            return GetTitlesUrl(genreId, queryString.Page, queryString.PageSize);
+        }
+
+        private string CreateTitlePreviousPageLink(int genreId, QueryString queryString)
+        {
+            return queryString.Page <= 0 ? null : GetTitlesUrl(genreId, queryString.Page - 1, queryString.PageSize);
+        }
+
+        private string GetTitlesUrl(int genreId, int page, int pageSize)
+        {
+            return _linkGenerator.GetUriByName(HttpContext, nameof(GetTitlesByGenre), new { genreId = genreId, page, pageSize });
+        }
+
+        private static int GetTitleLastPage(int pageSize, int total)
+        {
+            return (int)Math.Ceiling(total / (double)pageSize) - 1;
         }
 
         private string CreateNextPageLink(QueryString queryString, int total)
@@ -92,6 +139,18 @@ namespace Raw5MovieDb_WebApi.Controllers
             var model = _mapper.Map<GenreViewModel>(genre);
             model.Url = GetGenreUrl(genre);
             return model;
+        }
+
+        private TitleViewModel GetTitleViewModel(Title title)
+        {
+            var model = _mapper.Map<TitleViewModel>(title);
+            model.Url = GetTitleUrl(title);
+            return model;
+        }
+
+        private string GetTitleUrl(Title title)
+        {
+            return _linkGenerator.GetUriByName(HttpContext, nameof(TitleController.GetTitle), new { Tconst = title.Tconst.TrimEnd() });
         }
 
         private string GetGenresUrl(int page, int pageSize)
