@@ -25,12 +25,21 @@ namespace Raw5MovieDb_WebApi.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Returns all users
+        /// </summary>
+        /// <returns>201</returns>
         [HttpGet]
-        public IActionResult GetAllCategories()
+        public IActionResult GetAllUsers()
         {
             return Ok(_dataService.GetAllUsers());
         }
 
+        /// <summary>
+        /// Returns a single user
+        /// </summary>
+        /// <param name="uconst"></param>
+        /// <returns></returns>
         [HttpGet("{uconst}")]
         public IActionResult GetUser(string uconst)
         {   
@@ -46,6 +55,11 @@ namespace Raw5MovieDb_WebApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Registers a new user in the database
+        /// </summary>
+        /// <param name="newUser"></param>
+        /// <returns></returns>
         [HttpPost("Register")]
         public IActionResult RegisterUser([FromQuery] CreateUserAccountViewModel newUser)
         {
