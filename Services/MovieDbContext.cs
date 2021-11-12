@@ -5,11 +5,14 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Raw5MovieDb_WebApi.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using System.Text;
 
 namespace Raw5MovieDb_WebApi.Services
 {
     public class MovieDbContext : DbContext
-    {
+    {   
+    
         
         public DbSet<Actor> actors { get; set; }
         //public DbSet<AppSettings> appSettings { get; set; }
@@ -28,9 +31,9 @@ namespace Raw5MovieDb_WebApi.Services
         public DbSet<UserSearchHistory> userSearchHistories { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
+        {   
             base.OnConfiguring(optionsBuilder);     
-            optionsBuilder.UseNpgsql("host=rawdata.ruc.dk;db=raw5;uid=raw5;pwd=I4YpESyL");
+            optionsBuilder.UseNpgsql("host=localhost;db=northwind;uid=postgres;pwd=Palle0410");
             optionsBuilder.EnableSensitiveDataLogging();
 
         }
