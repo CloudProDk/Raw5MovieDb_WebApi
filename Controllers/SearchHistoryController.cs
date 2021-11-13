@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Raw5MovieDb_WebApi.Model;
 using Raw5MovieDb_WebApi.Services;
 
 namespace Raw5MovieDb_WebApi.Controllers
@@ -27,22 +28,33 @@ namespace Raw5MovieDb_WebApi.Controllers
         [HttpGet("{uconst}")]
         public IActionResult GetSearchHistory(string uconst)
         {
-            //TODO need get user search history
-            return Ok();
+            return Ok(_dataService.GetUserSearchHistory(uconst));
         }
-        
+
         /// <summary>
         /// Adds a searchhistory entry in the database
         /// </summary>
         /// <param name="uconst"></param>
-        /// <param name="tconst"></param>
         /// <param name="searchParam"></param>
         /// <returns></returns>
-        [HttpPost("{uconst}")]
-        public IActionResult CreateSearchHistoryEntry(string uconst, string tconst, string searchParam)
-        {
-            //TODO need get user bookmarks
-            return Ok();
+        [HttpPost]
+        public IActionResult CreateSearchHistoryEntry([FromBody] string uconst, string searchParam)
+        {   
+            UserSearchHistory searchHistory = new UserSearchHistory
+            {
+                SearchId = 0,
+                Uconst = uconst,
+                Query = searchParam
+            };
+
+            try
+            {
+                return Ok(_dataService.AddUserSearchHistory(searchHistory));
+            }
+            catch (System.Exception)
+            {
+                return NotFound($"There is no user corresponding to {uconst}");
+            }
         }
     }
 }

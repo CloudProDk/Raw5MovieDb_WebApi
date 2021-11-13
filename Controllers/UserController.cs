@@ -24,7 +24,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         }
 
         /// <summary>
-        /// Returns all users
+        /// Returns all user accounts present in the database
         /// </summary>
         /// <returns>201</returns>
         [HttpGet]
@@ -54,7 +54,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         }
 
         /// <summary>
-        /// Registers a new user in the database
+        /// Registers a new user account in the database
         /// </summary>
         /// <param name="newUser"></param>
         /// <returns></returns>
@@ -72,7 +72,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         }
 
         /// <summary>
-        /// Deletes a single user
+        /// Deletes a single user account
         /// </summary>
         /// <param name="uconst"></param>
         /// <returns></returns>
@@ -90,7 +90,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         }
 
         /// <summary>
-        /// Updates a single user
+        /// Updates a single user account
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>

@@ -14,7 +14,7 @@ namespace Raw5MovieDb_WebApi.Services
          * BOOKMARK TITLE CRUD
          * SHOULD BE DONE
          */
-        
+
 
         public IList<BookmarkTitle> GetAllTitleBookmarks(string uconst)
         {
@@ -122,7 +122,7 @@ namespace Raw5MovieDb_WebApi.Services
         public UserAccount RegisterUser(CreateUserAccountViewModel user)
         {
             var ctx = new MovieDbContext();
-            
+
             var newUser = new UserAccount
             {
                 Uconst = (Int32.Parse(ctx.userAccounts.Max(x => x.Uconst)) + 1).ToString(),
@@ -259,29 +259,6 @@ namespace Raw5MovieDb_WebApi.Services
             //return ctx.bookmarkTitles
         }
 
-
-
-        //TODO does not work, it says that it needs useraccount.uconst for some reason
-        public IList<UserRating> GetAllUserRatings()
-        {
-            var ctx = new MovieDbContext();
-            return ctx.userRatings.ToList();
-        }
-
-        //TODO for some reason, we can seem to get this to work. Neither in db or here.  LINQ VERSION BELOW
-        /*public IList<UserRating> GetUserRatingFromSpecificUser(string uconst, string tconst)
-        {
-            var ctx = new MovieDbContext();
-            return ctx.userRatings.FromSqlRaw($"SELECT * FROM get_rating({uconst},{tconst})").ToList();
-        }*/
-        public IList<UserRating> GetUserRatingFromSpecificUser(string uconst, string tconst)
-        {
-            var ctx = new MovieDbContext();
-            return ctx.userRatings.Where(x => x.Uconst == uconst && x.Tconst == tconst).ToList();
-        }
-
-
-
         //WORKS
         public IList<Title> GetPopularActorsRankedByTitles(string tconst)
         {
@@ -319,7 +296,7 @@ namespace Raw5MovieDb_WebApi.Services
         public IList<Title> WordToWord(string[] input)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.FromSqlInterpolated($"SELECT * FROM word_to_word({input[0]}) NATURAL JOIN title_basics").ToList();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM word_to_word({input}) NATURAL JOIN title_basics").ToList();
 
         }
 
@@ -331,13 +308,15 @@ namespace Raw5MovieDb_WebApi.Services
 
 
         //view popular titles
-        //får alle sammen, så skal nok limites senere henne
+        //fï¿½r alle sammen, sï¿½ skal nok limites senere henne
         public IList<TitleRating> GetPopularTitles()
         {
             var ctx = new MovieDbContext();
-            return ctx.titleRatings.FromSqlInterpolated($"SELECT * FROM title_ratings ORDER BY averagerating DESC").ToList();
+            return ctx.titleRatings.FromSqlInterpolated($"SELECT * FROM title_ratings ORDER BY averagerating DESC LIMIT 30").ToList();
         }
 
+
+        /* --------------------- User Search History ---------------------*/
 
         //view search history
         public IList<UserSearchHistory> GetUserSearchHistory(string uconst)
@@ -346,6 +325,15 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.userSearchHistories.Where(x => x.Uconst == uconst).ToList();
         }
 
+        public UserSearchHistory AddUserSearchHistory(UserSearchHistory model)
+        {
+            var ctx = new MovieDbContext();
+            model.SearchId = (Int32.Parse(ctx.userSearchHistories.Max(x => x.Uconst)) + 1);
+            ctx.Add(model);
+            ctx.SaveChanges();
+            return model;
+        }
+        /* --------------------- User Rating ---------------------*/
 
         //RATE TITLE
         //TODO: needs a check if the rating allready exists, because otherwise, one can keep rating the same movie. 
@@ -356,18 +344,15 @@ namespace Raw5MovieDb_WebApi.Services
             ctx.Add(newrating);
             ctx.SaveChanges();
             return newrating;
-
         }
 
 
 
         //Update Rating Title
-
-
         public bool UpdateTitleRating(long rating, string tconst, string uconst)
         {
             var ctx = new MovieDbContext();
-            var rat = ctx.userRatings.Find(rating,tconst, uconst);
+            var rat = ctx.userRatings.Find(rating, tconst, uconst);
 
             if (rat != null)
             {
@@ -377,6 +362,27 @@ namespace Raw5MovieDb_WebApi.Services
                 return ctx.SaveChanges() > 0;
             }
             else return false;
+        }
+
+        /* -------------------- User Rating --------------------*/
+
+        //TODO does not work, it says that it needs useraccount.uconst for some reason
+        public IList<UserRating> GetAllUserRatings(string uconst)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.userRatings.Where(u => u.Uconst == uconst).ToList();
+        }
+
+        //TODO for some reason, we can seem to get this to work. Neither in db or here.  LINQ VERSION BELOW
+        /*public IList<UserRating> GetUserRatingFromSpecificUser(string uconst, string tconst)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.userRatings.FromSqlRaw($"SELECT * FROM get_rating({uconst},{tconst})").ToList();
+        }*/
+        public IList<UserRating> GetUserRatingFromSpecificUser(string uconst, string tconst)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.userRatings.Where(x => x.Uconst == uconst && x.Tconst == tconst).ToList();
         }
 
 
