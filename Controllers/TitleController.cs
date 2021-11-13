@@ -46,6 +46,7 @@ namespace Raw5MovieDb_WebApi.Controllers
             }
 
             var model = GetTitleViewModel(title);
+            model.GenreList = title.Genres.Select(x => GetGenreViewModel(x.Genre)).ToList();
             return Ok(model);
         }
 
@@ -63,13 +64,13 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(model);
         }
 
-        [HttpGet("popular")]
-        public IActionResult GetPopularTitles()
-        {
-            IList<Title> titles = _dataService.GetPopularTitles();
-            var model = titles.Select(GetTitleViewModel);
-            return Ok(model);
-        }
+        //[HttpGet("popular")]
+        //public IActionResult GetPopularTitles()
+        //{
+        //    IList<Title> titles = _dataService.GetPopularTitles();
+        //    var model = titles.Select(GetTitleViewModel);
+        //    return Ok(model);
+        //}
 
         [HttpGet("search")]
         public IActionResult FindTitle([FromQuery] QueryString queryString)
@@ -148,13 +149,25 @@ namespace Raw5MovieDb_WebApi.Controllers
         private TitleViewModel GetTitleViewModel(Title title)
         {
             var model = _mapper.Map<TitleViewModel>(title);
-            model.Url = GetUrl(title);
+            model.Url = GetTitleUrl(title);
             return model;
         }
 
-        private string GetUrl(Title title)
+        private GenreViewModel GetGenreViewModel(Genre genre)
+        {
+            var model = _mapper.Map<GenreViewModel>(genre);
+            model.Url = GetGenreUrl(genre);
+            return model;
+        }
+
+        private string GetTitleUrl(Title title)
         {
             return _linkGenerator.GetUriByName(HttpContext, nameof(GetTitle), new { Tconst = title.Tconst.TrimEnd() });
+        }
+
+        private string GetGenreUrl(Genre genre)
+        {
+            return _linkGenerator.GetUriByName(HttpContext, nameof(GenreController.GetGenre), new { GenreId = genre.Id });
         }
     }
 }
