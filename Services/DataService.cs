@@ -318,9 +318,16 @@ namespace Raw5MovieDb_WebApi.Services
         //works
         public IList<Title> WordToWord(string[] input)
         {
-            var ctx = new MovieDbContext();
-            return ctx.titles.FromSqlInterpolated($"SELECT * FROM word_to_word({input[0]}) NATURAL JOIN title_basics").ToList();
+            var format = "";
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (i > 0) format += ",";
+                format += "\'{" + i + "}\'";
+            }
 
+            var variadic = string.Format(format, input);
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlRaw($"SELECT * FROM word_to_word({variadic}) NATURAL JOIN title_basics ORDER BY rank DESC").ToList(); // Likely exposed to some serious SQL Injection :s
         }
 
         public IList<Genre> GetGenres(QueryString queryString)

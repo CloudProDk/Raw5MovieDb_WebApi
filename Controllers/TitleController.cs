@@ -86,16 +86,15 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(model);
         }
 
-        [HttpGet("searchadv")]
-        public IActionResult FindTitleAdv([FromQuery] QueryString queryString)
+        [HttpGet("ratedsearch")]
+        public IActionResult FindTitleWordToWord([FromQuery] string[] query)
         {
-            if (queryString.SearchQuery == null || queryString.SearchQuery == "")
+            if (query == null || query.Count() == 0)
             {
                 return new JsonResult(new EmptyResult());
             }
 
-            string[] words = { queryString.SearchQuery };
-            IList<Title> titles = _dataService.WordToWord(words);
+            IList<Title> titles = _dataService.WordToWord(query);
 
             var model = titles.Select(GetTitleViewModel);
             return Ok(model);
