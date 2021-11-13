@@ -211,7 +211,7 @@ namespace Raw5MovieDb_WebApi.Services
         public Title GetTitle(string tconst)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.FirstOrDefault(x => x.Tconst == tconst);
+            return ctx.titles.Include(title => title.Genres).ThenInclude(titlegenre => titlegenre.Genre).FirstOrDefault(x => x.Tconst == tconst);
         }
         //TODO: not implementet
 
@@ -300,6 +300,35 @@ namespace Raw5MovieDb_WebApi.Services
 
         }
 
+        public IList<Genre> GetGenres(QueryString queryString)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.genres.Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize).ToList();
+        }
+
+        public Genre GetGenre(int genreId)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.genres.FirstOrDefault(x => x.Id == genreId);
+        }
+
+        public int GenresCount()
+        {
+            var ctx = new MovieDbContext();
+            return ctx.genres.Count();
+        }
+
+        public IList<Title> GetTitlesByGenre(int genreId, QueryString queryString)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM get_titles_by_genre({genreId}, {queryString.Page}, {queryString.PageSize})").ToList();
+        }
+
+        public int TitlesByGenreCount(int genreId)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlInterpolated($"SELECT tconst FROM get_titles_by_genre({genreId}, 0, 99999999)").Count();
+        }
 
         //browse titles by genre
         //latest titles
@@ -336,7 +365,7 @@ namespace Raw5MovieDb_WebApi.Services
         /* --------------------- User Rating ---------------------*/
 
         //RATE TITLE
-        //TODO: needs a check if the rating allready exists, because otherwise, one can keep rating the same movie. 
+        //TODO: needs a check if the rating allready exists, because otherwise, one can keep rating the same movie.
         public UserRating CreateTitleRating(long rating, string tconst, string uconst)
         {
             var ctx = new MovieDbContext();

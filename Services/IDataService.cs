@@ -16,6 +16,7 @@ namespace Raw5MovieDb_WebApi.Services
         int TitlesCount();
         IList<Title> StringSearch(string searchparams, string userid);
         IList<Title> WordToWord(string[] input);
+        IList<TitleRating> GetPopularTitles();
 
 
         /* ------------------------- Actor ------------------------- */
@@ -24,7 +25,17 @@ namespace Raw5MovieDb_WebApi.Services
         IList<Actor> StructuredNameSearch(string input);
         int ActorsCount();
         IList<Actor> find_coplayers(string actorname);
+
         IList<TitleRating> GetPopularTitles();
+
+        //genre
+        IList<Genre> GetGenres(QueryString queryString);
+        int GenresCount();
+        Genre GetGenre(int genreId);
+        IList<Title> GetTitlesByGenre(int genreId, QueryString queryString);
+        int TitlesByGenreCount(int genreId);
+
+        // Bookmarkactor
 
          /* ------------------------- Bookmark Actor ------------------------- */
 
@@ -52,5 +63,6 @@ namespace Raw5MovieDb_WebApi.Services
         
         IList<UserSearchHistory> GetUserSearchHistory(string uconst);
         UserSearchHistory AddUserSearchHistory(UserSearchHistory model);
+
     }
 }
