@@ -205,13 +205,13 @@ namespace Raw5MovieDb_WebApi.Services
         public IList<Title> GetTitles(QueryString queryString)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize).ToList();
+            return ctx.titles.Include(x => x.TitleRating).Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize).ToList();
         }
         //linq
         public Title GetTitle(string tconst)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.Include(title => title.Genres).ThenInclude(titlegenre => titlegenre.Genre).FirstOrDefault(x => x.Tconst == tconst);
+            return ctx.titles.Include(title => title.Genres).ThenInclude(titlegenre => titlegenre.Genre).Include(x => x.TitleRating).FirstOrDefault(x => x.Tconst == tconst);
         }
         //TODO: not implementet
 
@@ -361,10 +361,10 @@ namespace Raw5MovieDb_WebApi.Services
 
         //view popular titles
         //f�r alle sammen, s� skal nok limites senere henne
-        public IList<TitleRating> GetPopularTitles()
+        public IList<Title> GetPopularTitles()
         {
             var ctx = new MovieDbContext();
-            return ctx.titleRatings.FromSqlInterpolated($"SELECT * FROM title_ratings ORDER BY averagerating DESC").ToList();
+            return ctx.titles.Include(x => x.TitleRating).OrderByDescending(x => x.TitleRating.Averagerating * x.TitleRating.Numvotes).Take(25).ToList();
         }
 
 

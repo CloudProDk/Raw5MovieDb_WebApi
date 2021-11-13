@@ -64,13 +64,13 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(model);
         }
 
-        //[HttpGet("popular")]
-        //public IActionResult GetPopularTitles()
-        //{
-        //    IList<Title> titles = _dataService.GetPopularTitles();
-        //    var model = titles.Select(GetTitleViewModel);
-        //    return Ok(model);
-        //}
+        [HttpGet("popular")]
+        public IActionResult GetPopularTitles()
+        {
+            IList<Title> titles = _dataService.GetPopularTitles();
+            var model = titles.Select(GetTitleViewModel);
+            return Ok(model);
+        }
 
         [HttpGet("search")]
         public IActionResult FindTitle([FromQuery] QueryString queryString)
@@ -150,6 +150,13 @@ namespace Raw5MovieDb_WebApi.Controllers
         {
             var model = _mapper.Map<TitleViewModel>(title);
             model.Url = GetTitleUrl(title);
+            model.ImdbRating = GetTitleRatingViewModel(title.TitleRating);
+            return model;
+        }
+
+        private TitleRatingViewModel GetTitleRatingViewModel(TitleRating titleRating)
+        {
+            var model = _mapper.Map<TitleRatingViewModel>(titleRating);
             return model;
         }
 

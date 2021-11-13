@@ -12,12 +12,14 @@ namespace Raw5MovieDb_WebApi.Model
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [JsonProperty("tconst")]
-        public string Tconst { get; set; }
+        public string TitleRatingTconst { get; set; }
 
         [JsonProperty("averagerating")]
         public long Averagerating { get; set; }
 
         [JsonProperty("numvotes")]
         public long Numvotes { get; set; }
+
+        public Title Title { get; set; }
     }
 }
