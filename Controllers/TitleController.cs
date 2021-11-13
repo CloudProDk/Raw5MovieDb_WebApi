@@ -64,6 +64,7 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(model);
         }
 
+
         //[HttpGet("popular")]
         //public IActionResult GetPopularTitles()
         //{

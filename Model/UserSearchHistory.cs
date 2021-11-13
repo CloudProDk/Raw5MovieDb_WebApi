@@ -12,7 +12,7 @@ namespace Raw5MovieDb_WebApi.Model
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [JsonProperty("search_id")]
-        public long SearchId { get; set; }
+        public int SearchId { get; set; }
 
         [JsonProperty("query")]
         public string Query { get; set; }

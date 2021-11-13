@@ -9,7 +9,7 @@ namespace Raw5MovieDb_WebApi.Services
     public interface IDataService
     {
 
-        //title
+        /* ------------------------- Title ------------------------- */
         IList<Title> GetTitles(QueryString queryString);
         Title GetTitle(string tconst);
         IList<Title> FindSimilarSearch(string tconst);
@@ -19,12 +19,14 @@ namespace Raw5MovieDb_WebApi.Services
         IList<TitleRating> GetPopularTitles();
 
 
-        //actor
+        /* ------------------------- Actor ------------------------- */
         IList<Actor> GetActors(QueryString queryString);
         Actor GetActor(string nconst);
         IList<Actor> StructuredNameSearch(string input);
         int ActorsCount();
         IList<Actor> find_coplayers(string actorname);
+
+        IList<TitleRating> GetPopularTitles();
 
         //genre
         IList<Genre> GetGenres(QueryString queryString);
@@ -37,34 +39,30 @@ namespace Raw5MovieDb_WebApi.Services
 
          /* ------------------------- Bookmark Actor ------------------------- */
 
-
         IList<BookmarkActor> GetAllActorBookmarks(string uconst);
         BookmarkActor GetActorBookmark(string nconst,string uconst);
         BookmarkActor AddActorBookmark(string nconst, string uconst);
         bool DeleteActorBookmark(string uconst, string nconst);
 
-
         /* ------------------------- Bookmark Title ------------------------- */
+
         // BookmarkTitle GetBookmarkTitle(string tconst, string uconst);
         IList<BookmarkTitle> GetAllTitleBookmarks(string uconst);
         BookmarkTitle AddTitleBookmark(string tconst, string uconst);
         bool DeleteTitleBookmark(string tconst, string uconst);
 
-        // User
+        /* ------------------------- User ------------------------- */
+
         UserAccount GetUser(string userId);
         UserAccount RegisterUser(CreateUserAccountViewModel model);
         IList<UserAccount> GetAllUsers();
         bool DeleteUser(string uconst);
-
         bool UpdateUser(UserAccount model);
 
-
-
-
-
-        // bool AddActorBookmark(Actor actor, UserAccount user);
-        // bool DeleteActorBookmark(Actor actor, UserAccount user);
-
+        /* ------------------------- Search History ------------------------- */
+        
+        IList<UserSearchHistory> GetUserSearchHistory(string uconst);
+        UserSearchHistory AddUserSearchHistory(UserSearchHistory model);
 
     }
 }
