@@ -14,12 +14,12 @@ namespace Raw5MovieDb_WebApi.Services
          * BOOKMARK TITLE CRUD
          * SHOULD BE DONE
          */
-        
 
-        public IList<BookmarkTitle> GetAllBookmarkTitles()
+
+        public IList<BookmarkTitle> GetAllTitleBookmarks(string uconst)
         {
             var ctx = new MovieDbContext();
-            return ctx.bookmarkTitles.ToList();
+            return ctx.bookmarkTitles.Where(b => b.Uconst == uconst).ToList();
         }
 
         public BookmarkTitle GetBookmarkTitle(string uconst, string tconst)
@@ -28,28 +28,27 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.bookmarkTitles.Find(uconst, tconst);
         }
 
-        //TODO test this, not sure if the right output comes
         public BookmarkTitle AddTitleBookmark(string tconst, string uconst)
         {
             var ctx = new MovieDbContext();
-            var act = new BookmarkTitle
+            var bm = new BookmarkTitle
             {
-                Tconst = ctx.bookmarkTitles.Max(x => x.Tconst) + 1,
+                Tconst = tconst,
                 Uconst = uconst
             };
-            ctx.Add(act);
+            ctx.Add(bm);
             ctx.SaveChanges();
-            return act;
+            return bm;
         }
 
         public bool DeleteTitleBookmark(string tconst, string uconst)
         {
             var ctx = new MovieDbContext();
-            var act = ctx.bookmarkTitles.Find(tconst, uconst);
+            var bm = ctx.bookmarkTitles.Find(tconst, uconst);
 
-            if (act != null)
+            if (bm != null)
             {
-                ctx.bookmarkTitles.Remove(act);
+                ctx.bookmarkTitles.Remove(bm);
                 return ctx.SaveChanges() > 0;
             }
             else return false;
@@ -62,10 +61,10 @@ namespace Raw5MovieDb_WebApi.Services
          * SHOULD BE DONE
          */
 
-        public IList<BookmarkActor> GetAllActorBookmarks()
+        public IList<BookmarkActor> GetAllActorBookmarks(string uconst)
         {
             var ctx = new MovieDbContext();
-            return ctx.bookmarkActors.ToList();
+            return ctx.bookmarkActors.Where(b => b.Uconst == uconst).ToList();
         }
 
         public BookmarkActor GetActorBookmark(string uconst, string nconst)
@@ -74,28 +73,27 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.bookmarkActors.Find(uconst, nconst);
         }
 
-        //TODO test this, not sure if works
-        public BookmarkActor AddActorBookmark(string uconst, string nconst)
+        public BookmarkActor AddActorBookmark(string nconst, string uconst)
         {
             var ctx = new MovieDbContext();
-            var act = new BookmarkActor
+            var bm = new BookmarkActor
             {
-                Nconst = ctx.bookmarkActors.Max(x => x.Nconst) + 1,
+                Nconst = nconst,
                 Uconst = uconst
             };
-            ctx.Add(act);
+            ctx.Add(bm);
             ctx.SaveChanges();
-            return act;
+            return bm;
         }
 
         public bool DeleteActorBookmark(string uconst, string nconst)
         {
             var ctx = new MovieDbContext();
-            var act = ctx.bookmarkActors.Find(nconst, uconst);
+            var bm = ctx.bookmarkActors.Find(nconst, uconst);
 
-            if (act != null)
+            if (bm != null)
             {
-                ctx.bookmarkActors.Remove(act);
+                ctx.bookmarkActors.Remove(bm);
                 return ctx.SaveChanges() > 0;
             }
             else return false;
@@ -124,7 +122,7 @@ namespace Raw5MovieDb_WebApi.Services
         public UserAccount RegisterUser(CreateUserAccountViewModel user)
         {
             var ctx = new MovieDbContext();
-            
+
             var newUser = new UserAccount
             {
                 Uconst = (Int32.Parse(ctx.userAccounts.Max(x => x.Uconst)) + 1).ToString(),
@@ -216,10 +214,7 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.titles.Include(title => title.Genres).ThenInclude(titlegenre => titlegenre.Genre).FirstOrDefault(x => x.Tconst == tconst);
         }
         //TODO: not implementet
-        public IList<Title> GetPopularTitles()
-        {
-            throw new NotImplementedException();
-        }
+
 
         public int TitlesCount()
         {
@@ -257,10 +252,11 @@ namespace Raw5MovieDb_WebApi.Services
             return ctx.titles.FromSqlInterpolated($"SELECT * FROM find_similar({tconst}) NATURAL JOIN title_basics LIMIT 100").ToList();
         }
         //TODO; not done, not a bookmark title, it is both a bookmark title and bookmark actor
-        public IList<BookmarkTitle> GetAllBookmarksByUser(string userid)
+        public IList<BookmarkTitle> GetAllTitleBookmarksByUser(string uconst)
         {
             var ctx = new MovieDbContext();
-            return ctx.bookmarkTitles.FromSqlInterpolated($"SELECT * FROM get_all_bookmarks_from_user({userid})     ").ToList();
+            return ctx.bookmarkTitles.FromSqlInterpolated($"SELECT * FROM get_all_bookmarks_from_user({uconst})").ToList();
+            //return ctx.bookmarkTitles
         }
 
 
@@ -356,5 +352,62 @@ namespace Raw5MovieDb_WebApi.Services
             var ctx = new MovieDbContext();
             return ctx.titles.FromSqlInterpolated($"SELECT tconst FROM get_titles_by_genre({genreId}, 0, 99999999)").Count();
         }
+
+        //browse titles by genre
+        //latest titles
+
+
+
+
+        //view popular titles
+        //f�r alle sammen, s� skal nok limites senere henne
+        public IList<TitleRating> GetPopularTitles()
+        {
+            var ctx = new MovieDbContext();
+            return ctx.titleRatings.FromSqlInterpolated($"SELECT * FROM title_ratings ORDER BY averagerating DESC").ToList();
+        }
+
+
+        //view search history
+        public IList<UserSearchHistory> GetUserSearchHistory(string uconst)
+        {
+            var ctx = new MovieDbContext();
+            return ctx.userSearchHistories.Where(x => x.Uconst == uconst).ToList();
+        }
+
+
+        //RATE TITLE
+        //TODO: needs a check if the rating allready exists, because otherwise, one can keep rating the same movie.
+        public UserRating CreateTitleRating(long rating, string tconst, string uconst)
+        {
+            var ctx = new MovieDbContext();
+            var newrating = new UserRating { Rating = rating, Tconst = tconst, Uconst = uconst };
+            ctx.Add(newrating);
+            ctx.SaveChanges();
+            return newrating;
+
+        }
+
+
+
+        //Update Rating Title
+
+
+        public bool UpdateTitleRating(long rating, string tconst, string uconst)
+        {
+            var ctx = new MovieDbContext();
+            var rat = ctx.userRatings.Find(rating,tconst, uconst);
+
+            if (rat != null)
+            {
+                rat.Rating = rating;
+                rat.Tconst = tconst;
+                rat.Uconst = uconst;
+                return ctx.SaveChanges() > 0;
+            }
+            else return false;
+        }
+
+
     }
 }

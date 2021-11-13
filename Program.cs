@@ -22,8 +22,15 @@ namespace Raw5MovieDb_WebApi
 
             var ds = new DataService();
             var ctx = new MovieDbContext();
-
             
+            ds.DeleteActorBookmark("1", "nm2833279");
+
+            // var user = ctx.userAccounts.Find("2");
+            // System.Console.WriteLine(ctx.userAccounts.Find("2"));
+            // user.Uconst = user.Uconst.Trim();
+            // System.Console.WriteLine(user.Uconst.Count());
+            // ctx.userAccounts.Remove(user);
+            // ctx.SaveChanges();
 
 
 

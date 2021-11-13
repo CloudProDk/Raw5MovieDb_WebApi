@@ -13,7 +13,6 @@ namespace Raw5MovieDb_WebApi.Services
         IList<Title> GetTitles(QueryString queryString);
         Title GetTitle(string tconst);
         IList<Title> FindSimilarSearch(string tconst);
-        IList<Title> GetPopularTitles();
         int TitlesCount();
         IList<Title> StringSearch(string searchparams, string userid);
         IList<Title> WordToWord(string[] input);
@@ -35,10 +34,20 @@ namespace Raw5MovieDb_WebApi.Services
 
         // Bookmarkactor
 
+         /* ------------------------- Bookmark Actor ------------------------- */
 
-        IList<BookmarkActor> GetAllActorBookmarks();
+
+        IList<BookmarkActor> GetAllActorBookmarks(string uconst);
         BookmarkActor GetActorBookmark(string nconst,string uconst);
+        BookmarkActor AddActorBookmark(string nconst, string uconst);
+        bool DeleteActorBookmark(string uconst, string nconst);
 
+
+        /* ------------------------- Bookmark Title ------------------------- */
+        // BookmarkTitle GetBookmarkTitle(string tconst, string uconst);
+        IList<BookmarkTitle> GetAllTitleBookmarks(string uconst);
+        BookmarkTitle AddTitleBookmark(string tconst, string uconst);
+        bool DeleteTitleBookmark(string tconst, string uconst);
 
         // User
         UserAccount GetUser(string userId);
@@ -48,13 +57,13 @@ namespace Raw5MovieDb_WebApi.Services
 
         bool UpdateUser(UserAccount model);
 
-        /*
-        bool AddTitleBookmark(Title title, UserAccount user);
-        bool DeleteTitleBookmark(Title title, UserAccount user);
 
-        bool AddActorBookmark(Actor actor, UserAccount user);
-        bool DeleteActorBookmark(Actor actor, UserAccount user);
-        */
+
+
+
+        // bool AddActorBookmark(Actor actor, UserAccount user);
+        // bool DeleteActorBookmark(Actor actor, UserAccount user);
+
 
     }
 }
