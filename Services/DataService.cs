@@ -283,10 +283,10 @@ namespace Raw5MovieDb_WebApi.Services
 
 
         //WORKS
-        public IList<Title> GetPopularActorsRankedByTitles(string tconst)
+        public IList<Actor> GetPopularActorsRankedByTitle(string tconst)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.FromSqlInterpolated($"SELECT * FROM popular_actors_ranked_by_movie({tconst}) NATURAL JOIN title_basics NATURAL JOIN name_basics NATURAL JOIN title_principals").ToList();
+            return ctx.actors.FromSqlInterpolated($"SELECT * FROM popular_actors_ranked_by_movie({tconst}) NATURAL JOIN title_basics NATURAL JOIN name_basics NATURAL JOIN title_principals").ToList();
         }
 
 

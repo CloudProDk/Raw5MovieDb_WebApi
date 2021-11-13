@@ -7,6 +7,7 @@ namespace Raw5MovieDb_WebApi.ViewModels
     public class TitleViewModel
     {
         public string Url { get; set; }
+        public string Actors { get; set; }
         public string Titletype { get; set; }
         public string Primarytitle { get; set; }
         public string Originaltitle { get; set; }

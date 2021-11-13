@@ -36,5 +36,10 @@ namespace Raw5MovieDb_WebApi.Model
         {
             
         }
+
+        public override string ToString()
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
     }
 }
