@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
@@ -27,6 +28,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// Returns all user accounts present in the database
         /// </summary>
         /// <returns>201</returns>
+        [Authorize]
         [HttpGet]
         public IActionResult GetAllUsers()
         {
@@ -38,6 +40,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// </summary>
         /// <param name="uconst"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet("{uconst}")]
         public IActionResult GetUser(string uconst)
         {
@@ -58,10 +61,11 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// </summary>
         /// <param name="newUser"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpPost("Register")]
-        public IActionResult RegisterUser([FromQuery] CreateUserAccountViewModel newUser)
+        public IActionResult RegisterUser([FromQuery] UserAccount newUser)
         {
-            var _user = new CreateUserAccountViewModel
+            var _user = new UserAccount
             {
                 Email = newUser.Email,
                 UserName = newUser.UserName,
@@ -76,6 +80,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// </summary>
         /// <param name="uconst"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpDelete("{uconst}")]
         public IActionResult DeleteUser(string uconst)
         {
@@ -94,6 +99,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpPut("Update")]
         public IActionResult UpdateUser([FromQuery] UserAccount model)
         {

@@ -20,8 +20,6 @@ namespace Raw5MovieDb_WebApi.Model
 
         public string Password { get; set; }
 
-        //public string? Token { get; set; } = "";
-
         // public List<UserRating> Ratings { get; set; }
         // public List<UserSearchHistory> SearchHistory { get; set; }
 

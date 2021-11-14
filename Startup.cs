@@ -18,6 +18,7 @@ using Raw5MovieDb_WebApi.Model;
 using Raw5MovieDb_WebApi.Services;
 using System.Reflection;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Raw5MovieDb_WebApi
 {
@@ -50,7 +51,37 @@ namespace Raw5MovieDb_WebApi
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = @"JWT Authorization header using the Bearer scheme. <br /><br /> 
+                      Enter 'Bearer' [space] and then your token in the text input below.
+                      <br />Example: 'Bearer 12345abcdef'",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+      {
+        {
+          new OpenApiSecurityScheme
+          {
+            Reference = new OpenApiReference
+              {
+                Type = ReferenceType.SecurityScheme,
+                Id = "Bearer"
+              },
+              Scheme = "oauth2",
+              Name = "Bearer",
+              In = ParameterLocation.Header,
+
+            },
+            new List<string>()
+          }
+        });
             });
+
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
@@ -79,6 +110,17 @@ namespace Raw5MovieDb_WebApi
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSingleton<IDataService, DataService>();
+
+            services.AddAuthorization(options =>
+                {
+                    var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder(
+                        JwtBearerDefaults.AuthenticationScheme);
+
+                    defaultAuthorizationPolicyBuilder =
+                        defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
+
+                    options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -96,6 +138,7 @@ namespace Raw5MovieDb_WebApi
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Raw5MovieDb_WebApi.Model;
@@ -25,6 +26,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// </summary>
         /// <param name="uconst"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet("{uconst}")]
         public IActionResult GetSearchHistory(string uconst)
         {
@@ -37,6 +39,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// <param name="uconst"></param>
         /// <param name="searchParam"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpPost]
         public IActionResult CreateSearchHistoryEntry([FromBody] string uconst, string searchParam)
         {   

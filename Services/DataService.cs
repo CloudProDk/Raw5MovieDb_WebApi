@@ -9,11 +9,8 @@ namespace Raw5MovieDb_WebApi.Services
 {
     public class DataService : IDataService
     {
-        /*
-         *
-         * BOOKMARK TITLE CRUD
-         * SHOULD BE DONE
-         */
+
+        //TODO Clean up data service
 
 
         public IList<BookmarkTitle> GetAllTitleBookmarks(string uconst)
@@ -104,8 +101,6 @@ namespace Raw5MovieDb_WebApi.Services
 
 
         //User methods
-
-
         public UserAccount GetUser(string uconst)
         {
             var ctx = new MovieDbContext();
@@ -115,11 +110,10 @@ namespace Raw5MovieDb_WebApi.Services
         public IList<UserAccount> GetAllUsers()
         {
             var ctx = new MovieDbContext();
-            //return ctx.userAccountss.FromSqlInterpolated($"SELECT * FROM get_all_users()").ToList();
             return ctx.userAccounts.ToList();
         }
 
-        public UserAccount RegisterUser(CreateUserAccountViewModel user)
+        public UserAccount RegisterUser(UserAccount user)
         {
             var ctx = new MovieDbContext();
 
@@ -364,36 +358,43 @@ namespace Raw5MovieDb_WebApi.Services
         }
         /* --------------------- User Rating ---------------------*/
 
-        //RATE TITLE
-        //TODO: needs a check if the rating allready exists, because otherwise, one can keep rating the same movie.
-        public UserRating CreateTitleRating(long rating, string tconst, string uconst)
+        public UserRating GetTitleRating(string uconst, string tconst)
         {
             var ctx = new MovieDbContext();
+            return ctx.userRatings.FirstOrDefault(x => x.Uconst == uconst && x.Tconst == tconst);
+        }
+
+        public bool CreateTitleRating(long rating, string tconst, string uconst)
+        {
+            var ctx = new MovieDbContext();
+            var rat = ctx.userRatings.FirstOrDefault(x => x.Uconst == uconst && x.Tconst == tconst);
             var newrating = new UserRating { Rating = rating, Tconst = tconst, Uconst = uconst };
-            ctx.Add(newrating);
-            ctx.SaveChanges();
-            return newrating;
+            if (rat == null)
+            {
+                ctx.Add(newrating);
+                ctx.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
 
 
-        //Update Rating Title
         public bool UpdateTitleRating(long rating, string tconst, string uconst)
         {
             var ctx = new MovieDbContext();
-            var rat = ctx.userRatings.Find(rating, tconst, uconst);
+            var rat = ctx.userRatings.FirstOrDefault(x => x.Uconst == uconst && x.Tconst == tconst);
 
             if (rat != null)
             {
                 rat.Rating = rating;
-                rat.Tconst = tconst;
-                rat.Uconst = uconst;
+                rat.Tconst = rat.Tconst;
+                rat.Uconst = rat.Uconst;
                 return ctx.SaveChanges() > 0;
             }
             else return false;
         }
-
-        /* -------------------- User Rating --------------------*/
+        
 
         //TODO does not work, it says that it needs useraccount.uconst for some reason
         public IList<UserRating> GetAllUserRatings(string uconst)
@@ -401,19 +402,5 @@ namespace Raw5MovieDb_WebApi.Services
             var ctx = new MovieDbContext();
             return ctx.userRatings.Where(u => u.Uconst == uconst).ToList();
         }
-
-        //TODO for some reason, we can seem to get this to work. Neither in db or here.  LINQ VERSION BELOW
-        /*public IList<UserRating> GetUserRatingFromSpecificUser(string uconst, string tconst)
-        {
-            var ctx = new MovieDbContext();
-            return ctx.userRatings.FromSqlRaw($"SELECT * FROM get_rating({uconst},{tconst})").ToList();
-        }*/
-        public IList<UserRating> GetUserRatingFromSpecificUser(string uconst, string tconst)
-        {
-            var ctx = new MovieDbContext();
-            return ctx.userRatings.Where(x => x.Uconst == uconst && x.Tconst == tconst).ToList();
-        }
-
-
     }
 }
