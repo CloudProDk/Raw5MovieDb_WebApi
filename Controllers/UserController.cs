@@ -61,7 +61,6 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// </summary>
         /// <param name="newUser"></param>
         /// <returns></returns>
-        [Authorize]
         [HttpPost("Register")]
         public IActionResult RegisterUser([FromQuery] UserAccount newUser)
         {
