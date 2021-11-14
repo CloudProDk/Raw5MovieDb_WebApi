@@ -36,5 +36,12 @@ namespace Raw5MovieDb_WebApi.Model
         public int? Runtimeminutes { get; set; }
 
         public IList<TitleGenre> Genres { get; set; }
+
+        public TitleRating TitleRating { get; set; }
+
+        public override string ToString()
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
     }
 }

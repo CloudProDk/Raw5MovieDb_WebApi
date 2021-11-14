@@ -7,6 +7,7 @@ namespace Raw5MovieDb_WebApi.ViewModels
     public class TitleViewModel
     {
         public string Url { get; set; }
+        public string Actors { get; set; }
         public string Titletype { get; set; }
         public string Primarytitle { get; set; }
         public string Originaltitle { get; set; }
@@ -15,5 +16,6 @@ namespace Raw5MovieDb_WebApi.ViewModels
         public string Endyear { get; set; }
         public int Runtimeminutes { get; set; }
         public IList<GenreViewModel> GenreList { get; set; }
+        public TitleRatingViewModel ImdbRating { get; set; }
     }
 }

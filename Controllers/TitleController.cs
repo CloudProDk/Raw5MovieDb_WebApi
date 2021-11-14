@@ -64,14 +64,13 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(model);
         }
 
-
-        //[HttpGet("popular")]
-        //public IActionResult GetPopularTitles()
-        //{
-        //    IList<Title> titles = _dataService.GetPopularTitles();
-        //    var model = titles.Select(GetTitleViewModel);
-        //    return Ok(model);
-        //}
+        [HttpGet("popular")]
+        public IActionResult GetPopularTitles()
+        {
+            IList<Title> titles = _dataService.GetPopularTitles();
+            var model = titles.Select(GetTitleViewModel);
+            return Ok(model);
+        }
 
         [HttpGet("search")]
         public IActionResult FindTitle([FromQuery] QueryString queryString)
@@ -87,21 +86,28 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(model);
         }
 
-        [HttpGet("searchadv")]
-        public IActionResult FindTitleAdv([FromQuery] QueryString queryString)
+        [HttpGet("ratedsearch")]
+        public IActionResult FindTitleWordToWord([FromQuery] string[] query)
         {
-            if (queryString.SearchQuery == null || queryString.SearchQuery == "")
+            if (query == null || query.Count() == 0)
             {
                 return new JsonResult(new EmptyResult());
             }
 
-            string[] words = { queryString.SearchQuery };
-            IList<Title> titles = _dataService.WordToWord(words);
+            IList<Title> titles = _dataService.WordToWord(query);
 
             var model = titles.Select(GetTitleViewModel);
             return Ok(model);
         }
 
+        [HttpGet("{tconst}/actors", Name = nameof(GetTitleActors))]
+        public IActionResult GetTitleActors(string tconst)
+        {
+            IList<Actor> actors = _dataService.GetPopularActorsRankedByTitle(tconst);
+
+            var model = actors.Select(GetActorViewModel);
+            return Ok(model);
+        }
 
         /*
          *
@@ -151,6 +157,14 @@ namespace Raw5MovieDb_WebApi.Controllers
         {
             var model = _mapper.Map<TitleViewModel>(title);
             model.Url = GetTitleUrl(title);
+            model.Actors = GetTitleActorsUrl(title);
+            model.ImdbRating = GetTitleRatingViewModel(title.TitleRating);
+            return model;
+        }
+
+        private TitleRatingViewModel GetTitleRatingViewModel(TitleRating titleRating)
+        {
+            var model = _mapper.Map<TitleRatingViewModel>(titleRating);
             return model;
         }
 
@@ -169,6 +183,23 @@ namespace Raw5MovieDb_WebApi.Controllers
         private string GetGenreUrl(Genre genre)
         {
             return _linkGenerator.GetUriByName(HttpContext, nameof(GenreController.GetGenre), new { GenreId = genre.Id });
+        }
+
+        private ActorViewModel GetActorViewModel(Actor actor)
+        {
+            var model = _mapper.Map<ActorViewModel>(actor);
+            model.Url = GetActorUrl(actor);
+            return model;
+        }
+
+        private string GetActorUrl(Actor actor)
+        {
+            return _linkGenerator.GetUriByName(HttpContext, nameof(ActorController.GetActor), new { Nconst = actor.Nconst.TrimEnd() });
+        }
+
+        private string GetTitleActorsUrl(Title title)
+        {
+            return _linkGenerator.GetUriByName(HttpContext, nameof(GetTitleActors), new { Tconst = title.Tconst.TrimEnd() });
         }
     }
 }

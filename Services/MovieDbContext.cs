@@ -120,9 +120,10 @@ namespace Raw5MovieDb_WebApi.Services
             modelBuilder.Entity<TitlePrincipals>().Property(x => x.Characters).HasColumnName("characters");
 
             modelBuilder.Entity<TitleRating>().ToTable("title_ratings");
+            modelBuilder.Entity<TitleRating>().HasOne(x => x.Title).WithOne(x => x.TitleRating).HasForeignKey<Title>(x => x.Tconst);
+            modelBuilder.Entity<TitleRating>().Property(x => x.TitleRatingTconst).HasColumnName("tconst");
             modelBuilder.Entity<TitleRating>().Property(x => x.Averagerating).HasColumnName("averagerating");
             modelBuilder.Entity<TitleRating>().Property(x => x.Numvotes).HasColumnName("numvotes");
-            modelBuilder.Entity<TitleRating>().Property(x => x.Tconst).HasColumnName("tconst");
 
             modelBuilder.Entity<UserAccount>().ToTable("user_account");
             modelBuilder.Entity<UserAccount>().Property(x => x.Uconst).HasColumnName("uconst");

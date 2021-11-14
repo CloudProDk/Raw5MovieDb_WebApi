@@ -199,13 +199,13 @@ namespace Raw5MovieDb_WebApi.Services
         public IList<Title> GetTitles(QueryString queryString)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize).ToList();
+            return ctx.titles.Include(x => x.TitleRating).Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize).ToList();
         }
         //linq
         public Title GetTitle(string tconst)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.Include(title => title.Genres).ThenInclude(titlegenre => titlegenre.Genre).FirstOrDefault(x => x.Tconst == tconst);
+            return ctx.titles.Include(title => title.Genres).ThenInclude(titlegenre => titlegenre.Genre).Include(x => x.TitleRating).FirstOrDefault(x => x.Tconst == tconst);
         }
         //TODO: not implementet
 
@@ -254,10 +254,10 @@ namespace Raw5MovieDb_WebApi.Services
         }
 
         //WORKS
-        public IList<Title> GetPopularActorsRankedByTitles(string tconst)
+        public IList<Actor> GetPopularActorsRankedByTitle(string tconst)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.FromSqlInterpolated($"SELECT * FROM popular_actors_ranked_by_movie({tconst}) NATURAL JOIN title_basics NATURAL JOIN name_basics NATURAL JOIN title_principals").ToList();
+            return ctx.actors.FromSqlInterpolated($"SELECT * FROM popular_actors_ranked_by_movie({tconst}) NATURAL JOIN title_basics NATURAL JOIN name_basics NATURAL JOIN title_principals").ToList();
         }
 
 
@@ -289,9 +289,16 @@ namespace Raw5MovieDb_WebApi.Services
         //works
         public IList<Title> WordToWord(string[] input)
         {
-            var ctx = new MovieDbContext();
-            return ctx.titles.FromSqlInterpolated($"SELECT * FROM word_to_word({input}) NATURAL JOIN title_basics").ToList();
+            var format = "";
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (i > 0) format += ",";
+                format += "\'{" + i + "}\'";
+            }
 
+            var variadic = string.Format(format, input);
+            var ctx = new MovieDbContext();
+            return ctx.titles.FromSqlRaw($"SELECT * FROM word_to_word({variadic}) NATURAL JOIN title_basics ORDER BY rank DESC").ToList(); // Likely exposed to some serious SQL Injection :s
         }
 
         public IList<Genre> GetGenres(QueryString queryString)
@@ -332,10 +339,10 @@ namespace Raw5MovieDb_WebApi.Services
 
         //view popular titles
         //f�r alle sammen, s� skal nok limites senere henne
-        public IList<TitleRating> GetPopularTitles()
+        public IList<Title> GetPopularTitles()
         {
             var ctx = new MovieDbContext();
-            return ctx.titleRatings.FromSqlInterpolated($"SELECT * FROM title_ratings ORDER BY averagerating DESC LIMIT 30").ToList();
+            return ctx.titles.Include(x => x.TitleRating).OrderByDescending(x => x.TitleRating.Averagerating * x.TitleRating.Numvotes).Take(25).ToList();
         }
 
 
@@ -394,7 +401,7 @@ namespace Raw5MovieDb_WebApi.Services
             }
             else return false;
         }
-        
+
 
         //TODO does not work, it says that it needs useraccount.uconst for some reason
         public IList<UserRating> GetAllUserRatings(string uconst)
