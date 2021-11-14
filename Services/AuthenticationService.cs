@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Raw5MovieDb_WebApi.Model;
+using Raw5MovieDb_WebApi.ViewModels;
 
 namespace Raw5MovieDb_WebApi.Services
 {
@@ -18,14 +19,12 @@ namespace Raw5MovieDb_WebApi.Services
         {
             _appSettings = appSettings.Value;
         }
-        private List<UserAccount> users = new List<UserAccount>()
+
+        public UserAccountViewModel Authenticate(string userName, string password)
         {
-            new UserAccount{Uconst = "u00001", Email="Patrick", Birthdate=new DateTime(), UserName="Legenden", Password="CantBeHacked"}
-        };
-        public UserAccount Authenticate(string userName, string password)
-        {
-            //Check user
-            var user = users.SingleOrDefault(x => x.UserName == userName && x.Password == password);
+            //Check if the user exist in the database and if the password matches
+            var ctx = new MovieDbContext();
+            var user = ctx.userAccounts.SingleOrDefault(x => x.UserName == userName && x.Password == password);
 
             // if user is not found return null
             if (user == null)
@@ -49,11 +48,18 @@ namespace Raw5MovieDb_WebApi.Services
 
         // Generate Token
         var token = tokenHandler.CreateToken(tokenDescriptor);
-        //user.Token = tokenHandler.WriteToken(token);
 
-        // return user with token
-        user.Password = null;
-        return user;
+        
+        UserAccountViewModel newUser = new UserAccountViewModel
+        {   
+            UserName = user.UserName,
+            Email = user.Email,
+            Birthdate = user.Birthdate,
+            Password = "",
+            Token = tokenHandler.WriteToken(token)
+        };
+
+        return newUser;
     }
 }
 }

@@ -17,14 +17,13 @@ namespace Raw5MovieDb_WebApi
     {
         public static void Main(string[] args)
         {
-
+                        
 
 
             var ds = new DataService();
             var ctx = new MovieDbContext();
             
-            ds.DeleteActorBookmark("1", "nm2833279");
-
+            
             // var user = ctx.userAccounts.Find("2");
             // System.Console.WriteLine(ctx.userAccounts.Find("2"));
             // user.Uconst = user.Uconst.Trim();
