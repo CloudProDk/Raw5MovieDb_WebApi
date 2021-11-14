@@ -26,6 +26,11 @@ namespace Raw5MovieDb_WebApi.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Returns all actors
+        /// </summary>
+        /// <param name="queryString"></param>
+        /// <returns></returns>
         [HttpGet(Name = nameof(GetActors))]
         public IActionResult GetActors([FromQuery] QueryString queryString)
         {
@@ -35,6 +40,11 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Return a single actor
+        /// </summary>
+        /// <param name="nconst"></param>
+        /// <returns></returns>
         [HttpGet("{nconst}", Name = nameof(GetActor))]
         public IActionResult GetActor(string nconst)
         {
@@ -43,7 +53,12 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(model);
         }
 
-        [HttpGet("coplayers/{primaryname}")]
+        /// <summary>
+        /// Returns a list of actors who have previously worked with the given actor
+        /// </summary>
+        /// <param name="actorname"></param>
+        /// <returns></returns>
+        [HttpGet("coplayers/{actorname}")]
         public IActionResult GetActorCoPlayers(string actorname)
         {
             IList<Actor> actors = _dataService.find_coplayers(actorname);
@@ -51,6 +66,11 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// Returns an actor matching a search query
+        /// </summary>
+        /// <param name="queryString"></param>
+        /// <returns></returns>
         [HttpGet("search")]
         public IActionResult FindActor([FromQuery] QueryString queryString)
         {
