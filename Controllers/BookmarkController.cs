@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Raw5MovieDb_WebApi.Model;
@@ -15,14 +16,10 @@ namespace Raw5MovieDb_WebApi.Controllers
     public class BookmarkController : ControllerBase
     {
         private readonly IDataService _dataService;
-        private readonly LinkGenerator _linkGenerator;
-        private readonly IMapper _mapper;
 
-        public BookmarkController(IDataService dataService, LinkGenerator linkGenerator, IMapper mapper)
+        public BookmarkController(IDataService dataService)
         {
             _dataService = dataService;
-            _linkGenerator = linkGenerator;
-            _mapper = mapper;
         }
 
         /* ---------------------------  Title Bookmark --------------------------- */
@@ -32,6 +29,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// </summary>
         /// <param name="uconst"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet("TitleBookmark/{uconst}")]
         public IActionResult GetAllUserTitleBookmarks(string uconst)
         {
@@ -55,6 +53,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// <param name="uconst"></param>
         /// <param name="tconst"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpPost("TitleBookmark")]
         public IActionResult AddTitleBookmark([FromQuery] string uconst, string tconst)
         {
@@ -75,6 +74,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// <param name="uconst"></param>
         /// <param name="tconst"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpDelete("TitleBookmark")]
         public IActionResult DeleteTitleBookmark(string uconst, string tconst)
         {
@@ -94,6 +94,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// </summary>
         /// <param name="uconst"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet("ActorBookmark/{uconst}")]
         public IActionResult GetAllUserActorBookmarks(string uconst)
         {
@@ -117,6 +118,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// <param name="uconst"></param>
         /// <param name="nconst"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpPost("ActorBookmark")]
         public IActionResult AddActorBookmark([FromQuery] string nconst, string uconst)
         {
@@ -138,6 +140,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// <param name="uconst"></param>
         /// <param name="nconst"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpDelete("ActorBookmark")]
         public IActionResult DeleteActorBookmark(string uconst, string nconst)
         {
