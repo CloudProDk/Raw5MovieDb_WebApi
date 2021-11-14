@@ -26,6 +26,11 @@ namespace Raw5MovieDb_WebApi.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Returns all titles
+        /// </summary>
+        /// <param name="queryString"></param>
+        /// <returns></returns>
         [HttpGet(Name = nameof(GetTitles))]
         public IActionResult GetTitles([FromQuery] QueryString queryString)
         {
@@ -35,6 +40,11 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Returns a single title with details
+        /// </summary>
+        /// <param name="tconst"></param>
+        /// <returns></returns>
         [HttpGet("{tconst}", Name = nameof(GetTitle))]
         public IActionResult GetTitle(string tconst)
         {
@@ -50,6 +60,11 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// Returns titles that are similar to a given title
+        /// </summary>
+        /// <param name="tconst"></param>
+        /// <returns></returns>
         [HttpGet("similar/{tconst}")]
         public IActionResult GetSimilar(string tconst)
         {
@@ -64,6 +79,10 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// Returns the most popular/highest rated titles
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("popular")]
         public IActionResult GetPopularTitles()
         {
@@ -72,6 +91,11 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// Returns a list of titles matching the search query (basic search)
+        /// </summary>
+        /// <param name="queryString"></param>
+        /// <returns></returns>
         [HttpGet("search")]
         public IActionResult FindTitle([FromQuery] QueryString queryString)
         {
@@ -86,6 +110,11 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// Returns a list of titles matching the search query/queryies (advanced search)
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpGet("ratedsearch")]
         public IActionResult FindTitleWordToWord([FromQuery] string[] query)
         {
@@ -100,6 +129,11 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// Returns the actors of a given title
+        /// </summary>
+        /// <param name="tconst"></param>
+        /// <returns></returns>
         [HttpGet("{tconst}/actors", Name = nameof(GetTitleActors))]
         public IActionResult GetTitleActors(string tconst)
         {

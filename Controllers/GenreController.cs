@@ -25,6 +25,11 @@ namespace Raw5MovieDb_WebApi.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Returns all genres
+        /// </summary>
+        /// <param name="queryString"></param>
+        /// <returns></returns>
         [HttpGet(Name = nameof(GetGenres))]
         public IActionResult GetGenres([FromQuery] QueryString queryString)
         {
@@ -34,6 +39,11 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Returns a single genre
+        /// </summary>
+        /// <param name="genreId"></param>
+        /// <returns></returns>
         [HttpGet("{genreId}", Name = nameof(GetGenre))]
         public IActionResult GetGenre(int genreId)
         {
@@ -48,6 +58,12 @@ namespace Raw5MovieDb_WebApi.Controllers
             return Ok(model);
         }
 
+        /// <summary>
+        /// Returns all titles matching a given genre
+        /// </summary>
+        /// <param name="genreId"></param>
+        /// <param name="queryString"></param>
+        /// <returns></returns>
         [HttpGet("{genreId}/titles", Name = nameof(GetTitlesByGenre))]
         public IActionResult GetTitlesByGenre(int genreId, [FromQuery] QueryString queryString)
         {
