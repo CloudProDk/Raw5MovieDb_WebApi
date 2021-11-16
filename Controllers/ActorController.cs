@@ -49,6 +49,12 @@ namespace Raw5MovieDb_WebApi.Controllers
         public IActionResult GetActor(string nconst)
         {
             Actor actor = _dataService.GetActor(nconst);
+
+            if (actor == null)
+            {
+                return NotFound();
+            }
+
             var model = GetActorViewModel(actor);
             return Ok(model);
         }
@@ -69,17 +75,17 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// <summary>
         /// Returns an actor matching a search query
         /// </summary>
-        /// <param name="queryString"></param>
+        /// <param name="query"></param>
         /// <returns></returns>
         [HttpGet("search")]
-        public IActionResult FindActor([FromQuery] QueryString queryString)
+        public IActionResult FindActor([FromQuery] string query)
         {
-            if (queryString.SearchQuery == null || queryString.SearchQuery == "")
+            if (query == null || query == "")
             {
                 return new EmptyResult();
             }
 
-            IList<Actor> actors = _dataService.StructuredNameSearch(queryString.SearchQuery);
+            IList<Actor> actors = _dataService.StructuredNameSearch(query);
 
             var model = actors.Select(GetActorViewModel);
             return Ok(model);
