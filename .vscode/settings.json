@@ -1,6 +1,7 @@
 {
     "conventionalCommits.scopes": [
         "Models",
-        "Controllers"
+        "Controllers",
+        "UnitTesting"
     ]
 }
