@@ -117,9 +117,14 @@ namespace Raw5MovieDb_WebApi.Services
         {
             var ctx = new MovieDbContext();
 
+            List<int> userIds = new List<int>();
+            foreach (var item in ctx.userAccounts)
+            {
+                userIds.Add(Int32.Parse(item.Uconst));
+            }
             var newUser = new UserAccount
             {
-                Uconst = (Int32.Parse(ctx.userAccounts.Max(x => x.Uconst)) + 1).ToString(),
+                Uconst = (userIds.Max() + 1).ToString(),
                 UserName = user.UserName,
                 Email = user.Email,
                 Password = user.Password,

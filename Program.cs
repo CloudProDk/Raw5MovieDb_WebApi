@@ -22,8 +22,7 @@ namespace Raw5MovieDb_WebApi
 
             var ds = new DataService();
             var ctx = new MovieDbContext();
-            
-            
+
             // var user = ctx.userAccounts.Find("2");
             // System.Console.WriteLine(ctx.userAccounts.Find("2"));
             // user.Uconst = user.Uconst.Trim();
@@ -31,8 +30,7 @@ namespace Raw5MovieDb_WebApi
             // ctx.userAccounts.Remove(user);
             // ctx.SaveChanges();
 
-
-
+        
 
 
             // var input = "tt10850402";

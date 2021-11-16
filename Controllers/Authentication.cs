@@ -11,7 +11,7 @@ using Raw5MovieDb_WebApi.Services;
 
 namespace Raw5MovieDb_WebApi.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class Authentication : Controller
     {
         //Dependency injected service
