@@ -49,6 +49,12 @@ namespace Raw5MovieDb_WebApi.Controllers
         public IActionResult GetActor(string nconst)
         {
             Actor actor = _dataService.GetActor(nconst);
+
+            if (actor == null)
+            {
+                return NotFound();
+            }
+
             var model = GetActorViewModel(actor);
             return Ok(model);
         }
