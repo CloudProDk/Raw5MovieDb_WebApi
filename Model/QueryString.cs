@@ -5,6 +5,5 @@ namespace Raw5MovieDb_WebApi.Model
     {
         public int Page { get; set; } = 0;
         public int PageSize { get; set; } = 25;
-        public string SearchQuery { get; set; }
     }
 }

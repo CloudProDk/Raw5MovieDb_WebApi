@@ -94,17 +94,18 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// <summary>
         /// Returns a list of titles matching the search query (basic search)
         /// </summary>
-        /// <param name="queryString"></param>
+        /// <param name="query"></param>
         /// <returns></returns>
         [HttpGet("search")]
-        public IActionResult FindTitle([FromQuery] QueryString queryString)
+        public IActionResult FindTitle([FromQuery] string query)
         {
-            if (queryString.SearchQuery == null || queryString.SearchQuery == "")
+            if (query == null || query == "")
             {
                 return new JsonResult(new EmptyResult());
             }
 
-            IList<Title> titles = _dataService.StringSearch(queryString.SearchQuery, "1");
+            // TODO: Pass the logged in user ID to the search function
+            IList<Title> titles = _dataService.StringSearch(query, "1");
 
             var model = titles.Select(GetTitleViewModel);
             return Ok(model);
