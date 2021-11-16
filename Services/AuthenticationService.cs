@@ -42,7 +42,7 @@ namespace Raw5MovieDb_WebApi.Services
                     new Claim(ClaimTypes.Role, "Admin"),
                     new Claim(ClaimTypes.Version, "V3.1")
                 }),
-                Expires = DateTime.UtcNow.AddDays(2),
+                Expires = DateTime.UtcNow.AddMinutes(30),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
 

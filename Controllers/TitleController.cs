@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Raw5MovieDb_WebApi.Model;
@@ -31,6 +32,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// </summary>
         /// <param name="queryString"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet(Name = nameof(GetTitles))]
         public IActionResult GetTitles([FromQuery] QueryString queryString)
         {
@@ -45,6 +47,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// </summary>
         /// <param name="tconst"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet("{tconst}", Name = nameof(GetTitle))]
         public IActionResult GetTitle(string tconst)
         {
@@ -65,6 +68,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// </summary>
         /// <param name="tconst"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet("similar/{tconst}")]
         public IActionResult GetSimilar(string tconst)
         {
@@ -83,6 +87,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// Returns the most popular/highest rated titles
         /// </summary>
         /// <returns></returns>
+        [Authorize]
         [HttpGet("popular")]
         public IActionResult GetPopularTitles()
         {
@@ -96,6 +101,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet("search")]
         public IActionResult FindTitle([FromQuery] string query)
         {
@@ -116,6 +122,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet("ratedsearch")]
         public IActionResult FindTitleWordToWord([FromQuery] string[] query)
         {
@@ -135,6 +142,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// </summary>
         /// <param name="tconst"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet("{tconst}/actors", Name = nameof(GetTitleActors))]
         public IActionResult GetTitleActors(string tconst)
         {

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Raw5MovieDb_WebApi.Model;
@@ -31,6 +32,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// </summary>
         /// <param name="queryString"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet(Name = nameof(GetActors))]
         public IActionResult GetActors([FromQuery] QueryString queryString)
         {
@@ -45,6 +47,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// </summary>
         /// <param name="nconst"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet("{nconst}", Name = nameof(GetActor))]
         public IActionResult GetActor(string nconst)
         {
@@ -64,6 +67,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// </summary>
         /// <param name="actorname"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet("coplayers/{actorname}")]
         public IActionResult GetActorCoPlayers(string actorname)
         {
@@ -77,6 +81,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet("search")]
         public IActionResult FindActor([FromQuery] string query)
         {

@@ -21,7 +21,7 @@ namespace Raw5MovieDb_WebApi.Tests
         private const string RatingApi = "https://localhost:5001/api/Rating";
         private const string SearchHistoryApi = "https://localhost:5001/api/SearchHistory";
         private const string UserApi = "https://localhost:5001/api/User";
-        private string bearerToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjkiLCJyb2xlIjoiQWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3ZlcnNpb24iOiJWMy4xIiwibmJmIjoxNjM3MDY2NjUzLCJleHAiOjE2MzcyMzk0NTMsImlhdCI6MTYzNzA2NjY1M30.e0cgE7Cx2nkAcQw5PyHJk0PvU6KNxCJU1XLtw8MOjZg";
+        private string bearerToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjkiLCJyb2xlIjoiQWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3ZlcnNpb24iOiJWMy4xIiwibmJmIjoxNjM3MDY4NjYzLCJleHAiOjE2MzcwNzA0NjMsImlhdCI6MTYzNzA2ODY2M30.-HFBqRz4Dj-FqiF4zvSDI-A5DpGO_ggmEb0s-umk03s";
         private const string ActorsApi = "https://localhost:5001/api/actors";
         private const string GenresApi = "https://localhost:5001/api/genres";
 
@@ -269,6 +269,7 @@ namespace Raw5MovieDb_WebApi.Tests
             var (result, statusCode) = PostData($"{UserApi}/Register?Uconst={user.Uconst}&UserName={user.UserName}&Email={user.Email}&Birthdate=1986-10-10&Password={user.Password}", user);
             UserAccount returnedUser = JsonConvert.DeserializeObject<UserAccount>(JsonConvert.SerializeObject(result));
             var deleteResult = DeleteData($"{UserApi}/{returnedUser.Uconst}");
+            Debug.WriteLine(deleteResult);
             Assert.Equal(HttpStatusCode.OK, deleteResult);
 
 
@@ -283,6 +284,7 @@ namespace Raw5MovieDb_WebApi.Tests
             HttpClientHandler clientHandler = new HttpClientHandler();
             clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
             var client = new HttpClient(clientHandler);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
             var response = client.GetAsync(url).Result;
             var data = response.Content.ReadAsStringAsync().Result;
             return ((JArray)JsonConvert.DeserializeObject(data), response.StatusCode);
@@ -290,10 +292,10 @@ namespace Raw5MovieDb_WebApi.Tests
 
         (JObject, HttpStatusCode) GetObject(string url)
         {
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
             HttpClientHandler clientHandler = new HttpClientHandler();
-            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
             var client = new HttpClient(clientHandler);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
             var response = client.GetAsync(url).Result;
             var data = response.Content.ReadAsStringAsync().Result;
             return ((JObject)JsonConvert.DeserializeObject(data), response.StatusCode);
