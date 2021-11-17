@@ -21,7 +21,7 @@ namespace Raw5MovieDb_WebApi.Tests
         private const string RatingApi = "https://localhost:5001/api/Rating";
         private const string SearchHistoryApi = "https://localhost:5001/api/SearchHistory";
         private const string UserApi = "https://localhost:5001/api/User";
-        private string bearerToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjkiLCJyb2xlIjoiQWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3ZlcnNpb24iOiJWMy4xIiwibmJmIjoxNjM3MDY4NjYzLCJleHAiOjE2MzcwNzA0NjMsImlhdCI6MTYzNzA2ODY2M30.-HFBqRz4Dj-FqiF4zvSDI-A5DpGO_ggmEb0s-umk03s";
+        private string bearerToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjkiLCJyb2xlIjoiQWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3ZlcnNpb24iOiJWMy4xIiwibmJmIjoxNjM3MTg0OTQzLCJleHAiOjI4OTk0ODg5NDMsImlhdCI6MTYzNzE4NDk0M30.gcxFBHLnLZ37ct26BBkpVc6BK3KCE-rErA4L-Ufs1zU";
         private const string ActorsApi = "https://localhost:5001/api/actors";
         private const string GenresApi = "https://localhost:5001/api/genres";
 
