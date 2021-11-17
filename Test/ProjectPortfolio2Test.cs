@@ -177,7 +177,7 @@ namespace Raw5MovieDb_WebApi.Tests
         [Fact]
         public void AuthenticateWithUnknownUser()
         {
-            var user = new { username = "Legende", password = "legend" };
+            var user = new { username = "JohnDoe", password = "1234" };
 
             var (result, statusCode) = PostData($"{AuthenticationApi}?username={user.username}&password={user.password}", user);
             Debug.WriteLine("result");
@@ -190,7 +190,7 @@ namespace Raw5MovieDb_WebApi.Tests
         [Fact]
         public void AuthenticateWithUser()
         {
-            var user = new { username = "Legenden", password = "legend" };
+            var user = new { username = "JohnDoe", password = "123" };
             var (result, statusCode) = PostData($"{AuthenticationApi}?username={user.username}&password={user.password}", user);
             UserAccountViewModel newUser = JsonConvert.DeserializeObject<UserAccountViewModel>(JsonConvert.SerializeObject(result));
 
