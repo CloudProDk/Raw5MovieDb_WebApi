@@ -13,7 +13,7 @@ using Raw5MovieDb_WebApi.ViewModels;
 using Xunit;
 namespace Raw5MovieDb_WebApi.Tests
 {
-    public class TitleTests
+    public class PP2Tests
     {
         private const string TitlesApi = "https://localhost:5001/api/titles";
         private const string AuthenticationApi = "https://localhost:5001/api/Authentication";
@@ -177,7 +177,7 @@ namespace Raw5MovieDb_WebApi.Tests
         [Fact]
         public void AuthenticateWithUnknownUser()
         {
-            var user = new { username = "Legende", password = "legend" };
+            var user = new { username = "JohnDoe", password = "1234" };
 
             var (result, statusCode) = PostData($"{AuthenticationApi}?username={user.username}&password={user.password}", user);
             Debug.WriteLine("result");
@@ -190,7 +190,7 @@ namespace Raw5MovieDb_WebApi.Tests
         [Fact]
         public void AuthenticateWithUser()
         {
-            var user = new { username = "Legenden", password = "legend" };
+            var user = new { username = "JohnDoe", password = "123" };
             var (result, statusCode) = PostData($"{AuthenticationApi}?username={user.username}&password={user.password}", user);
             UserAccountViewModel newUser = JsonConvert.DeserializeObject<UserAccountViewModel>(JsonConvert.SerializeObject(result));
 
@@ -212,6 +212,7 @@ namespace Raw5MovieDb_WebApi.Tests
 
             DeleteData($"{UserApi}/{returnedUser.Uconst}");
         }
+
         [Fact]
         public void UpdateUser()
         {
@@ -271,8 +272,6 @@ namespace Raw5MovieDb_WebApi.Tests
             var deleteResult = DeleteData($"{UserApi}/{returnedUser.Uconst}");
             Debug.WriteLine(deleteResult);
             Assert.Equal(HttpStatusCode.OK, deleteResult);
-
-
         }
 
         // Helpers
@@ -296,6 +295,7 @@ namespace Raw5MovieDb_WebApi.Tests
             var client = new HttpClient(clientHandler);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
             clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
             var response = client.GetAsync(url).Result;
             var data = response.Content.ReadAsStringAsync().Result;
             return ((JObject)JsonConvert.DeserializeObject(data), response.StatusCode);
@@ -303,9 +303,9 @@ namespace Raw5MovieDb_WebApi.Tests
 
         (JObject, HttpStatusCode) PostData(string url, object content)
         {
-            var client = new HttpClient();
-
-
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+            var client = new HttpClient(clientHandler);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
 
             var requestContent = new StringContent(
@@ -319,8 +319,11 @@ namespace Raw5MovieDb_WebApi.Tests
 
         HttpStatusCode PutData(string url, object content)
         {
-            var client = new HttpClient();
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+            var client = new HttpClient(clientHandler);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+
             var response = client.PutAsync(
                 url,
                 new StringContent(
@@ -332,8 +335,11 @@ namespace Raw5MovieDb_WebApi.Tests
 
         HttpStatusCode DeleteData(string url)
         {
-            var client = new HttpClient();
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+            var client = new HttpClient(clientHandler);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+
             var response = client.DeleteAsync(url).Result;
             return response.StatusCode;
         }
