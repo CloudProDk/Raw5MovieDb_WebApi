@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Raw5MovieDb_WebApi.Model;
@@ -30,6 +31,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// </summary>
         /// <param name="queryString"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet(Name = nameof(GetGenres))]
         public IActionResult GetGenres([FromQuery] QueryString queryString)
         {
@@ -44,6 +46,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// </summary>
         /// <param name="genreId"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet("{genreId}", Name = nameof(GetGenre))]
         public IActionResult GetGenre(int genreId)
         {
@@ -64,6 +67,7 @@ namespace Raw5MovieDb_WebApi.Controllers
         /// <param name="genreId"></param>
         /// <param name="queryString"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpGet("{genreId}/titles", Name = nameof(GetTitlesByGenre))]
         public IActionResult GetTitlesByGenre(int genreId, [FromQuery] QueryString queryString)
         {
