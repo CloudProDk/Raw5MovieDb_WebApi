@@ -75,7 +75,6 @@ namespace Raw5MovieDb_WebApi
               Scheme = "oauth2",
               Name = "Bearer",
               In = ParameterLocation.Header,
-
             },
             new List<string>()
           }

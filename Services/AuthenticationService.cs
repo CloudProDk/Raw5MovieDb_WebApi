@@ -44,22 +44,22 @@ namespace Raw5MovieDb_WebApi.Services
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(30),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        };
+            };
 
-        // Generate Token
-        var token = tokenHandler.CreateToken(tokenDescriptor);
+            // Generate Token
+            var token = tokenHandler.CreateToken(tokenDescriptor);
 
-        
-        UserAccountViewModel newUser = new UserAccountViewModel
-        {   
-            UserName = user.UserName,
-            Email = user.Email,
-            Birthdate = user.Birthdate,
-            Password = "",
-            Token = tokenHandler.WriteToken(token)
-        };
 
-        return newUser;
+            UserAccountViewModel newUser = new UserAccountViewModel
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                Birthdate = user.Birthdate,
+                Password = "",
+                Token = tokenHandler.WriteToken(token)
+            };
+
+            return newUser;
+        }
     }
-}
 }
