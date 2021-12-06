@@ -34,7 +34,7 @@ namespace Raw5MovieDb_WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddMvc();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -131,6 +131,7 @@ namespace Raw5MovieDb_WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Raw5MovieDb_WebApi v1"));
             }
+            app.UseFileServer();
 
             app.UseHttpsRedirection();
 
