@@ -9,7 +9,8 @@ require.config({
         text: "lib/requirejs/text",
         jquery: "lib/jquery/dist/jquery.min",
         knockout: "lib/knockout/build/output/knockout-latest.debug",
-        dataService: "services/dataService",
+        movieService: "services/movieService",
+        bookmarkService: "services/bookmarkService",
         postman: "services/postman"
     }
 });

@@ -1,7 +1,8 @@
 ﻿define(["knockout", "postman"], function (ko, postman) {
 
-    let currentView = ko.observable("login");
+    let currentView = ko.observable("list-categories");
     let amount = ko.observable("hej");
+    let bearerToken = ko.observable('');
 
     let menuItems = [
         {title: "List", component: "list-categories"},

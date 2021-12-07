@@ -1,24 +1,27 @@
-﻿define(['knockout', 'dataService', 'postman'], function (ko, ds, postman) {
+﻿define(['knockout', 'postman', 'movieService', 'bookmarkService'], function (ko, postman, ms, bs) {
     return function (params) {
-        let categories = ko.observableArray([]);
 
-        let del = category => {
-            categories.remove(category);
-            ds.deleteCategory(category);
-        }
+        let movies = ko.observableArray([]);
+        let bookmarks = ko.observableArray([]);
 
-        let create = () => postman.publish("changeView", "add-category");
+   
 
-        ds.getCategories(categories);
 
-        postman.subscribe("newCategory", category => {
-            ds.createCategory(category, newCategory => {
-                categories.push(newCategory);
-            });
-        }, "list-categories");
+
+        ms.getMovies(movies);
+
+        bs.getBookmarks(bookmarks)
+
+        // postman.subscribe("newCategory", category => {
+        //     ds.createCategory(category, newCategory => {
+        //         categories.push(newCategory);
+        //     });
+        // }, "list-categories");
 
         return {
             categories,
+            movies,
+            bookmarks,
             del,
             create
         };
