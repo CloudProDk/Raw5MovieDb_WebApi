@@ -29,6 +29,10 @@ require(['knockout'], (ko) => {
         viewModel: { require: "components/login/login" },
         template: { require: "text!components/login/login.html" }
     });
+    ko.components.register("bookmark", {
+        viewModel: { require: "components/bookmarks/bookmark" },
+        template: { require: "text!components/bookmarks/bookmark.html" }
+    });
 });
 
 require(["knockout", "viewmodel"], function (ko, vm) {

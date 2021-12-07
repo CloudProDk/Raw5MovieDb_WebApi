@@ -1,6 +1,6 @@
 ﻿define(["knockout", "postman"], function (ko, postman) {
 
-    let currentView = ko.observable("list-categories");
+    let currentView = ko.observable("bookmark");
     let amount = ko.observable("hej");
     let bearerToken = ko.observable('');
 
