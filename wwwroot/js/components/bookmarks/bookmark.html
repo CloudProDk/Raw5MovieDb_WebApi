@@ -1,3 +1,21 @@
 ﻿<h1>
-    bookmarks works!
+    <table class="table">
+        <thead>
+            <tr><th>User</th><th>Movie</th><th>Actor</th></tr>
+        </thead>
+        <tbody data-bind="foreach: bookmarks">
+            <tr>
+                <td data-bind="text: uconst"></td>
+                <td data-bind="text: tconst"></td>
+            </tr>
+        </tbody>
+        <tbody data-bind="foreach: actorbookmarks">
+            <tr>
+                <td data-bind="text: uconst"></td>
+                <td></td>
+                <td data-bind="text: nconst"></td>
+            </tr>
+        </tbody>
+        
+    </table>
 </h1>
