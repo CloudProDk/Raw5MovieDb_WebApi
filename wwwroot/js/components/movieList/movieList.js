@@ -5,17 +5,9 @@
        
         ms.getMovies(movies);
 
-       
-
-        // postman.subscribe("newCategory", category => {
-        //     ds.createCategory(category, newCategory => {
-        //         categories.push(newCategory);
-        //     });
-        // }, "list-categories");
-
         return {
             
-            movies,
+            movies
             
         };
     };
