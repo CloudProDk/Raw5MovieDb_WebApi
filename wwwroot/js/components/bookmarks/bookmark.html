@@ -1,7 +1,7 @@
 ﻿<h1>
     <table class="table">
         <thead>
-            <tr><th>User</th><th>Movie</th><th>Actor</th></tr>
+            <tr><th>User</th><th>Movie</th><th></th></tr>
         </thead>
         <tbody data-bind="foreach: bookmarks">
             <tr>
@@ -9,13 +9,15 @@
                 <td data-bind="text: tconst"></td>
             </tr>
         </tbody>
+        <thead>
+            <tr><th>User</th><th>Actor</th><th></th></tr>
+        </thead>
         <tbody data-bind="foreach: actorbookmarks">
             <tr>
                 <td data-bind="text: uconst"></td>
-                <td></td>
                 <td data-bind="text: nconst"></td>
             </tr>
         </tbody>
-        
+
     </table>
 </h1>
