@@ -1,6 +1,6 @@
 ﻿define(["knockout", "postman"], function (ko, postman) {
 
-    let currentView = ko.observable("singleActor");
+    let currentView = ko.observable("movieList");
     let amount = ko.observable("hej");
     let bearerToken = ko.observable('');
 

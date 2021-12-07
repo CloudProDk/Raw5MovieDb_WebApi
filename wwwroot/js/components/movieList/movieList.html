@@ -1,1 +1,27 @@
-﻿<h1> movielist </h1>
+﻿<div class="container">
+    <h2>All Movies</h2>
+
+    <div id="new-movie-form">
+        <div id="status" class="error"> </div>
+        <tbody data-bind="foreach: movieList">
+
+            <form name="movieform" class="movie-form">
+                <div class="form-group">
+                    <label data-bind="Title">Title:</label>
+                    <input type="text" class="form-control" id="title">
+                </div>
+                <div class="form-group">
+                    <label for="img">Image:</label>
+                    <input type="text" class="form-control" id="img">
+                </div>
+
+                <div class="form-group">
+                    <label data-bind="rating">Rating:</label>
+                    <input type="number" class="form-control" id="rating">
+                </div>
+            </form>
+        </tbody>
+    </div>
+    <div id="table"> </div>
+
+</div>
