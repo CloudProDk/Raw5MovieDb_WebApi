@@ -3,9 +3,9 @@ define(['knockout', 'postman', "viewmodel"], function (ko, postman, vm) {
 
 
         let menuItems = [
-            { title: "Home", component: "Home" },
+            { title: "Home", component: "home" },
             { title: "Movies", component: "Movies" },
-            { title: "Series", component: "Series" },
+            { title: "Series", component: "details" },
             { title: "Bookmarks", component: "bookmark" },
         ];
 
