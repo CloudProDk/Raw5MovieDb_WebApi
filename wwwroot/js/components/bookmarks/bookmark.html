@@ -1,3 +1,25 @@
 ﻿<h1>
-    bookmarks works!
+    <table class="table">
+        <thead>
+            <tr><th>User</th><th>Movie</th><th></th></tr>
+        </thead>
+        <tbody data-bind="foreach: bookmarks">
+            <tr>
+                <td data-bind="text: uconst"></td>
+                <td data-bind="text: tconst"></td>
+                <td><button class="btn btn-danger btn-sm" data-bind="click: $parent.deltitle">Del</button></td>
+            </tr>
+        </tbody>
+        <thead>
+            <tr><th>User</th><th>Actor</th><th></th></tr>
+        </thead>
+        <tbody data-bind="foreach: actorbookmarks">
+            <tr>
+                <td data-bind="text: uconst"></td>
+                <td data-bind="text: nconst"></td>
+                <td><button class="btn btn-danger btn-sm" data-bind="click: $parent.delactor">Del</button></td>
+            </tr>
+        </tbody>
+
+    </table>
 </h1>
