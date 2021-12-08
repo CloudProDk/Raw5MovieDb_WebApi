@@ -7,7 +7,7 @@
 
         let deltitle = title => {
             bookmarks.remove(title);
-            bs.deleteTitleBookmark(title);
+            bs.deleteTitleBookmark(title, '1', 'tt7366338' );
         }
         let delactor = actor => {
             actorbookmarks.remove(actor);
