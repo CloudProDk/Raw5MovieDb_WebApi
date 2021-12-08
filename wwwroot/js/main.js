@@ -11,7 +11,7 @@ require.config({
         knockout: "lib/knockout/build/output/knockout-latest.debug",
         movieService: "services/movieService",
         bookmarkService: "services/bookmarkService",
-        postman: "services/postman"
+        postman: "services/postman",
     }
 });
 
@@ -32,6 +32,10 @@ require(['knockout'], (ko) => {
     ko.components.register("bookmark", {
         viewModel: { require: "components/bookmarks/bookmark" },
         template: { require: "text!components/bookmarks/bookmark.html" }
+    });
+    ko.components.register("navigation_bar", {
+        viewModel: { require: "components/navigation_bar/navigation_bar" },
+        template: { require: "text!components/navigation_bar/navigation_bar.html" }
     });
 });
 

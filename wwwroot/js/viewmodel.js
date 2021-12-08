@@ -1,18 +1,9 @@
 ﻿define(["knockout", "postman"], function (ko, postman) {
-
-    let currentView = ko.observable("bookmark");
-    let amount = ko.observable("hej");
+    
+    let activeView =  ko.observable('list-categories')
     let bearerToken = ko.observable('');
 
-    let menuItems = [
-        {title: "List", component: "list-categories"},
-        {title: "Add", component: "add-categories"}
-    ];
 
-    let changeContent = menuItem => {
-        console.log(menuItem);
-        currentView(menuItem.component);
-    };
 
     let isActive = menuItem => {
         return menuItem.component === currentView() ? "active" : "";
@@ -23,10 +14,7 @@
     });
     
     return {
-        menuItems,
-        currentView,
-        changeContent,
+        activeView,
         isActive,
-        amount
     }
 });
