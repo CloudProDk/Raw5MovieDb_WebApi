@@ -1,5 +1,14 @@
-﻿define(['knockout', 'postman','bookmarkService'], function (ko, postman, bs) {
+
+define(['knockout', 'postman','bookmarkService', 'viewmodel'], function (ko, postman, bs, vm) {
     return function (params) {
+        let token = ko.observable('');
+        let userName = ko.observable('');
+        let uconst = ko.observable('');
+
+      
+        token(vm.bearerToken())
+        userName(vm.userName())
+        uconst(vm.uconst())
 
 
         let bookmarks = ko.observableArray([]);
@@ -22,7 +31,10 @@
             bookmarks,
             deltitle,
             actorbookmarks,
-            delactor
+            delactor,
+            token,
+            userName,
+            uconst
         };
     };
 });

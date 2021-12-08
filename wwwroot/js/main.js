@@ -1,4 +1,4 @@
-﻿/// <reference path="lib/jquery/dist/jquery.min.js" />
+/// <reference path="lib/jquery/dist/jquery.min.js" />
 /// <reference path="lib/requirejs/text.js" />
 /// <reference path="lib/knockout/build/output/knockout-latest.debug.js" />
 
@@ -11,7 +11,8 @@ require.config({
         knockout: "lib/knockout/build/output/knockout-latest.debug",
         movieService: "services/movieService",
         bookmarkService: "services/bookmarkService",
-        postman: "services/postman"
+        authenticationService: "services/authenticationService",
+        postman: "services/postman",
     }
 });
 
@@ -32,6 +33,10 @@ require(['knockout'], (ko) => {
     ko.components.register("bookmark", {
         viewModel: { require: "components/bookmarks/bookmark" },
         template: { require: "text!components/bookmarks/bookmark.html" }
+    });
+    ko.components.register("navigation_bar", {
+        viewModel: { require: "components/navigation_bar/navigation_bar" },
+        template: { require: "text!components/navigation_bar/navigation_bar.html" }
     });
     ko.components.register("home", {
       viewModel: { require: "components/home/home" },

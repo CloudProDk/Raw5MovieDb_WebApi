@@ -5,15 +5,44 @@
   height: 1px;
   background: #eee;
 }
+
 .h-custom {
   height: calc(100% - 73px);
 }
+
 @media (max-width: 450px) {
   .h-custom {
     height: 100%;
   }
 }
 
+/* Nav Bar Start */
+.bi{
+  color: blue;
+  font-size: 30px;
+  margin: 0px 0px 0px 16px;
+  cursor: pointer;
+  color: white;
+}
+
+.navbar{
+  background-color: #3a3a3a !important;
+}
+
+/* Login */
+
+.logincontainer{
+    width: 100px;
+    height: 100px;
+    
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+    margin: auto;
+  
 body {
   font-family: 'Varela Round', sans-serif;
 }

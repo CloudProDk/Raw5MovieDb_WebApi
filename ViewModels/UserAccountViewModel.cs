@@ -11,8 +11,10 @@ namespace Raw5MovieDb_WebApi.ViewModels
         public string Email { get; set; }
         public DateTime Birthdate { get; set; }
         public string Password { get; set; }
+        public string Uconst { get; set; }
 
         #nullable enable
         public string? Token { get; set; } = "";
+        
     }
 }
