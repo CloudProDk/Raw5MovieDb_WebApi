@@ -33,6 +33,14 @@ require(['knockout'], (ko) => {
         viewModel: { require: "components/bookmarks/bookmark" },
         template: { require: "text!components/bookmarks/bookmark.html" }
     });
+    ko.components.register("home", {
+      viewModel: { require: "components/home/home" },
+      template: { require: "text!components/home/home.html" }
+    });
+    ko.components.register("details", {
+      viewModel: { require: "components/titles/titleDetails" },
+      template: { require: "text!components/titles/titleDetails.html" }
+    });
 });
 
 require(["knockout", "viewmodel"], function (ko, vm) {
