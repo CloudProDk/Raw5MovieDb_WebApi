@@ -1,4 +1,5 @@
-﻿define(["knockout", "postman"], function (ko, postman) {
+define(["knockout", "postman"], function (ko, postman) {
+
     
     let activeView =  ko.observable('list-categories')
     let bearerToken = ko.observable('');
@@ -14,7 +15,7 @@
     postman.subscribe("changeView", function (data) {
         currentView(data);
     });
-    
+
     return {
         activeView,
         isActive,

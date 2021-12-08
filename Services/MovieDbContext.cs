@@ -34,6 +34,8 @@ namespace Raw5MovieDb_WebApi.Services
             optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
             //optionsBuilder.UseNpgsql("host=rawdata.ruc.dk;db=raw5;uid=raw5;pwd=I4YpESyL");
             optionsBuilder.UseNpgsql("host=localhost;db=imdb_small2;uid=postgres;pwd=Palle0410");
+            //optionsBuilder.UseNpgsql("host=localhost;db=imdb;uid=postgres;pwd=Doodlejump123");
+
             //optionsBuilder.EnableSensitiveDataLogging();
 
         }

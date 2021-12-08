@@ -1,4 +1,4 @@
-﻿/// <reference path="lib/jquery/dist/jquery.min.js" />
+/// <reference path="lib/jquery/dist/jquery.min.js" />
 /// <reference path="lib/requirejs/text.js" />
 /// <reference path="lib/knockout/build/output/knockout-latest.debug.js" />
 
@@ -37,6 +37,14 @@ require(['knockout'], (ko) => {
     ko.components.register("navigation_bar", {
         viewModel: { require: "components/navigation_bar/navigation_bar" },
         template: { require: "text!components/navigation_bar/navigation_bar.html" }
+    });
+    ko.components.register("home", {
+      viewModel: { require: "components/home/home" },
+      template: { require: "text!components/home/home.html" }
+    });
+    ko.components.register("details", {
+      viewModel: { require: "components/titles/titleDetails" },
+      template: { require: "text!components/titles/titleDetails.html" }
     });
 });
 
