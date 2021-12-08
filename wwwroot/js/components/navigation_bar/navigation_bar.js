@@ -6,7 +6,7 @@ define(['knockout', 'postman', "viewmodel"], function (ko, postman, vm) {
             { title: "Home", component: "Home" },
             { title: "Movies", component: "Movies" },
             { title: "Series", component: "Series" },
-            { title: "Bookmarks", component: "Bookmarks" },
+            { title: "Bookmarks", component: "bookmark" },
         ];
 
         let changeContent = menuItem => {

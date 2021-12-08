@@ -2,7 +2,9 @@
     
     let activeView =  ko.observable('list-categories')
     let bearerToken = ko.observable('');
-
+    let userName = ko.observable('')
+    let uconst = ko.observable('')
+    
 
 
     let isActive = menuItem => {
@@ -16,5 +18,8 @@
     return {
         activeView,
         isActive,
+        bearerToken,
+        userName,
+        uconst
     }
 });

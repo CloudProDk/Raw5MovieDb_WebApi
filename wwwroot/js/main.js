@@ -11,6 +11,7 @@ require.config({
         knockout: "lib/knockout/build/output/knockout-latest.debug",
         movieService: "services/movieService",
         bookmarkService: "services/bookmarkService",
+        authenticationService: "services/authenticationService",
         postman: "services/postman",
     }
 });
