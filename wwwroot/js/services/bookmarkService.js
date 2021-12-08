@@ -4,7 +4,9 @@ define([], () => {
         let param = {
             headers: {
                 "Content-Type": "application/json",
+
                 'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJyb2xlIjoiQWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3ZlcnNpb24iOiJWMy4xIiwibmJmIjoxNjM5MDAxNzUxLCJleHAiOjE2MzkwMDM1NTEsImlhdCI6MTYzOTAwMTc1MX0.mCpuQb_Etpcz185Itx86h2JMvBJgnFefWWHCZaMW91g'
+
             }
         }
         fetch("/api/Bookmark/TitleBookmark/1", param)
