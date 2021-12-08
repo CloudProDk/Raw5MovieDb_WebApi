@@ -10,7 +10,6 @@ define([], () => {
         fetch("api/Bookmark/TitleBookmark/1", param)
             .then(response => response.json())
             .then(json => console.log(json));
-
     };
 
     return {

@@ -2,13 +2,16 @@
     return function (params) {
 
         let movies = ko.observableArray([]);
-       
-        ms.getMovies(movies);
+
+        ms.getMovies(movies)
+        
 
         return {
-            
+
             movies
-            
+
         };
+
+        
     };
 });

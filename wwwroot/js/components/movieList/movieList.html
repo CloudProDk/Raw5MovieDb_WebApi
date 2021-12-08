@@ -1,9 +1,13 @@
 ﻿
-    <table class="table">
+  
+        <!-- <p data-bind="text: movies().results[0].primarytitle"></p> -->
+   
+   <table class="table">
         <thead>
             <tr><td>title</td></tr>
         </thead>
-        <tbody data-bind="foreach: movies">
+        
+        <tbody data-bind="foreach: movies().results">
             <tr>
                 <td data-bind="text: primarytitle"></td>
             
