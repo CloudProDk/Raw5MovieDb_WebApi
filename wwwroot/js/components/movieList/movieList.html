@@ -2,7 +2,7 @@
   
         <!-- <p data-bind="text: movies().results[0].primarytitle"></p> -->
    
-   <table class="table">
+  <!-- <table class="table">
         <thead>
             <tr><td>title</td></tr>
         </thead>
@@ -13,4 +13,31 @@
             
             </tr>
         </tbody>
-    </table>
+    </table>-->
+
+
+
+
+       <h2>All Movies</h2>
+
+
+           <div id="status" class="error"> </div>
+
+           <table class="table">
+               <thead>
+                   <tr><td>title</td><td>Image</td><td>Rating</td> </tr>
+               </thead>
+            <tr>
+               <tbody data-bind="foreach: movies().results">
+                       <td data-bind="text: primarytitle"></td>
+               </tbody>
+           <!-- </tr>
+               <tr>
+               <td data-bind></td>
+            </tr>
+               <tr>
+               <td data-bind></td>
+            </tr>
+-->
+           </table>
+
