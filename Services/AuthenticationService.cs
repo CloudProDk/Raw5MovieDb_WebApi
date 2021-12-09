@@ -56,7 +56,8 @@ namespace Raw5MovieDb_WebApi.Services
                 Email = user.Email,
                 Birthdate = user.Birthdate,
                 Password = "",
-                Token = tokenHandler.WriteToken(token)
+                Token = tokenHandler.WriteToken(token),
+                Uconst = user.Uconst
             };
 
             return newUser;

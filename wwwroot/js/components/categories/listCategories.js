@@ -1,4 +1,5 @@
-﻿define(['knockout', 'postman', 'movieService', 'bookmarkService'], function (ko, postman, ms, bs) {
+﻿/// <reference path="addcategory.js" />
+define(['knockout', 'postman', 'movieService', 'bookmarkService'], function (ko, postman, ms, bs) {
     return function (params) {
 
         let movies = ko.observableArray([]);

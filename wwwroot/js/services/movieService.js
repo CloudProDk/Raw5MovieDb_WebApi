@@ -1,6 +1,7 @@
 define([], () => {
 
     let getMovies = (callback) => {
+
         let param = {
             headers: {
                 "Content-Type": "application/json",
@@ -8,6 +9,9 @@ define([], () => {
             }
         }
         fetch("api/titles?Page=10&PageSize=50", param)
+
+
+
 
             .then(response => response.json())
             .then(json => callback(json))
@@ -18,4 +22,3 @@ define([], () => {
         getMovies
     }
 });
-
