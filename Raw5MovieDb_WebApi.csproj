@@ -8,7 +8,7 @@
     <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\$(Configuration)\$(AssemblyName).xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\Raw5MovieDb_WebApi.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Npgsql" Version="5.0.10" />
@@ -34,5 +34,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\Profiles\" />
+    <Folder Include="wwwroot\js\components\movieList\" />
+    <Folder Include="wwwroot\js\components\singleActor\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\js\components\movieList\" />
+    <Content Remove="wwwroot\js\components\singleActor\" />
   </ItemGroup>
 </Project>

@@ -414,5 +414,14 @@ namespace Raw5MovieDb_WebApi.Services
             var ctx = new MovieDbContext();
             return ctx.userRatings.Where(u => u.Uconst == uconst).ToList();
         }
+
+        public TitleRating getAverageRating(string tconst)
+        {
+            var ctx = new MovieDbContext();
+            return (TitleRating)ctx.titleRatings.FromSqlInterpolated($"SELECT averagerating FROM title_ratings where tconst = ´{tconst}");
+        }
+
+
+
     }
 }

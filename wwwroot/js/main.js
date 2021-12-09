@@ -34,6 +34,15 @@ require(['knockout'], (ko) => {
         viewModel: { require: "components/bookmarks/bookmark" },
         template: { require: "text!components/bookmarks/bookmark.html" }
     });
+
+    ko.components.register("movieList", {
+        viewModel: { require: "components/movieList/movieList" },
+        template: { require: "text!components/movieList/movieList.html" }
+    });
+    ko.components.register("singleActor", {
+        viewModel: { require: "components/singleActor/singleActor"},
+        template: { require: "text!components/singleActor/singleActor.html" }
+
     ko.components.register("navigation_bar", {
         viewModel: { require: "components/navigation_bar/navigation_bar" },
         template: { require: "text!components/navigation_bar/navigation_bar.html" }
@@ -45,6 +54,7 @@ require(['knockout'], (ko) => {
     ko.components.register("details", {
       viewModel: { require: "components/titles/titleDetails" },
       template: { require: "text!components/titles/titleDetails.html" }
+
     });
 });
 

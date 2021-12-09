@@ -38,6 +38,7 @@ define([], () => {
         }
         fetch("/api/Bookmark/ActorBookmark/1", param)
             .then(response => response.json())
+
             .then(json => callback(json));
 
     };
