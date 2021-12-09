@@ -10,7 +10,7 @@ define(['knockout', 'postman', "viewmodel"], function (ko, postman, vm) {
         ];
 
         let changeContent = menuItem => {
-            console.group(menuItem)
+            console.log(menuItem)
             vm.activeView(menuItem.component)
         };
 
