@@ -13,13 +13,13 @@
         }
 
         let navigate = () => {
-            if(token != ''){
+            if(token().token){
                 console.log(token())
                 vm.bearerToken(token().token)
                 vm.userName(token().userName)
                 vm.uconst(token().uconst)
                 vm.activeView('bookmark')
-            }
+            } else {console.log('error')}
         }
 
 
