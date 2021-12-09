@@ -1,9 +1,11 @@
 
-define(['knockout', 'postman','bookmarkService', 'viewmodel'], function (ko, postman, bs, vm) {
+define(['knockout', 'postman','bookmarkService', 'viewmodel','movieService'], function (ko, postman, bs, vm, ms) {
     return function (params) {
+
         let token = ko.observable('');
         let userName = ko.observable('');
         let uconst = ko.observable('');
+        let movie = ko.observable('');
 
       
         token(vm.bearerToken())
@@ -16,11 +18,33 @@ define(['knockout', 'postman','bookmarkService', 'viewmodel'], function (ko, pos
 
         let deltitle = title => {
             bookmarks.remove(title);
-            bs.deleteTitleBookmark(title, '1', 'tt7366338' );
+            console.log(title.tconst)
+            bs.deleteTitleBookmark(title, uconst, title.tconst);
         }
+
+
+        //
+        let goToMovieByTconst = title => {
+            setTimeout(navigateToMovie(title), 1000)
+        }
+
+        let navigateToMovie = title => {
+            console.log(title.tconst)
+            ms.getMovieByTconst(movie, title.tconst)
+            vm.currentmovie(movie)
+            setTimeout(setCurrentMovie, 3000)
+            // CONTINUE WHEN MOVIES AND ACTORS ARE SET UP
+            vm.activeView('details')
+        }
+
+        function setCurrentMovie() {
+            console.log(vm.currentmovie())
+        }
+
         let delactor = actor => {
-            actorbookmarks.remove(actor);
-            bs.deleteActorBookmark(actor);
+            bookmarks.remove(title);
+            console.log(actor.nconst)
+            bs.deleteTitleBookmark(actor, nconst, actor.nconst);
         }
 
         bs.getBookmarks(bookmarks)
@@ -34,7 +58,8 @@ define(['knockout', 'postman','bookmarkService', 'viewmodel'], function (ko, pos
             delactor,
             token,
             userName,
-            uconst
+            uconst,
+            goToMovieByTconst
         };
     };
 });

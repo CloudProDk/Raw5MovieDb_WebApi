@@ -40,8 +40,9 @@ require(['knockout'], (ko) => {
         template: { require: "text!components/movieList/movieList.html" }
     });
     ko.components.register("singleActor", {
-        viewModel: { require: "components/singleActor/singleActor"},
+        viewModel: { require: "components/singleActor/singleActor" },
         template: { require: "text!components/singleActor/singleActor.html" }
+    });
 
     ko.components.register("navigation_bar", {
         viewModel: { require: "components/navigation_bar/navigation_bar" },
