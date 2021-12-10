@@ -17,5 +17,6 @@ namespace Raw5MovieDb_WebApi.ViewModels
         public int Runtimeminutes { get; set; }
         public IList<GenreViewModel> GenreList { get; set; }
         public TitleRatingViewModel ImdbRating { get; set; }
+        public OmdbDataViewModel OmdbData { get; set; }
     }
 }

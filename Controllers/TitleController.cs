@@ -202,12 +202,19 @@ namespace Raw5MovieDb_WebApi.Controllers
             model.Url = GetTitleUrl(title);
             model.Actors = GetTitleActorsUrl(title);
             model.ImdbRating = GetTitleRatingViewModel(title.TitleRating);
+            model.OmdbData = GetOmdbDataViewModel(title.OmdbData);
             return model;
         }
 
         private TitleRatingViewModel GetTitleRatingViewModel(TitleRating titleRating)
         {
             var model = _mapper.Map<TitleRatingViewModel>(titleRating);
+            return model;
+        }
+
+        private OmdbDataViewModel GetOmdbDataViewModel(OmdbData omdbData)
+        {
+            var model = _mapper.Map<OmdbDataViewModel>(omdbData);
             return model;
         }
 

@@ -77,6 +77,7 @@ namespace Raw5MovieDb_WebApi.Services
             modelBuilder.Entity<TitleGenre>().Property(x => x.GenreId).HasColumnName("genreid");
 
             modelBuilder.Entity<OmdbData>().ToTable("omdb_data");
+            modelBuilder.Entity<OmdbData>().HasOne(x => x.Title).WithOne(x => x.OmdbData).HasForeignKey<Title>(x => x.Tconst);
             modelBuilder.Entity<OmdbData>().Property(x => x.Tconst).HasColumnName("tconst");
             modelBuilder.Entity<OmdbData>().Property(x => x.Poster).HasColumnName("poster");
             modelBuilder.Entity<OmdbData>().Property(x => x.Awards).HasColumnName("awards");
