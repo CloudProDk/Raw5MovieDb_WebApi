@@ -1,4 +1,4 @@
-<div class="container-lg p-0">
+<div class="container-lg p-0" data-bind="with: title()">
   <div class="row">
     <div class="col p-0">
       <h1>MovieDB</h1>
@@ -6,19 +6,18 @@
   </div>
 
   <div class="container-fluid p-0">
-    <div class="movie-heroimg overflow-hidden"
-      style="background-image: url('https://image.tmdb.org/t/p/w1400_and_h450_face/wfClZdRb1x4LZ8B73Y9RSn8XAPa.jpg');">
+    <div class="movie-heroimg overflow-hidden" data-bind="style: { backgroundImage: 'url(\'' + omdbData.poster + '\')' }">
     </div>
   </div>
 
   <div class="row movie-details">
     <div class="col order-lg-3">
       <div class="movie-poster d-lg-none">
-        <img src="https://image.tmdb.org/t/p/w342/bMr9Ir2hCFu2R72pjCA43uRMT4r.jpg" alt="The Iron Giant">
+        <img data-bind="attr:{src: omdbData.poster, alt: primarytitle}">
       </div>
 
       <div class="row">
-        <h1>The Iron Giant</h1>
+        <h1 data-bind="text: primarytitle"></h1>
       </div>
 
       <div class="row row-cols-auto">
@@ -26,13 +25,13 @@
           <span class="subtitleDetail certification">PG</span>
         </div>
         <div class="col">
-          <span class="subtitleDetail imdbrating">8.0</span>
+          <span class="subtitleDetail imdbrating" data-bind="text: imdbRating.averagerating"></span>
         </div>
         <div class="col">
-          <span class="subtitleDetail">86 min</span>
+          <span class="subtitleDetail"><span data-bind="text: runtimeminutes"></span> min</span>
         </div>
         <div class="col">
-          <span class="subtitleDetail">1999</span>
+          <span class="subtitleDetail" data-bind="text: startyear"></span>
         </div>
       </div>
 
@@ -41,9 +40,7 @@
           <h2>Summary</h2>
         </div>
         <div class="row pe-0">
-          <p class="lbg">In the small town of Rockwell, Maine in October 1957, a giant metal machine befriends a
-            nine-year-old boy
-            and ultimately finds its humanity by unselfishly saving people from their own fears and prejudices.</p>
+          <p class="lbg" data-bind="text: omdbData.plot"></p>
         </div>
       </div>
 
@@ -63,7 +60,7 @@
 
     <div class="col-lg-3 order-lg-9">
       <div class="movie-poster d-none d-lg-block">
-        <img src="https://image.tmdb.org/t/p/w342/bMr9Ir2hCFu2R72pjCA43uRMT4r.jpg" alt="The Iron Giant">
+        <img data-bind="attr:{src: omdbData.poster, alt: primarytitle}">
       </div>
 
       <div class="row">
@@ -71,12 +68,8 @@
           <h2>Genres</h2>
         </div>
         <div class="row lbg">
-          <ul class="movie-genres">
-            <li>Family</li>
-            <li>Animation</li>
-            <li>Sci-Fi</li>
-            <li>Adventure</li>
-            <li>Comedy</li>
+          <ul class="movie-genres" data-bind="foreach: genreList">
+            <li data-bind="text: name"></li>
           </ul>
         </div>
       </div>
@@ -86,71 +79,20 @@
           <h2>Cast</h2>
         </div>
         <div class="row lbg">
-          <ul class="movie-cast">
+          <ul class="movie-cast" data-bind="foreach: $parent.actors">
             <li>
               <div class="movie-cast-member">
                 <div class="row">
                   <div class="col-3">
-                    <div class="movie-cast-member-img" style="background-image: url('https://image.tmdb.org/t/p/w185/lrIygexYKs1bhcIjbHtyCejRaAe.jpg');"></div>
+                    <div class="movie-cast-member-img" style="background-color: #e7e7e7;"></div>
                   </div>
                   <div class="col movie-cast-member-name">
                     <div class="row">
-                      <span class="name">Eli Marienthal</span>
+                      <span class="name" data-bind="text: primaryname"></span>
                     </div>
-                    <div class="row">
-                      <span class="character">Hogarth Hughes</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="movie-cast-member">
-                <div class="row">
-                  <div class="col-3">
-                    <div class="movie-cast-member-img" style="background-image: url('https://image.tmdb.org/t/p/w185/lrIygexYKs1bhcIjbHtyCejRaAe.jpg');"></div>
-                  </div>
-                  <div class="col movie-cast-member-name">
-                    <div class="row">
-                      <span class="name">Eli Marienthal</span>
-                    </div>
-                    <div class="row">
-                      <span class="character">Hogarth Hughes</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="movie-cast-member">
-                <div class="row">
-                  <div class="col-3">
-                    <div class="movie-cast-member-img" style="background-image: url('https://image.tmdb.org/t/p/w185/lrIygexYKs1bhcIjbHtyCejRaAe.jpg');"></div>
-                  </div>
-                  <div class="col movie-cast-member-name">
-                    <div class="row">
-                      <span class="name">Eli Marienthal</span>
-                    </div>
-                    <div class="row">
-                      <span class="character">Hogarth Hughes</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="movie-cast-member">
-                <div class="row">
-                  <div class="col-3">
-                    <div class="movie-cast-member-img" style="background-image: url('https://image.tmdb.org/t/p/w185/lrIygexYKs1bhcIjbHtyCejRaAe.jpg');"></div>
-                  </div>
-                  <div class="col movie-cast-member-name">
-                    <div class="row">
-                      <span class="name">Eli Marienthal</span>
-                    </div>
-                    <div class="row">
-                      <span class="character">Hogarth Hughes</span>
-                    </div>
+                    <!-- <div class="row">
+                      <span class="character"></span>
+                    </div> -->
                   </div>
                 </div>
               </div>

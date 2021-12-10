@@ -1,12 +1,12 @@
 define(['knockout', 'postman', 'movieService'], function (ko, postman, ms) {
   return function (params) {
-    let movies = ko.observableArray([]);
-    ms.getMovies(movies);
-
-    console.log(movies);
-
+    let title = ko.observable(null);
+    let actors = ko.observable(null);
+    ms.getTitle('tt3890160', title);
+    ms.getTitleActors('tt3890160', actors);
     return {
-      movies
+      title,
+      actors
     };
   };
 });
