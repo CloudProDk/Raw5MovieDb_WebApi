@@ -7,43 +7,24 @@
 
   <div class="row">
     <div class="col p-0">
-      <h2>My List</h2>
+      <h2>Popular</h2>
       <div class="movie-carousel">
-        <div class="movie-carousel-rail">
+        <div class="movie-carousel-rail" data-bind="foreach: popularTitles()">
           <div class="movie-poster">
-            <img
-              src="https://m.media-amazon.com/images/M/MV5BZDEyN2NhMjgtMjdhNi00MmNlLWE5YTgtZGE4MzNjMTRlMGEwXkEyXkFqcGdeQXVyNDUyOTg3Njg@._V1_FMjpg_UX511_.jpg"
-              alt="Spider-Man">
+            <img data-bind="attr:{src: omdbData.poster, alt: primarytitle}">
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <div class="row">
+    <div class="col p-0">
+      <h2>Action</h2>
+      <div class="movie-carousel">
+        <div class="movie-carousel-rail" data-bind="foreach: actionTitles()">
           <div class="movie-poster">
-            <img
-              src="https://m.media-amazon.com/images/M/MV5BZDEyN2NhMjgtMjdhNi00MmNlLWE5YTgtZGE4MzNjMTRlMGEwXkEyXkFqcGdeQXVyNDUyOTg3Njg@._V1_FMjpg_UX511_.jpg"
-              alt="Spider-Man">
-          </div>
-
-          <div class="movie-poster">
-            <img
-              src="https://m.media-amazon.com/images/M/MV5BZDEyN2NhMjgtMjdhNi00MmNlLWE5YTgtZGE4MzNjMTRlMGEwXkEyXkFqcGdeQXVyNDUyOTg3Njg@._V1_FMjpg_UX511_.jpg"
-              alt="Spider-Man">
-          </div>
-
-          <div class="movie-poster">
-            <img
-              src="https://m.media-amazon.com/images/M/MV5BZDEyN2NhMjgtMjdhNi00MmNlLWE5YTgtZGE4MzNjMTRlMGEwXkEyXkFqcGdeQXVyNDUyOTg3Njg@._V1_FMjpg_UX511_.jpg"
-              alt="Spider-Man">
-          </div>
-
-          <div class="movie-poster">
-            <img
-              src="https://m.media-amazon.com/images/M/MV5BZDEyN2NhMjgtMjdhNi00MmNlLWE5YTgtZGE4MzNjMTRlMGEwXkEyXkFqcGdeQXVyNDUyOTg3Njg@._V1_FMjpg_UX511_.jpg"
-              alt="Spider-Man">
-          </div>
-
-          <div class="movie-poster">
-            <img
-              src="https://m.media-amazon.com/images/M/MV5BZDEyN2NhMjgtMjdhNi00MmNlLWE5YTgtZGE4MzNjMTRlMGEwXkEyXkFqcGdeQXVyNDUyOTg3Njg@._V1_FMjpg_UX511_.jpg"
-              alt="Spider-Man">
+            <img data-bind="attr:{src: omdbData.poster, alt: primarytitle}">
           </div>
         </div>
       </div>

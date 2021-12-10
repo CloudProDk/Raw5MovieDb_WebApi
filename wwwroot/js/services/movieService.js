@@ -12,6 +12,30 @@ define(['viewmodel'], (vm) => {
       .then(json => callback(json))
   };
 
+  let getPopularTitles = (callback) => {
+    let param = {
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + vm.bearerToken()
+      }
+    }
+    fetch("api/titles/popular", param)
+      .then(response => response.json())
+      .then(json => callback(json))
+  };
+
+  let getTitlesFromGenre = (genreid, callback) => {
+    let param = {
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + vm.bearerToken()
+      }
+    }
+    fetch(`api/genres/${genreid}/titles`, param)
+      .then(response => response.json())
+      .then(json => callback(json))
+  };
+
   let getTitle = (tconst, callback) => {
     let param = {
       headers: {
@@ -38,6 +62,8 @@ define(['viewmodel'], (vm) => {
 
   return {
     getMovies,
+    getPopularTitles,
+    getTitlesFromGenre,
     getTitle,
     getTitleActors
   }

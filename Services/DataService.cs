@@ -204,7 +204,7 @@ namespace Raw5MovieDb_WebApi.Services
         public IList<Title> GetTitles(QueryString queryString)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.Include(x => x.TitleRating).Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize).ToList();
+            return ctx.titles.Include(x => x.TitleRating).Include(x => x.OmdbData).Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize).ToList();
         }
         //linq
         public Title GetTitle(string tconst)
@@ -347,7 +347,7 @@ namespace Raw5MovieDb_WebApi.Services
         public IList<Title> GetPopularTitles()
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.Include(x => x.TitleRating).OrderByDescending(x => x.TitleRating.Averagerating * x.TitleRating.Numvotes).Take(25).ToList();
+            return ctx.titles.Include(x => x.TitleRating).Include(x => x.OmdbData).OrderByDescending(x => x.TitleRating.Averagerating * x.TitleRating.Numvotes).Take(25).ToList();
         }
 
 
