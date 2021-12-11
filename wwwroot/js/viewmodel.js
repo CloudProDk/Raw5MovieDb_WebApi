@@ -7,6 +7,7 @@ define(["knockout", "postman"], function (ko, postman) {
     let userName = ko.observable('');
     let uconst = ko.observable('');
     let currentmovie = ko.observable('');
+    let currentactor = ko.observable('');
     
     
 
@@ -24,6 +25,7 @@ define(["knockout", "postman"], function (ko, postman) {
         bearerToken,
         userName,
         uconst,
-        currentmovie
+        currentmovie,
+        currentactor
     }
 });

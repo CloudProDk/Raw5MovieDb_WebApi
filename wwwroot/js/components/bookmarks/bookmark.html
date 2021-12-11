@@ -1,9 +1,10 @@
 <h1>
-    bookmarks works!
+	bookmarks works!
 </h1>
-<p style="width:25%; overflow-wrap: normal;" data-bind="text: token()"></p>
-<p style="width:25%; overflow-wrap: normal;" data-bind="text: userName()"></p>
-<p style="width:25%; overflow-wrap: normal;" data-bind="text: uconst()"></p>
+<h2>
+    <p style="width:25%; overflow-wrap: normal;" data-bind="text: token()"></p>
+    <p style="width:25%; overflow-wrap: normal;" data-bind="text: userName()"></p>
+    <p style="width:25%; overflow-wrap: normal;" data-bind="text: uconst()"></p>
 
     <table class="table">
         <thead>
@@ -25,8 +26,9 @@
                 <td data-bind="text: uconst"></td>
                 <td data-bind="text: nconst"></td>
                 <td><button class="btn btn-danger btn-sm" data-bind="click: $parent.delactor">Del</button></td>
+                <td><button class="btn" data-bind="click: $parent.goToActorByNconst">Goto</button></td>
             </tr>
         </tbody>
 
     </table>
-</h1>
+</h2>
