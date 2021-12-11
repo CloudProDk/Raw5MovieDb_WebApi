@@ -13,6 +13,7 @@ require.config({
         bookmarkService: "services/bookmarkService",
         authenticationService: "services/authenticationService",
         postman: "services/postman",
+        actorService: "services/actorService"
     }
 });
 
@@ -57,6 +58,7 @@ require(['knockout'], (ko) => {
       template: { require: "text!components/titles/titleDetails.html" }
 
     });
+    
 });
 
 require(["knockout", "viewmodel"], function (ko, vm) {
