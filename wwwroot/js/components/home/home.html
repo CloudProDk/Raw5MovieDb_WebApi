@@ -22,7 +22,7 @@
     <div class="col p-0">
       <h2>Action</h2>
       <div class="movie-carousel">
-        <div class="movie-carousel-rail" data-bind="foreach: actionTitles()">
+        <div class="movie-carousel-rail" data-bind="foreach: actionTitles().results">
           <div class="movie-poster">
             <img data-bind="attr:{src: omdbData.poster, alt: primarytitle}">
           </div>
@@ -33,70 +33,11 @@
 
   <div class="row">
     <div class="col p-0">
-      <h2>Action</h2>
-      <div class="movie-carousel">
-        <div class="movie-carousel-rail">
-          <div class="movie-poster">
-            <img src="https://img-cdn.b17g.net/edbdbd41-7306-491a-9025-26a5216371dc/crop2x3.jpg"
-              alt="Mad Max: Fury Road">
-          </div>
-
-          <div class="movie-poster">
-            <img src="https://img-cdn.b17g.net/edbdbd41-7306-491a-9025-26a5216371dc/crop2x3.jpg"
-              alt="Mad Max: Fury Road">
-          </div>
-
-          <div class="movie-poster">
-            <img src="https://img-cdn.b17g.net/edbdbd41-7306-491a-9025-26a5216371dc/crop2x3.jpg"
-              alt="Mad Max: Fury Road">
-          </div>
-
-          <div class="movie-poster">
-            <img src="https://img-cdn.b17g.net/edbdbd41-7306-491a-9025-26a5216371dc/crop2x3.jpg"
-              alt="Mad Max: Fury Road">
-          </div>
-
-          <div class="movie-poster">
-            <img src="https://img-cdn.b17g.net/edbdbd41-7306-491a-9025-26a5216371dc/crop2x3.jpg"
-              alt="Mad Max: Fury Road">
-          </div>
-
-          <div class="movie-poster">
-            <img src="https://img-cdn.b17g.net/edbdbd41-7306-491a-9025-26a5216371dc/crop2x3.jpg"
-              alt="Mad Max: Fury Road">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col p-0">
       <h2>Sci-Fi</h2>
       <div class="movie-carousel">
-        <div class="movie-carousel-rail">
+        <div class="movie-carousel-rail" data-bind="foreach: scifiTitles().results">
           <div class="movie-poster">
-            <img src="https://picfiles.alphacoders.com/348/348707.jpg" alt="Dredd">
-          </div>
-
-          <div class="movie-poster">
-            <img src="https://picfiles.alphacoders.com/348/348707.jpg" alt="Dredd">
-          </div>
-
-          <div class="movie-poster">
-            <img src="https://picfiles.alphacoders.com/348/348707.jpg" alt="Dredd">
-          </div>
-
-          <div class="movie-poster">
-            <img src="https://picfiles.alphacoders.com/348/348707.jpg" alt="Dredd">
-          </div>
-
-          <div class="movie-poster">
-            <img src="https://picfiles.alphacoders.com/348/348707.jpg" alt="Dredd">
-          </div>
-
-          <div class="movie-poster">
-            <img src="https://picfiles.alphacoders.com/348/348707.jpg" alt="Dredd">
+            <img data-bind="attr:{src: omdbData.poster, alt: primarytitle}">
           </div>
         </div>
       </div>

@@ -327,7 +327,7 @@ namespace Raw5MovieDb_WebApi.Services
         public IList<Title> GetTitlesByGenre(int genreId, QueryString queryString)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.FromSqlInterpolated($"SELECT * FROM get_titles_by_genre({genreId}, {queryString.Page}, {queryString.PageSize})").ToList();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM get_titles_by_genre({genreId}, {queryString.Page}, {queryString.PageSize})").Include(x => x.OmdbData).ToList();
         }
 
         public int TitlesByGenreCount(int genreId)
