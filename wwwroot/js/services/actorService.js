@@ -26,7 +26,7 @@ define(['viewmodel'], function (vm) {
         }
         fetch(`/api/actors/${nconst}`, param)
             .then(response => response.json())
-            .then(json => console.log(json));
+            .then(json => callback(json));
 
     };
 

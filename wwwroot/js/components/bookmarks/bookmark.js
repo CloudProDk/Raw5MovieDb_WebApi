@@ -5,8 +5,7 @@ define(['knockout', 'postman','bookmarkService', 'viewmodel','movieService','act
         let token = ko.observable('');
         let userName = ko.observable('');
         let uconst = ko.observable('');
-        let movie = ko.observable('');
-        let actors = ko.observable('')
+        
 
       
         token(vm.bearerToken())
@@ -31,8 +30,8 @@ define(['knockout', 'postman','bookmarkService', 'viewmodel','movieService','act
 
         let navigateToMovie = title => {
             console.log(title.tconst)
-            ms.getMovieByTconst(movie, title.tconst)
-            vm.currentmovie(movie)
+            ms.getMovieByTconst(title, title.tconst)
+            vm.currentmovie(title)
             setTimeout(setCurrentMovie, 3000)
             // CONTINUE WHEN MOVIES AND ACTORS ARE SET UP
             vm.activeView('details')
@@ -43,11 +42,11 @@ define(['knockout', 'postman','bookmarkService', 'viewmodel','movieService','act
         }
         let navigateToActor = actor => {
             console.log(actor.nconst)
-            as.getActorByNconst(actors, actor.nconst)
-            vm.currentmovie(actors)
+            vm.currentactor(actor)
+            as.getActorByNconst(actor, actor.nconst)
             setTimeout(setCurrentActor, 3000)
             // CONTINUE WHEN MOVIES AND ACTORS ARE SET UP
-            vm.activeView('details')
+            vm.activeView('singleActor')
         }
 
         function setCurrentMovie() {
