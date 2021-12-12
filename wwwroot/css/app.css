@@ -34,22 +34,26 @@
 .logincontainer{
     width: 100px;
     height: 100px;
-    
+
     position: absolute;
     top:0;
     bottom: 0;
     left: 0;
     right: 0;
-    
+
     margin: auto;
 }
-  
+
 body{
   font-family: 'Varela Round', sans-serif;
 }
 
 h1, h2, h3 {
   font-weight: 900;
+}
+
+.movie-carousel-container {
+  position: relative;
 }
 
 .movie-carousel {
@@ -61,6 +65,24 @@ h1, h2, h3 {
 
 .movie-carousel .movie-carousel-rail {
   white-space: nowrap;
+}
+
+.movie-carousel-changepage {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #000000;
+  text-shadow: 1px 0px 12px rgba(0,0,0,.4);
+  font-size: 62px;
+  cursor: pointer;
+}
+
+.movie-carousel-changepage.left {
+  left: -100px;
+}
+
+.movie-carousel-changepage.right {
+  right: -100px;
 }
 
 .movie-poster {

@@ -13,11 +13,23 @@ define(['knockout', 'postman', 'viewmodel', 'movieService'], function (ko, postm
       vm.activeView('details');
     };
 
+    let loadPreviousTitlePage = (titleCollection) => {
+      console.log(titleCollection().previousPage);
+      ms.getTitlesFromUrl(titleCollection().previousPage, titleCollection);
+    }
+
+    let loadNextTitlePage = (titleCollection) => {
+      console.log(titleCollection().nextPage);
+      ms.getTitlesFromUrl(titleCollection().nextPage, titleCollection);
+    }
+
     return {
       popularTitles,
       actionTitles,
       scifiTitles,
-      goToTitleDetails
+      goToTitleDetails,
+      loadPreviousTitlePage,
+      loadNextTitlePage
     };
   };
 });
