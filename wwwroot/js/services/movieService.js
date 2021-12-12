@@ -33,7 +33,7 @@ define(['viewmodel'], (vm) => {
     }
     fetch(`api/genres/${genreid}/titles`, param)
       .then(response => response.json())
-      .then(json => {callback(json); console.log('YOYO'); console.log(json)})
+      .then(json => callback(json))
   };
 
   let getTitlesFromUrl = (url, callback) => {
@@ -57,7 +57,7 @@ define(['viewmodel'], (vm) => {
     }
     fetch(url, param)
       .then(response => response.json())
-      .then(json => {callback(json); console.log(json)})
+      .then(json => callback(json))
   };
 
   let getTitleActors = (url, callback) => {
@@ -69,7 +69,7 @@ define(['viewmodel'], (vm) => {
     }
     fetch(url, param)
       .then(response => response.json())
-      .then(json => {callback(json); console.log(json)})
+      .then(json => callback(json))
   };
 
   return {
