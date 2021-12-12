@@ -166,7 +166,13 @@ namespace Raw5MovieDb_WebApi.Controllers
         {
             var model = _mapper.Map<TitleViewModel>(title);
             model.Url = GetTitleUrl(title);
+            model.Actors = GetTitleActorsUrl(title);
             return model;
+        }
+
+        private string GetTitleActorsUrl(Title title)
+        {
+            return _linkGenerator.GetUriByName(HttpContext, nameof(TitleController.GetTitleActors), new { Tconst = title.Tconst.TrimEnd() });
         }
 
         private string GetTitleUrl(Title title)

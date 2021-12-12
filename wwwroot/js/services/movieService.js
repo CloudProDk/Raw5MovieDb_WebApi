@@ -33,29 +33,29 @@ define(['viewmodel'], (vm) => {
     }
     fetch(`api/genres/${genreid}/titles`, param)
       .then(response => response.json())
-      .then(json => callback(json))
+      .then(json => {callback(json); console.log('YOYO'); console.log(json)})
   };
 
-  let getTitle = (tconst, callback) => {
+  let getTitle = (url, callback) => {
     let param = {
       headers: {
         "Content-Type": "application/json",
         'Authorization': 'Bearer ' + vm.bearerToken()
       }
     }
-    fetch(`api/titles/${tconst}`, param)
+    fetch(url, param)
       .then(response => response.json())
       .then(json => {callback(json); console.log(json)})
   };
 
-  let getTitleActors = (tconst, callback) => {
+  let getTitleActors = (url, callback) => {
     let param = {
       headers: {
         "Content-Type": "application/json",
         'Authorization': 'Bearer ' + vm.bearerToken()
       }
     }
-    fetch(`api/titles/${tconst}/actors`, param)
+    fetch(url, param)
       .then(response => response.json())
       .then(json => {callback(json); console.log(json)})
   };

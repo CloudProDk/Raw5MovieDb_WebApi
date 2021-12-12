@@ -1,4 +1,4 @@
-define(['knockout', 'postman', 'movieService'], function (ko, postman, ms) {
+define(['knockout', 'postman', 'viewmodel', 'movieService'], function (ko, postman, vm, ms) {
   return function (params) {
     let popularTitles = ko.observableArray([]);
     let actionTitles = ko.observableArray([]);
@@ -7,10 +7,17 @@ define(['knockout', 'postman', 'movieService'], function (ko, postman, ms) {
     ms.getTitlesFromGenre(6, actionTitles);
     ms.getTitlesFromGenre(11, scifiTitles);
 
+    let goToTitleDetails = titleItem => {
+      // console.group(titleItem);
+      vm.curTitle(titleItem);
+      vm.activeView('details');
+    };
+
     return {
       popularTitles,
       actionTitles,
-      scifiTitles
+      scifiTitles,
+      goToTitleDetails
     };
   };
 });
