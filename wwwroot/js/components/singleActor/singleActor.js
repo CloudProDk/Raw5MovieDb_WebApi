@@ -1,19 +1,20 @@
 ﻿define(['knockout', 'postman','viewmodel','actorService'], function (ko, postman, vm, as) {
     return function (params) {
 
-        console.log(vm.currentactor().nconst)
-        console.log(vm.currentactor())
-        let actor = vm.currentactor().nconst
+        console.log(vm.currentactor().nconst);
+        console.log(vm.currentactor());
+        let actornconst = vm.currentactor().nconst;
 
-        let actorresult = ko.observable('')
 
-        as.getActorByNconst(actorresult, vm.currentactor().nconst)
+        let actorToBeShown = ko.observableArray([]);
 
-        console.log(actorresult().url)
+        as.getActorByNconst(actorToBeShown, actornconst);
+
+
+        console.log(actorToBeShown());
         
         return {
-            actor,
-            actorresult
+            actorToBeShown
         }
     };
 });
