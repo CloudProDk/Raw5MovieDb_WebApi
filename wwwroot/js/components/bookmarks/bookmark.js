@@ -1,10 +1,13 @@
 
-define(['knockout', 'postman','bookmarkService', 'viewmodel'], function (ko, postman, bs, vm) {
+define(['knockout', 'postman','bookmarkService', 'viewmodel','movieService','actorService'], function (ko, postman, bs, vm, ms, as) {
     return function (params) {
+
         let token = ko.observable('');
         let userName = ko.observable('');
         let uconst = ko.observable('');
+
         let loggedInUser = ko.observable('');
+
 
       
         token(vm.bearerToken());
@@ -18,15 +21,58 @@ define(['knockout', 'postman','bookmarkService', 'viewmodel'], function (ko, pos
 
         let deltitle = title => {
             bookmarks.remove(title);
-            bs.deleteTitleBookmark(title, '1', 'tt7366338' );
-        }
-        let delactor = actor => {
-            actorbookmarks.remove(actor);
-            bs.deleteActorBookmark(actor);
+            console.log(title.tconst)
+            bs.deleteTitleBookmark(title, uconst, title.tconst);
         }
 
-        bs.getBookmarks(bookmarks)
-        bs.getActorBookmarks(actorbookmarks)
+
+        //
+        let goToMovieByTconst = title => {
+            setTimeout(navigateToMovie(title), 1000)
+        }
+
+        let navigateToMovie = title => {
+            console.log(title.tconst)
+            ms.getMovieByTconst(title, title.tconst)
+            vm.currentmovie(title)
+            setTimeout(setCurrentMovie, 3000)
+            // CONTINUE WHEN MOVIES AND ACTORS ARE SET UP
+            vm.activeView('details')
+        }
+
+        let goToActorByNconst = actor => {
+            setTimeout(navigateToActor(actor), 1000)
+        }
+        let navigateToActor = actor => {
+            console.log(actor.nconst)
+            vm.currentactor(actor)
+            as.getActorByNconst(actor, actor.nconst)
+            setTimeout(setCurrentActor, 3000)
+            // CONTINUE WHEN MOVIES AND ACTORS ARE SET UP
+            vm.activeView('singleActor')
+        }
+
+        function setCurrentMovie() {
+            console.log(vm.currentmovie())
+        }
+        function setCurrentActor() {
+            console.log(vm.currentactor())
+        }
+
+        let delactor = actor => {
+            bookmarks.remove(actor);
+            console.log(actor.nconst)
+            bs.deleteTitleBookmark(actor, nconst, actor.nconst);
+        }
+
+        bs.getBookmarks(bookmarks);
+        bs.getActorBookmarks(actorbookmarks);
+
+       
+
+        
+        
+        
 
         return {
 
@@ -37,7 +83,12 @@ define(['knockout', 'postman','bookmarkService', 'viewmodel'], function (ko, pos
             token,
             userName,
             uconst,
+
+            goToMovieByTconst,
+            goToActorByNconst,
             loggedInUser
+
         };
     };
 });
+

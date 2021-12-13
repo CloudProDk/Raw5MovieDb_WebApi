@@ -14,6 +14,9 @@ require.config({
         authenticationService: "services/authenticationService",
         searchHistoryService: "services/searchHistoryService",
         postman: "services/postman",
+        actorService: "services/actorService",
+        searchService: "services/searchService"
+
     }
 });
 
@@ -40,7 +43,7 @@ require(['knockout'], (ko) => {
         template: { require: "text!components/movieList/movieList.html" }
     });
     ko.components.register("singleActor", {
-        viewModel: { require: "components/singleActor/singleActor"},
+        viewModel: { require: "components/singleActor/singleActor" },
         template: { require: "text!components/singleActor/singleActor.html" }
     });
     ko.components.register("navigation_bar", {
@@ -55,10 +58,16 @@ require(['knockout'], (ko) => {
       viewModel: { require: "components/titles/titleDetails" },
       template: { require: "text!components/titles/titleDetails.html" }
     });
+
+    ko.components.register("search", {
+        viewModel: { require: "components/search/search" },
+        template: { require: "text!components/search/search.html" }
+    });
     ko.components.register("profile", {
         viewModel: { require: "components/profile/profile" },
         template: { require: "text!components/profile/profile.html" }
       });
+
 });
 
 require(["knockout", "viewmodel"], function (ko, vm) {
