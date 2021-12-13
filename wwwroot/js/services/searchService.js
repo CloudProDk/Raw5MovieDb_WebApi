@@ -1,6 +1,6 @@
-define([], () => {
+define(["viewmodel"], function (vm) {
 
- 
+        
 
     return {
        

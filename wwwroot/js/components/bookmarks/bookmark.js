@@ -33,8 +33,7 @@ define(['knockout', 'postman','bookmarkService', 'viewmodel','movieService','act
 
         let navigateToMovie = title => {
             console.log(title.tconst)
-            ms.getMovieByTconst(title, title.tconst)
-            vm.currentmovie(title)
+            vm.curTitle(title)
             setTimeout(setCurrentMovie, 3000)
             // CONTINUE WHEN MOVIES AND ACTORS ARE SET UP
             vm.activeView('details')
@@ -68,8 +67,11 @@ define(['knockout', 'postman','bookmarkService', 'viewmodel','movieService','act
         bs.getBookmarks(bookmarks);
         bs.getActorBookmarks(actorbookmarks);
 
-       
-
+        
+        let goToTitleDetails = titleItem => {
+            vm.curTitle(titleItem);
+            vm.activeView('details');
+        };
         
         
         
@@ -83,10 +85,10 @@ define(['knockout', 'postman','bookmarkService', 'viewmodel','movieService','act
             token,
             userName,
             uconst,
-
             goToMovieByTconst,
             goToActorByNconst,
-            loggedInUser
+            loggedInUser,
+            goToTitleDetails
 
         };
     };

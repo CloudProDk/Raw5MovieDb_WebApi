@@ -5,9 +5,7 @@ define(['viewmodel'], function (vm)  {
         let param = {
             headers: {
                 "Content-Type": "application/json",
-
                 'Authorization': 'Bearer ' + vm.bearerToken()
-
             }
         }
         fetch("/api/Bookmark/TitleBookmark/1", param)
