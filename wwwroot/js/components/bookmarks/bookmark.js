@@ -5,12 +5,15 @@ define(['knockout', 'postman','bookmarkService', 'viewmodel','movieService','act
         let token = ko.observable('');
         let userName = ko.observable('');
         let uconst = ko.observable('');
-        
+
+        let loggedInUser = ko.observable('');
+
 
       
-        token(vm.bearerToken())
-        userName(vm.userName())
-        uconst(vm.uconst())
+        token(vm.bearerToken());
+        userName(vm.userName());
+        uconst(vm.uconst());
+        loggedInUser(vm.loggedInUser());
 
 
         let bookmarks = ko.observableArray([]);
@@ -80,11 +83,10 @@ define(['knockout', 'postman','bookmarkService', 'viewmodel','movieService','act
             token,
             userName,
             uconst,
+
             goToMovieByTconst,
-            goToActorByNconst
-
-
-
+            goToActorByNconst,
+            loggedInUser
 
         };
     };

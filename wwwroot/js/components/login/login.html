@@ -1,5 +1,5 @@
 ﻿<div class="logincontainer" style="width: 100%; text-align: -webkit-center; ">
-
+  
   <img src="../../../assets/icon.png" alt="" width="25%" style="margin-top: -15rem;">
 
   <div style="width: 50%; text-align: left;">
@@ -14,11 +14,11 @@
         data-bind="value: password">
     </div>
     <div class="d-grid gap-2">
-      <button class="btn btn-primary" type="button" data-bind="click: login">Login</button>
-
-    </div>
-    <div style="max-width: 5rem;">
-      <p style="width:25%; overflow-wrap: normal;" data-bind="text: token().token"></p>
+      <button id="loginbtn" class="btn btn-primary" type="button" data-bind="click: login">Login</button>
+      <div id="loading" style="display: none; justify-self: center;" class="spinner-border" role="status">
+        <span ></span>
+      </div>
     </div>
   </div>
 </div>
+

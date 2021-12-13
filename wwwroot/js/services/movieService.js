@@ -1,4 +1,6 @@
+
 define(['viewmodel'], function (vm) {
+
 
    
 
@@ -10,9 +12,9 @@ define(['viewmodel'], function (vm) {
             }
         }
         fetch("api/titles?Page=10&PageSize=50", param)
+
             .then(response => response.json())
             .then(json => callback(json))
-
     };
 
 
@@ -25,6 +27,7 @@ define(['viewmodel'], function (vm) {
             }
         }   
         fetch(`/api/titles/${tconst}`, param)
+
             .then(response => response.json())
             .then(json => callback(json))
 
