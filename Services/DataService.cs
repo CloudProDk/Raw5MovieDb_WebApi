@@ -204,13 +204,13 @@ namespace Raw5MovieDb_WebApi.Services
         public IList<Title> GetTitles(QueryString queryString)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.Include(x => x.TitleRating).Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize).ToList();
+            return ctx.titles.Include(x => x.TitleRating).Include(x => x.OmdbData).Skip(queryString.Page * queryString.PageSize).Take(queryString.PageSize).ToList();
         }
         //linq
         public Title GetTitle(string tconst)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.Include(title => title.Genres).ThenInclude(titlegenre => titlegenre.Genre).Include(x => x.TitleRating).FirstOrDefault(x => x.Tconst == tconst);
+            return ctx.titles.Include(title => title.Genres).ThenInclude(titlegenre => titlegenre.Genre).Include(x => x.TitleRating).Include(x => x.OmdbData).FirstOrDefault(x => x.Tconst == tconst);
         }
         //TODO: not implementet
 
@@ -327,7 +327,7 @@ namespace Raw5MovieDb_WebApi.Services
         public IList<Title> GetTitlesByGenre(int genreId, QueryString queryString)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.FromSqlInterpolated($"SELECT * FROM get_titles_by_genre({genreId}, {queryString.Page}, {queryString.PageSize})").ToList();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM get_titles_by_genre({genreId}, {queryString.Page}, {queryString.PageSize})").Include(x => x.OmdbData).ToList();
         }
 
         public int TitlesByGenreCount(int genreId)
@@ -347,7 +347,7 @@ namespace Raw5MovieDb_WebApi.Services
         public IList<Title> GetPopularTitles()
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.Include(x => x.TitleRating).OrderByDescending(x => x.TitleRating.Averagerating * x.TitleRating.Numvotes).Take(25).ToList();
+            return ctx.titles.Include(x => x.TitleRating).Include(x => x.OmdbData).OrderByDescending(x => x.TitleRating.Averagerating * x.TitleRating.Numvotes).Take(25).ToList();
         }
 
 

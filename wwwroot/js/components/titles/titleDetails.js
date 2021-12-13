@@ -1,12 +1,12 @@
-define(['knockout', 'postman', 'movieService'], function (ko, postman, ms) {
+define(['knockout', 'postman', 'viewmodel', 'movieService'], function (ko, postman, vm, ms) {
   return function (params) {
-    let movies = ko.observableArray([]);
-    ms.getMovies(movies);
-
-    console.log(movies);
-
+    let title = ko.observable(null);
+    let actors = ko.observable(null);
+    ms.getTitle(vm.curTitle().url, title);
+    ms.getTitleActors(vm.curTitle().actors, actors);
     return {
-      movies
+      title,
+      actors
     };
   };
 });

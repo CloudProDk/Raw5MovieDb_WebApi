@@ -6,44 +6,12 @@
   </div>
 
   <div class="row">
-    <div class="col p-0">
-      <h2>My List</h2>
+    <div class="col p-0 movie-carousel-container"">
+      <h2>Popular</h2>
       <div class="movie-carousel">
-        <div class="movie-carousel-rail">
-          <div class="movie-poster">
-            <img
-              src="https://m.media-amazon.com/images/M/MV5BZDEyN2NhMjgtMjdhNi00MmNlLWE5YTgtZGE4MzNjMTRlMGEwXkEyXkFqcGdeQXVyNDUyOTg3Njg@._V1_FMjpg_UX511_.jpg"
-              alt="Spider-Man">
-          </div>
-
-          <div class="movie-poster">
-            <img
-              src="https://m.media-amazon.com/images/M/MV5BZDEyN2NhMjgtMjdhNi00MmNlLWE5YTgtZGE4MzNjMTRlMGEwXkEyXkFqcGdeQXVyNDUyOTg3Njg@._V1_FMjpg_UX511_.jpg"
-              alt="Spider-Man">
-          </div>
-
-          <div class="movie-poster">
-            <img
-              src="https://m.media-amazon.com/images/M/MV5BZDEyN2NhMjgtMjdhNi00MmNlLWE5YTgtZGE4MzNjMTRlMGEwXkEyXkFqcGdeQXVyNDUyOTg3Njg@._V1_FMjpg_UX511_.jpg"
-              alt="Spider-Man">
-          </div>
-
-          <div class="movie-poster">
-            <img
-              src="https://m.media-amazon.com/images/M/MV5BZDEyN2NhMjgtMjdhNi00MmNlLWE5YTgtZGE4MzNjMTRlMGEwXkEyXkFqcGdeQXVyNDUyOTg3Njg@._V1_FMjpg_UX511_.jpg"
-              alt="Spider-Man">
-          </div>
-
-          <div class="movie-poster">
-            <img
-              src="https://m.media-amazon.com/images/M/MV5BZDEyN2NhMjgtMjdhNi00MmNlLWE5YTgtZGE4MzNjMTRlMGEwXkEyXkFqcGdeQXVyNDUyOTg3Njg@._V1_FMjpg_UX511_.jpg"
-              alt="Spider-Man">
-          </div>
-
-          <div class="movie-poster">
-            <img
-              src="https://m.media-amazon.com/images/M/MV5BZDEyN2NhMjgtMjdhNi00MmNlLWE5YTgtZGE4MzNjMTRlMGEwXkEyXkFqcGdeQXVyNDUyOTg3Njg@._V1_FMjpg_UX511_.jpg"
-              alt="Spider-Man">
+        <div class="movie-carousel-rail" data-bind="foreach: popularTitles()">
+          <div class="movie-poster" data-bind="click: $parent.goToTitleDetails">
+            <img data-bind="attr:{src: omdbData.poster, alt: primarytitle}">
           </div>
         </div>
       </div>
@@ -51,74 +19,32 @@
   </div>
 
   <div class="row">
-    <div class="col p-0">
+    <div class="col p-0 movie-carousel-container">
       <h2>Action</h2>
+      <div class="movie-carousel-changepage left" data-bind="click: loadPreviousTitlePage(actionTitles), visible: actionTitles().previousPage"><i class="fas fa-arrow-alt-circle-left"></i></div>
       <div class="movie-carousel">
-        <div class="movie-carousel-rail">
-          <div class="movie-poster">
-            <img src="https://img-cdn.b17g.net/edbdbd41-7306-491a-9025-26a5216371dc/crop2x3.jpg"
-              alt="Mad Max: Fury Road">
-          </div>
-
-          <div class="movie-poster">
-            <img src="https://img-cdn.b17g.net/edbdbd41-7306-491a-9025-26a5216371dc/crop2x3.jpg"
-              alt="Mad Max: Fury Road">
-          </div>
-
-          <div class="movie-poster">
-            <img src="https://img-cdn.b17g.net/edbdbd41-7306-491a-9025-26a5216371dc/crop2x3.jpg"
-              alt="Mad Max: Fury Road">
-          </div>
-
-          <div class="movie-poster">
-            <img src="https://img-cdn.b17g.net/edbdbd41-7306-491a-9025-26a5216371dc/crop2x3.jpg"
-              alt="Mad Max: Fury Road">
-          </div>
-
-          <div class="movie-poster">
-            <img src="https://img-cdn.b17g.net/edbdbd41-7306-491a-9025-26a5216371dc/crop2x3.jpg"
-              alt="Mad Max: Fury Road">
-          </div>
-
-          <div class="movie-poster">
-            <img src="https://img-cdn.b17g.net/edbdbd41-7306-491a-9025-26a5216371dc/crop2x3.jpg"
-              alt="Mad Max: Fury Road">
+        <div class="movie-carousel-rail" data-bind="foreach: actionTitles().results">
+          <div class="movie-poster" data-bind="click: $parent.goToTitleDetails">
+            <img data-bind="attr:{src: omdbData.poster, alt: primarytitle}">
           </div>
         </div>
       </div>
+      <div class="movie-carousel-changepage right" data-bind="click: loadNextTitlePage(actionTitles), visible: actionTitles().nextPage"><i class="fas fa-arrow-alt-circle-right"></i></div>
     </div>
   </div>
 
   <div class="row">
-    <div class="col p-0">
+    <div class="col p-0 movie-carousel-container"">
       <h2>Sci-Fi</h2>
+      <div class="movie-carousel-changepage left" data-bind="click: loadPreviousTitlePage(scifiTitles), visible: scifiTitles().previousPage"><i class="fas fa-arrow-alt-circle-left"></i></div>
       <div class="movie-carousel">
-        <div class="movie-carousel-rail">
-          <div class="movie-poster">
-            <img src="https://picfiles.alphacoders.com/348/348707.jpg" alt="Dredd">
-          </div>
-
-          <div class="movie-poster">
-            <img src="https://picfiles.alphacoders.com/348/348707.jpg" alt="Dredd">
-          </div>
-
-          <div class="movie-poster">
-            <img src="https://picfiles.alphacoders.com/348/348707.jpg" alt="Dredd">
-          </div>
-
-          <div class="movie-poster">
-            <img src="https://picfiles.alphacoders.com/348/348707.jpg" alt="Dredd">
-          </div>
-
-          <div class="movie-poster">
-            <img src="https://picfiles.alphacoders.com/348/348707.jpg" alt="Dredd">
-          </div>
-
-          <div class="movie-poster">
-            <img src="https://picfiles.alphacoders.com/348/348707.jpg" alt="Dredd">
+        <div class="movie-carousel-rail" data-bind="foreach: scifiTitles().results">
+          <div class="movie-poster" data-bind="click: $parent.goToTitleDetails">
+            <img data-bind="attr:{src: omdbData.poster, alt: primarytitle}">
           </div>
         </div>
       </div>
+      <div class="movie-carousel-changepage right" data-bind="click: loadNextTitlePage(scifiTitles), visible: scifiTitles().nextPage"><i class="fas fa-arrow-alt-circle-right"></i></div>
     </div>
   </div>
 

@@ -22,5 +22,7 @@ public partial class OmdbData
 
         [JsonProperty("plot")]
         public string Plot { get; set; }
+
+        public Title Title { get; set; }
     }
 }

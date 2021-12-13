@@ -10,7 +10,8 @@ define(["knockout", "postman", "viewmodel"], function (ko, postman, vm) {
     let navigationBarVisible = ko.observable(false)
     let currentmovie = ko.observable('');
     let currentactor = ko.observable('');
-    
+    let curTitle = ko.observable(null);
+
     // Navigation Bar Items
     let menuItems = [
         { title: "Home", component: "home" },
@@ -41,7 +42,7 @@ define(["knockout", "postman", "viewmodel"], function (ko, postman, vm) {
         vm.loggedInUser({});
         vm.activeView('login');
     }
-    
+
     postman.subscribe("changeView", function (data) {
         currentView(data);
     });
@@ -53,6 +54,7 @@ define(["knockout", "postman", "viewmodel"], function (ko, postman, vm) {
         uconst,
         currentmovie,
         currentactor,
+        curTitle,
         loggedInUser,
         navigationBarVisible,
         menuItems,
