@@ -1,4 +1,5 @@
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark" data-bind="visible: vm.navigationBarVisible">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
       <img src="../../../assets/icon.png" alt="" width="30" height="40">
@@ -14,15 +15,34 @@
             <span data-bind="text: title"></span>
           </a>
 
-        </li>
-      </ul>
-      <div style="width: 100%;">
-        <form class="d-flex" style="float: right;">
-          <i data-bind="click: changeView('search')" class="bi bi-search"></i>
-          <i data-bind="click: changeView('profile')" class="bi bi-person-circle"></i>
-          <i data-bind="click: changeView('login')" class="bi bi-box-arrow-left"></i>
-        </form>
-      </div>
-    </div>
-  </div>
+				</li>
+			</ul>
+			<div style="width: 100%;">
+				<form class="d-flex" style="float: right;">
+					<i class="bi bi-search" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+					<i data-bind="click: changeView('profile')" class="bi bi-person-circle"></i>
+					<i data-bind="click: changeView('login')" class="bi bi-box-arrow-left"></i>
+				</form>
+			</div>
+		</div>
+	</div>
 </nav>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				...
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>

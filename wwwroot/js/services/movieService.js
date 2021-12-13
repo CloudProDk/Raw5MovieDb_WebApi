@@ -1,5 +1,4 @@
-define(['viewmodel'], (vm) => {
-
+define(['viewmodel'], function(vm) {
   let getMovies = (callback) => {
     let param = {
       headers: {
@@ -8,6 +7,7 @@ define(['viewmodel'], (vm) => {
       }
     }
     fetch("api/titles?Page=10&PageSize=50", param)
+
       .then(response => response.json())
       .then(json => callback(json))
   };
@@ -48,6 +48,19 @@ define(['viewmodel'], (vm) => {
       .then(json => callback(json))
   };
 
+  let getMovieByTconst = (callback, tconst) => {
+    let param = {
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + vm.bearerToken()
+      }
+    }
+    fetch(`/api/titles/${tconst}`, param)
+      .then(response => response.json())
+      .then(json => callback(json))
+  };
+
+
   let getTitle = (url, callback) => {
     let param = {
       headers: {
@@ -78,6 +91,7 @@ define(['viewmodel'], (vm) => {
     getTitlesFromGenre,
     getTitle,
     getTitleActors,
-    getTitlesFromUrl
+    getTitlesFromUrl,
+    getMovieByTconst
   }
 });
