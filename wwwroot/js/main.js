@@ -14,6 +14,7 @@ require.config({
         authenticationService: "services/authenticationService",
         searchHistoryService: "services/searchHistoryService",
         postman: "services/postman",
+        userService: "services/userService",
     }
 });
 
@@ -58,7 +59,11 @@ require(['knockout'], (ko) => {
     ko.components.register("profile", {
         viewModel: { require: "components/profile/profile" },
         template: { require: "text!components/profile/profile.html" }
-      });
+    });
+    ko.components.register("register", {
+        viewModel: { require: "components/register_user/register_user" },
+        template: { require: "text!components/register_user/register_user.html" }
+    });
 });
 
 require(["knockout", "viewmodel"], function (ko, vm) {

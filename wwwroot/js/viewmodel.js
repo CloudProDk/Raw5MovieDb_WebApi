@@ -1,4 +1,4 @@
-define(["knockout", "postman"], function (ko, postman) {
+define(["knockout", "postman", "viewmodel"], function (ko, postman, vm) {
 
     let activeView =  ko.observable('list-categories')
 
@@ -32,6 +32,11 @@ define(["knockout", "postman"], function (ko, postman) {
     let isActive = menuItem => {
         return menuItem.component === currentView() ? "active" : "";
     }
+
+    function logout(){
+        vm.loggedInUser({});
+        vm.activeView('login');
+    }
     
     postman.subscribe("changeView", function (data) {
         currentView(data);
@@ -48,5 +53,6 @@ define(["knockout", "postman"], function (ko, postman) {
         changeContent,
         isActive,
         changeView,
+        logout
     }
 });
