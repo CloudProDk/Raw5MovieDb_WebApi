@@ -23,14 +23,14 @@
                 vm.uconst(token().uconst)
 
                 vm.activeView('movieList')
-            } else { console.log('error') }
+            } else { console.log('error')
 
                 vm.loggedInUser(token())
                 vm.navigationBarVisible(true)
 
                 vm.activeView('bookmark')
                 hide()
-            } else { console.log('error'); hide(); alert("wrong username or password"); }
+            }
         }
 
         function show() {
