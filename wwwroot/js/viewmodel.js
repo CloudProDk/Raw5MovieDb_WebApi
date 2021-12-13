@@ -1,7 +1,7 @@
 define(["knockout", "postman", "viewmodel"], function (ko, postman, vm) {
 
 
-    let activeView =  ko.observable('list-categories')
+    let activeView =  ko.observable('login')
 
     let bearerToken = ko.observable('');
     let userName = ko.observable('')
@@ -51,10 +51,8 @@ define(["knockout", "postman", "viewmodel"], function (ko, postman, vm) {
         bearerToken,
         userName,
         uconst,
-
         currentmovie,
-        currentactor
-
+        currentactor,
         loggedInUser,
         navigationBarVisible,
         menuItems,
