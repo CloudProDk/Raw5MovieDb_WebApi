@@ -1,5 +1,6 @@
 define(["knockout", "postman", "viewmodel"], function (ko, postman, vm) {
 
+
     let activeView =  ko.observable('list-categories')
 
     let bearerToken = ko.observable('');
@@ -7,6 +8,8 @@ define(["knockout", "postman", "viewmodel"], function (ko, postman, vm) {
     let uconst = ko.observable('')
     let loggedInUser = ko.observable('')
     let navigationBarVisible = ko.observable(false)
+    let currentmovie = ko.observable('');
+    let currentactor = ko.observable('');
     
     // Navigation Bar Items
     let menuItems = [
@@ -28,6 +31,7 @@ define(["knockout", "postman", "viewmodel"], function (ko, postman, vm) {
         activeView(page);
     }
 
+
     // Active route
     let isActive = menuItem => {
         return menuItem.component === currentView() ? "active" : "";
@@ -47,6 +51,10 @@ define(["knockout", "postman", "viewmodel"], function (ko, postman, vm) {
         bearerToken,
         userName,
         uconst,
+
+        currentmovie,
+        currentactor
+
         loggedInUser,
         navigationBarVisible,
         menuItems,
