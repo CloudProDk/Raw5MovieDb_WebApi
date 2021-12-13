@@ -1,5 +1,6 @@
-define(['viewmodel'], (vm) => {
 
+define(['viewmodel'], function (vm)  {
+    
     let getBookmarks = (callback) => {
         let param = {
             headers: {
@@ -22,6 +23,9 @@ define(['viewmodel'], (vm) => {
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': 'Bearer ' + vm.bearerToken()
+
+            }
+
         }
         fetch(`api/Bookmark/TitleBookmark?uconst=${uconst}&tconst=${tconst}`, param)
             .then(response => console.log(response.status))
@@ -37,7 +41,6 @@ define(['viewmodel'], (vm) => {
         }
         fetch("/api/Bookmark/ActorBookmark/1", param)
             .then(response => response.json())
-
             .then(json => callback(json));
 
     };

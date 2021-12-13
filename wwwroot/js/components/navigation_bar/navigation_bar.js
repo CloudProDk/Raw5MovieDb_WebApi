@@ -1,6 +1,7 @@
 define(['knockout', 'postman', "viewmodel"], function (ko, postman, vm) {
     return function (params) {
 
+        
 
         let menuItems = [
             { title: "Home", component: "home" },
@@ -27,7 +28,8 @@ define(['knockout', 'postman', "viewmodel"], function (ko, postman, vm) {
             menuItems,
             changeContent,
             isActive,
-            changeView
+            changeView,
+            
         }
     };
-});
+})
