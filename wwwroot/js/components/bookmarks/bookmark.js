@@ -62,8 +62,14 @@ define(['knockout', 'postman','bookmarkService', 'viewmodel','movieService','act
             bs.deleteTitleBookmark(actor, nconst, actor.nconst);
         }
 
-        bs.getBookmarks(bookmarks)
-        bs.getActorBookmarks(actorbookmarks)
+        bs.getBookmarks(bookmarks);
+        bs.getActorBookmarks(actorbookmarks);
+
+       
+
+        
+        
+        
 
         return {
 
@@ -75,7 +81,9 @@ define(['knockout', 'postman','bookmarkService', 'viewmodel','movieService','act
             userName,
             uconst,
             goToMovieByTconst,
-            goToActorByNconst,
+            goToActorByNconst
+
+
 
 
         };
