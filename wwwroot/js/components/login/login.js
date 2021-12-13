@@ -14,23 +14,18 @@
             setTimeout(navigate, 1000)
 
         }
-
         let navigate = () => {
-            if (token().token != '') {
+            if (token().token) {
                 console.log(token())
                 vm.bearerToken(token().token)
                 vm.userName(token().userName)
                 vm.uconst(token().uconst)
-
-                vm.activeView('movieList')
-            } else { console.log('error')
-
                 vm.loggedInUser(token())
                 vm.navigationBarVisible(true)
 
                 vm.activeView('bookmark')
                 hide()
-            }
+            } else { console.log('error'); hide(); alert("wrong username or password"); }
         }
 
         function show() {
