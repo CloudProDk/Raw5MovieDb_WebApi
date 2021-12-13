@@ -16,11 +16,15 @@
         }
 
         let navigate = () => {
-            if (token().token) {
+            if (token().token != '') {
                 console.log(token())
                 vm.bearerToken(token().token)
                 vm.userName(token().userName)
                 vm.uconst(token().uconst)
+
+                vm.activeView('movieList')
+            } else { console.log('error') }
+
                 vm.loggedInUser(token())
                 vm.navigationBarVisible(true)
 
@@ -32,6 +36,7 @@
         function show() {
             document.getElementById("loading").style.display = 'block';
             document.getElementById("loginbtn").style.display = 'none';
+
         }
         function hide() {
             document.getElementById("loading").style.display = 'none';

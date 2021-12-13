@@ -1,10 +1,13 @@
+
 define(['viewmodel'], function (vm)  {
     
     let getBookmarks = (callback) => {
         let param = {
             headers: {
                 "Content-Type": "application/json",
+
                 'Authorization': 'Bearer ' + vm.bearerToken()
+
             }
         }
         fetch("/api/Bookmark/TitleBookmark/1", param)
@@ -20,7 +23,9 @@ define(['viewmodel'], function (vm)  {
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': 'Bearer ' + vm.bearerToken()
+
             }
+
         }
         fetch(`api/Bookmark/TitleBookmark?uconst=${uconst}&tconst=${tconst}`, param)
             .then(response => console.log(response.status))
