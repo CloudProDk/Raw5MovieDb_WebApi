@@ -13,7 +13,9 @@ require.config({
         bookmarkService: "services/bookmarkService",
         authenticationService: "services/authenticationService",
         postman: "services/postman",
-        actorService: "services/actorService"
+        actorService: "services/actorService",
+        searchService: "services/searchService"
+
     }
 });
 
@@ -58,7 +60,12 @@ require(['knockout'], (ko) => {
       template: { require: "text!components/titles/titleDetails.html" }
 
     });
-    
+    ko.components.register("search", {
+        viewModel: { require: "components/search/search" },
+        template: { require: "text!components/search/search.html" }
+
+    });
+
 });
 
 require(["knockout", "viewmodel"], function (ko, vm) {

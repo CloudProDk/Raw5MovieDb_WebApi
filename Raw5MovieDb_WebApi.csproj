@@ -35,7 +35,6 @@
   <ItemGroup>
     <Folder Include="ViewModels\Profiles\" />
     <Folder Include="wwwroot\js\components\movieList\" />
-    <Folder Include="wwwroot\js\components\NewFolder\" />
     <Folder Include="wwwroot\js\components\singleActor\" />
   </ItemGroup>
   <ItemGroup>
