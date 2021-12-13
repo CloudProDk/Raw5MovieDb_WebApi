@@ -15,10 +15,10 @@ namespace Raw5MovieDb_WebApi.Model
         public string TitleRatingTconst { get; set; }
 
         [JsonProperty("averagerating")]
-        public long Averagerating { get; set; }
+        public float Averagerating { get; set; }
 
         [JsonProperty("numvotes")]
-        public long Numvotes { get; set; }
+        public float Numvotes { get; set; }
 
         public Title Title { get; set; }
     }

@@ -4,11 +4,13 @@ define(['knockout', 'postman','bookmarkService', 'viewmodel'], function (ko, pos
         let token = ko.observable('');
         let userName = ko.observable('');
         let uconst = ko.observable('');
+        let loggedInUser = ko.observable('');
 
       
-        token(vm.bearerToken())
-        userName(vm.userName())
-        uconst(vm.uconst())
+        token(vm.bearerToken());
+        userName(vm.userName());
+        uconst(vm.uconst());
+        loggedInUser(vm.loggedInUser());
 
 
         let bookmarks = ko.observableArray([]);
@@ -34,7 +36,8 @@ define(['knockout', 'postman','bookmarkService', 'viewmodel'], function (ko, pos
             delactor,
             token,
             userName,
-            uconst
+            uconst,
+            loggedInUser
         };
     };
 });
