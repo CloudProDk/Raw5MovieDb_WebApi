@@ -24,22 +24,33 @@
               <div class="col-sm-3">
                 <h6 class="mb-0">User Name</h6>
               </div>
-              <div class="col-sm-9 text-secondary" data-bind="text: loggedInUser().userName"></div>
+              <div class="col-sm-9 text-secondary" data-bind="text: loggedInUser().userName, visible: !editMode()"></div>
+              <div class="col-sm-9 text-secondary" data-bind="visible: editMode()">
+                <input type="text" class="form-control col-sm-9" id="formGroupExampleInput2" placeholder="Username" data-bind="value: loggedInUser().userName">
+              </div>
+               
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-3">
                 <h6 class="mb-0">Email</h6>
               </div>
-              <div class="col-sm-9 text-secondary" data-bind="text: loggedInUser().email"></div>
+              <div class="col-sm-9 text-secondary" data-bind="text: loggedInUser().email , visible: !editMode()"></div>
+              <div class="col-sm-9 text-secondary" data-bind="visible: editMode()">
+                <input type="text" class="form-control col-sm-9" id="formGroupExampleInput2" placeholder="Username" data-bind="value: loggedInUser().email">
+              </div>
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-3">
                 <h6 class="mb-0">Birthdate</h6>
               </div>
-              <div class="col-sm-9 text-secondary" data-bind="text: loggedInUser().birthdate"></div>
+              <div class="col-sm-9 text-secondary" data-bind="text: loggedInUser().birthdate , visible: !editMode()"></div>
+              <div class="col-sm-9 text-secondary" data-bind="visible: editMode()">
+                <input type="datetime-local" class="form-control col-sm-9" id="formGroupExampleInput2" placeholder="Username" data-bind="value: loggedInUser().birthdate">
+              </div>
             </div>
+            
             <hr>
             <div class="row">
               <div class="col-sm-3">
@@ -48,11 +59,20 @@
               <div class="col-sm-9 text-secondary" data-bind="text: loggedInUser().uconst"></div>
             </div>
             <hr>
-            <div class="row">
-              <div class="col-sm-12">
-                <a class="btn btn-info " target="__blank"
-                  href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
+            <div class="row" data-bind="visible: editMode()">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Password</h6>
               </div>
+              <div class="col-sm-9 text-secondary">
+                <input type="text" class="form-control col-sm-9" id="formGroupExampleInput2" placeholder="Password" data-bind="value: loggedInUser().password">
+                <small class="mb-0">Be carefull when changing your password</small>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <button id="editbtn" class="btn btn-primary" type="button" data-bind="click: editUser, visible: !editMode()">Edit information</button>
+
+              <button id="editbtn" class="btn btn-primary" type="button" data-bind="click: updateUser, visible: editMode()">Save and update</button>
             </div>
           </div>
         </div>

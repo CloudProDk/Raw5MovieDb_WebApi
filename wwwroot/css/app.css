@@ -29,6 +29,14 @@
   background-color: #3a3a3a !important;
 }
 
+/* Register User */
+.regcontainer{
+  width: 100px;
+  height: 100px;  
+  margin-top: 3rem;
+}
+
+
 /* Login */
 
 .logincontainer{

@@ -38,6 +38,10 @@
             document.getElementById("loginbtn").style.display = 'block';
         }
 
+        function registerUser(){
+            vm.activeView('register')
+        }
+
 
 
         return {
@@ -45,7 +49,8 @@
             userName,
             password,
             token,
-            spinner
+            spinner,
+            registerUser
 
         };
 
