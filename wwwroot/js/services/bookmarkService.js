@@ -1,6 +1,6 @@
 
 define(['viewmodel'], function (vm)  {
-    
+
     let getBookmarks = (callback) => {
         let param = {
             headers: {
@@ -15,7 +15,7 @@ define(['viewmodel'], function (vm)  {
     };
 
 
-    let deleteTitleBookmark = (TitleBookmark, uconst, tconst ) => {
+    let deleteTitleBookmark = (uconst, tconst) => {
         let param = {
             method: "DELETE",
             headers: {
@@ -43,7 +43,7 @@ define(['viewmodel'], function (vm)  {
 
 
     let getActorBookmarks = (callback) => {
-        let param = { 
+        let param = {
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': 'Bearer ' + vm.bearerToken()
@@ -56,10 +56,19 @@ define(['viewmodel'], function (vm)  {
     };
     
 
-    let deleteActorBookmark = Actorbookmark => {
-        fetch(ActorBookmark.nconst, { method: "DELETE" })
-            .then(response => console.log(response.status))
-    };
+    let deleteActorBookmark = (uconst, nconst) => {
+      let param = {
+          method: "DELETE",
+          headers: {
+              "Content-Type": "application/json",
+              'Authorization': 'Bearer ' + vm.bearerToken()
+
+          }
+
+      }
+      fetch(`api/Bookmark/ActorBookmark?uconst=${uconst}&nconst=${nconst}`, param)
+          .then(response => console.log(response.status))
+  };
 
 
     return {
@@ -68,6 +77,5 @@ define(['viewmodel'], function (vm)  {
         getActorBookmarks,
         deleteActorBookmark,
         addTitleBookmark
-        
     }
 });

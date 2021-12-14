@@ -3,6 +3,11 @@ define(['knockout', 'postman', 'viewmodel', 'movieService', 'bookmarkService'], 
     let title = ko.observable(null);
     let actors = ko.observable(null);
 
+    let navigateToActor = actor => {
+        vm.currentactor(actor)
+        vm.activeView('singleActor')
+    }
+
     if (vm.curTitle().url) {
         ms.getTitle(vm.curTitle().url, title);
         ms.getTitleActors(vm.curTitle().actors, actors);
@@ -10,12 +15,14 @@ define(['knockout', 'postman', 'viewmodel', 'movieService', 'bookmarkService'], 
     } else {
         ms.getMovieByTconst(title, vm.curTitle().tconst);
         setTimeout(loadActors, 1000);
-        console.log(title())
 
     }
 
     function loadActors() {
         ms.getTitleActors(title().actors, actors);
+        actors.subscribe(function() {
+          console.log(actors());
+        });
     }
 
     let addBookmark = () => {
@@ -26,6 +33,7 @@ define(['knockout', 'postman', 'viewmodel', 'movieService', 'bookmarkService'], 
       title,
       actors,
       addBookmark
+      navigateToActor
     };
   };
 });
