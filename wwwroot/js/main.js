@@ -59,9 +59,9 @@ require(['knockout'], (ko) => {
       template: { require: "text!components/titles/titleDetails.html" }
     });
 
-    ko.components.register("search", {
-        viewModel: { require: "components/search/search" },
-        template: { require: "text!components/search/search.html" }
+    ko.components.register("search_results", {
+        viewModel: { require: "components/search_results/search_results" },
+        template: { require: "text!components/search_results/search_results.html" }
     });
     ko.components.register("profile", {
         viewModel: { require: "components/profile/profile" },
