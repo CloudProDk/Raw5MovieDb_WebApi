@@ -20,7 +20,7 @@
 
   <div class="row">
     <div class="col p-0 movie-carousel-container">
-      <h2>Action</h2>
+      <h2>Action <small>(<span data-bind="text: actionTitles().total"></span>)</small></h2>
       <div class="movie-carousel-changepage left" data-bind="click: loadPreviousTitlePage(actionTitles), visible: actionTitles().previousPage"><i class="fas fa-arrow-alt-circle-left"></i></div>
       <div class="movie-carousel">
         <div class="movie-carousel-rail" data-bind="foreach: actionTitles().results">
@@ -35,7 +35,7 @@
 
   <div class="row">
     <div class="col p-0 movie-carousel-container"">
-      <h2>Sci-Fi</h2>
+      <h2>Sci-Fi <small>(<span data-bind="text: scifiTitles().total"></span>)</small></h2>
       <div class="movie-carousel-changepage left" data-bind="click: loadPreviousTitlePage(scifiTitles), visible: scifiTitles().previousPage"><i class="fas fa-arrow-alt-circle-left"></i></div>
       <div class="movie-carousel">
         <div class="movie-carousel-rail" data-bind="foreach: scifiTitles().results">

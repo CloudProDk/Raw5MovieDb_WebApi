@@ -78,7 +78,7 @@
         <div class="row lbg">
           <ul class="movie-cast" data-bind="foreach: $parent.actors">
             <li>
-              <div class="movie-cast-member">
+              <div class="movie-cast-member" data-bind="click: $parents[1].navigateToActor">
                 <div class="row">
                   <div class="col-3">
                     <div class="movie-cast-member-img" style="background-color: #e7e7e7;"></div>
