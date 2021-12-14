@@ -28,11 +28,11 @@ define(['knockout', 'postman', 'viewmodel', 'movieService', 'bookmarkService'], 
     let addBookmark = () => {
       bs.addTitleBookmark(vm.loggedInUser().uconst, vm.curTitle().tconst);
     }
-    
+
     return {
       title,
       actors,
-      addBookmark
+      addBookmark,
       navigateToActor
     };
   };

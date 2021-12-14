@@ -277,7 +277,7 @@ namespace Raw5MovieDb_WebApi.Services
         public IList<Title> StringSearch(string searchparams, string userid)
         {
             var ctx = new MovieDbContext();
-            return ctx.titles.FromSqlInterpolated($"SELECT * FROM string_search({searchparams},{userid}) NATURAL JOIN title_basics NATURAL JOIN omdb_data").ToList();
+            return ctx.titles.FromSqlInterpolated($"SELECT * FROM string_search({searchparams},{userid}) NATURAL JOIN title_basics NATURAL JOIN omdb_data").Include(x => x.OmdbData).ToList();
         }
         //works
         public IList<Actor> StructuredNameSearch(string input)
