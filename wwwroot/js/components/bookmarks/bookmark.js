@@ -44,9 +44,9 @@ define(['knockout', 'postman','bookmarkService', 'viewmodel','movieService','act
         }
 
         let delactor = actor => {
-            bookmarks.remove(actor);
-            console.log(actor.nconst)
-            bs.deleteTitleBookmark(actor, nconst, actor.nconst);
+          actorbookmarks.remove(actor);
+          // console.log(actor)
+          bs.deleteActorBookmark(actor.uconst, actor.nconst);
         }
 
         bs.getBookmarks(bookmarks);
