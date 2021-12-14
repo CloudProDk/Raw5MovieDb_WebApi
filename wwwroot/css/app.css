@@ -330,3 +330,70 @@ h2 small {
 .shadow-none {
   box-shadow: none!important;
 }
+
+.rating-stars {
+  cursor: default;
+  color: #e2e8f0;
+}
+
+input[name="stars"] {
+  display: none;
+}
+
+#rating-1:checked ~ section [for=rating-1],
+#rating-2:checked ~ section [for=rating-1],
+#rating-2:checked ~ section [for=rating-2],
+#rating-3:checked ~ section [for=rating-1],
+#rating-3:checked ~ section [for=rating-2],
+#rating-3:checked ~ section [for=rating-3],
+#rating-4:checked ~ section [for=rating-1],
+#rating-4:checked ~ section [for=rating-2],
+#rating-4:checked ~ section [for=rating-3],
+#rating-4:checked ~ section [for=rating-4],
+#rating-5:checked ~ section [for=rating-1],
+#rating-5:checked ~ section [for=rating-2],
+#rating-5:checked ~ section [for=rating-3],
+#rating-5:checked ~ section [for=rating-4],
+#rating-5:checked ~ section [for=rating-5],
+#rating-6:checked ~ section [for=rating-1],
+#rating-6:checked ~ section [for=rating-2],
+#rating-6:checked ~ section [for=rating-3],
+#rating-6:checked ~ section [for=rating-4],
+#rating-6:checked ~ section [for=rating-5],
+#rating-6:checked ~ section [for=rating-6],
+#rating-7:checked ~ section [for=rating-1],
+#rating-7:checked ~ section [for=rating-2],
+#rating-7:checked ~ section [for=rating-3],
+#rating-7:checked ~ section [for=rating-4],
+#rating-7:checked ~ section [for=rating-5],
+#rating-7:checked ~ section [for=rating-6],
+#rating-7:checked ~ section [for=rating-7],
+#rating-8:checked ~ section [for=rating-1],
+#rating-8:checked ~ section [for=rating-2],
+#rating-8:checked ~ section [for=rating-3],
+#rating-8:checked ~ section [for=rating-4],
+#rating-8:checked ~ section [for=rating-5],
+#rating-8:checked ~ section [for=rating-6],
+#rating-8:checked ~ section [for=rating-7],
+#rating-8:checked ~ section [for=rating-8],
+#rating-9:checked ~ section [for=rating-1],
+#rating-9:checked ~ section [for=rating-2],
+#rating-9:checked ~ section [for=rating-3],
+#rating-9:checked ~ section [for=rating-4],
+#rating-9:checked ~ section [for=rating-5],
+#rating-9:checked ~ section [for=rating-6],
+#rating-9:checked ~ section [for=rating-7],
+#rating-9:checked ~ section [for=rating-8],
+#rating-9:checked ~ section [for=rating-9],
+#rating-10:checked ~ section [for=rating-1],
+#rating-10:checked ~ section [for=rating-2],
+#rating-10:checked ~ section [for=rating-3],
+#rating-10:checked ~ section [for=rating-4],
+#rating-10:checked ~ section [for=rating-5],
+#rating-10:checked ~ section [for=rating-6],
+#rating-10:checked ~ section [for=rating-7],
+#rating-10:checked ~ section [for=rating-8],
+#rating-10:checked ~ section [for=rating-9],
+#rating-10:checked ~ section [for=rating-10] {
+  color: #f5ca46;
+}
