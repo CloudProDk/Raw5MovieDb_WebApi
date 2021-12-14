@@ -29,6 +29,18 @@ define(['viewmodel'], function (vm)  {
             .then(response => console.log(response.status))
     };
 
+    let addTitleBookmark = (uconst, tconst ) => {
+        let param = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + vm.bearerToken()
+            }
+        }
+        fetch(`api/Bookmark/TitleBookmark?uconst=${uconst}&tconst=${tconst}`, param)
+            .then(response => console.log(response.status))
+    };
+
 
     let getActorBookmarks = (callback) => {
         let param = { 
@@ -42,6 +54,7 @@ define(['viewmodel'], function (vm)  {
             .then(json => callback(json));
 
     };
+    
 
     let deleteActorBookmark = Actorbookmark => {
         fetch(ActorBookmark.nconst, { method: "DELETE" })
@@ -53,7 +66,8 @@ define(['viewmodel'], function (vm)  {
         getBookmarks,
         deleteTitleBookmark,
         getActorBookmarks,
-        deleteActorBookmark
+        deleteActorBookmark,
+        addTitleBookmark
         
     }
 });

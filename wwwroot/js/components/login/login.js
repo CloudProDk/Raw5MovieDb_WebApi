@@ -23,7 +23,7 @@
                 vm.loggedInUser(token())
                 vm.navigationBarVisible(true)
 
-                vm.activeView('bookmark')
+                vm.activeView('home')
                 hide()
             } else { console.log('error'); hide(); alert("wrong username or password"); }
         }

@@ -1,4 +1,4 @@
-define(["knockout", "postman", "viewmodel"], function (ko, postman, vm) {
+define(["knockout", "postman", "viewmodel", "searchService"], function (ko, postman, vm, ss) {
 
 
     let activeView =  ko.observable('login')
@@ -11,12 +11,12 @@ define(["knockout", "postman", "viewmodel"], function (ko, postman, vm) {
     let currentmovie = ko.observable('');
     let currentactor = ko.observable('');
     let curTitle = ko.observable(null);
+    let searchResults = ko.observableArray([]);
+    let searchQuery = ko.observable('');
 
     // Navigation Bar Items
     let menuItems = [
         { title: "Home", component: "home" },
-        { title: "Movies", component: "movieList" },
-        { title: "Series", component: "details" },
         { title: "Bookmarks", component: "bookmark" },
     ];
 
@@ -32,6 +32,11 @@ define(["knockout", "postman", "viewmodel"], function (ko, postman, vm) {
         activeView(page);
     }
 
+    //modal
+    var myModal = new bootstrap.Modal(document.getElementById('exampleModal'))
+    let showModal = () => {
+        myModal.show();
+    }
 
     // Active route
     let isActive = menuItem => {
@@ -43,7 +48,12 @@ define(["knockout", "postman", "viewmodel"], function (ko, postman, vm) {
         vm.activeView('login');
     }
 
-    postman.subscribe("changeView", function (data) {
+    function search() {
+            myModal.hide();
+            activeView('search_results')
+    }
+    
+     postman.subscribe("changeView", function (data) {
         currentView(data);
     });
 
@@ -61,6 +71,9 @@ define(["knockout", "postman", "viewmodel"], function (ko, postman, vm) {
         changeContent,
         isActive,
         changeView,
-        logout
+        logout,
+        showModal,
+        search,
+        searchQuery
     }
 });
