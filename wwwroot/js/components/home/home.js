@@ -14,6 +14,9 @@ define(['knockout', 'postman', 'viewmodel', 'movieService'], function (ko, postm
     allGenres.subscribe(function() {
       // console.log(allGenres());
       allGenres().results.forEach(genre => {
+        if (genre.id === 2) {
+          return; // skip adult titles
+        }
         let genreTitles = ko.observableArray([]);
         ms.getTitlesFromGenre(genre.id, genreTitles);
         genreTitles.subscribe(function() {
