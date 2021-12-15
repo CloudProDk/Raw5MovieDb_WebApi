@@ -18,33 +18,20 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col p-0 movie-carousel-container">
-      <h2>Action <small>(<span data-bind="text: actionTitles().total"></span>)</small></h2>
-      <div class="movie-carousel-changepage left" data-bind="click: loadPreviousTitlePage(actionTitles), visible: actionTitles().previousPage"><i class="fas fa-arrow-alt-circle-left"></i></div>
-      <div class="movie-carousel">
-        <div class="movie-carousel-rail" data-bind="foreach: actionTitles().results">
-          <div class="movie-poster" data-bind="click: $parent.goToTitleDetails">
-            <img data-bind="attr:{src: omdbData.poster, alt: primarytitle}">
+  <div data-bind="foreach: titleCollections()">
+    <div class="row">
+      <div class="col p-0 movie-carousel-container">
+        <h2><span data-bind="text: genre.name"></span> <small>(<span data-bind="text: total"></span>)</small></h2>
+        <div class="movie-carousel-changepage left" data-bind="click: $parent.loadPreviousTitlePage, visible: previousPage"><i class="fas fa-arrow-alt-circle-left"></i></div>
+        <div class="movie-carousel">
+          <div class="movie-carousel-rail" data-bind="foreach: results">
+            <div class="movie-poster" data-bind="click: $parents[1].goToTitleDetails">
+              <img data-bind="attr:{src: omdbData.poster, alt: primarytitle}">
+            </div>
           </div>
         </div>
+        <div class="movie-carousel-changepage right" data-bind="click: $parent.loadNextTitlePage, visible: nextPage"><i class="fas fa-arrow-alt-circle-right"></i></div>
       </div>
-      <div class="movie-carousel-changepage right" data-bind="click: loadNextTitlePage(actionTitles), visible: actionTitles().nextPage"><i class="fas fa-arrow-alt-circle-right"></i></div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col p-0 movie-carousel-container"">
-      <h2>Sci-Fi <small>(<span data-bind="text: scifiTitles().total"></span>)</small></h2>
-      <div class="movie-carousel-changepage left" data-bind="click: loadPreviousTitlePage(scifiTitles), visible: scifiTitles().previousPage"><i class="fas fa-arrow-alt-circle-left"></i></div>
-      <div class="movie-carousel">
-        <div class="movie-carousel-rail" data-bind="foreach: scifiTitles().results">
-          <div class="movie-poster" data-bind="click: $parent.goToTitleDetails">
-            <img data-bind="attr:{src: omdbData.poster, alt: primarytitle}">
-          </div>
-        </div>
-      </div>
-      <div class="movie-carousel-changepage right" data-bind="click: loadNextTitlePage(scifiTitles), visible: scifiTitles().nextPage"><i class="fas fa-arrow-alt-circle-right"></i></div>
     </div>
   </div>
 

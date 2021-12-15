@@ -24,6 +24,18 @@ define(['viewmodel'], function(vm) {
       .then(json => callback(json))
   };
 
+  let getAllGenres = (callback) => {
+    let param = {
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + vm.bearerToken()
+      }
+    }
+    fetch("api/genres?pageSize=30", param)
+      .then(response => response.json())
+      .then(json => callback(json))
+  };
+
   let getTitlesFromGenre = (genreid, callback) => {
     let param = {
       headers: {
@@ -88,6 +100,7 @@ define(['viewmodel'], function(vm) {
   return {
     getMovies,
     getPopularTitles,
+    getAllGenres,
     getTitlesFromGenre,
     getTitle,
     getTitleActors,

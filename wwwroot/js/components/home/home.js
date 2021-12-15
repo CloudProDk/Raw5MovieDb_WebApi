@@ -1,31 +1,76 @@
 define(['knockout', 'postman', 'viewmodel', 'movieService'], function (ko, postman, vm, ms) {
   return function (params) {
     let popularTitles = ko.observableArray([]);
-    let actionTitles = ko.observableArray([]);
-    let scifiTitles = ko.observableArray([]);
+    let allGenres = ko.observableArray([]);
+    let titleCollections = ko.observableArray([]);
     ms.getPopularTitles(popularTitles);
-    ms.getTitlesFromGenre(6, actionTitles);
-    ms.getTitlesFromGenre(11, scifiTitles);
+    ms.getAllGenres(allGenres);
 
     let goToTitleDetails = titleItem => {
       vm.curTitle(titleItem);
       vm.activeView('details');
     };
 
+    allGenres.subscribe(function() {
+      // console.log(allGenres());
+      allGenres().results.forEach(genre => {
+        let genreTitles = ko.observableArray([]);
+        ms.getTitlesFromGenre(genre.id, genreTitles);
+        genreTitles.subscribe(function() {
+          // console.log(genreTitles());
+          let altGenreTitles = genreTitles();
+          altGenreTitles.genre = genre;
+          titleCollections.push(altGenreTitles);
+        });
+      });
+    });
+
     let loadPreviousTitlePage = (titleCollection) => {
-      // console.log(titleCollection().previousPage);
-      ms.getTitlesFromUrl(titleCollection().previousPage, titleCollection);
+      // console.log(titleCollection.nextPage);
+      let newTitleCollection = ko.observableArray([]);
+      ms.getTitlesFromUrl(titleCollection.previousPage, newTitleCollection);
+
+      newTitleCollection.subscribe(function(tc) {
+        allGenres().results.forEach(genre => {
+          if (genre.id === titleCollection.genre.id) {
+            let newTitleCollections = titleCollections();
+            tc.genre = genre;
+            titleCollections().forEach((collection, index) => {
+              if (collection.genre.id === tc.genre.id) {
+                newTitleCollections[index] = tc;
+                titleCollections(newTitleCollections);
+              }
+            });
+          }
+        });
+      });
     }
 
     let loadNextTitlePage = (titleCollection) => {
-      // console.log(titleCollection().nextPage);
-      ms.getTitlesFromUrl(titleCollection().nextPage, titleCollection);
+      // console.log(titleCollection.nextPage);
+      let newTitleCollection = ko.observableArray([]);
+      ms.getTitlesFromUrl(titleCollection.nextPage, newTitleCollection);
+
+      newTitleCollection.subscribe(function(tc) {
+        allGenres().results.forEach(genre => {
+          if (genre.id === titleCollection.genre.id) {
+            let newTitleCollections = titleCollections();
+            tc.genre = genre;
+            titleCollections().forEach((collection, index) => {
+              if (collection.genre.id === tc.genre.id) {
+                newTitleCollections[index] = tc;
+                titleCollections(newTitleCollections);
+              }
+            });
+          }
+        });
+      });
     }
 
     return {
       popularTitles,
-      actionTitles,
-      scifiTitles,
+      allGenres,
+      titleCollections,
       goToTitleDetails,
       loadPreviousTitlePage,
       loadNextTitlePage
