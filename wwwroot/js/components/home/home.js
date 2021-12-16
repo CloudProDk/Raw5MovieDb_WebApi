@@ -21,9 +21,9 @@ define(['knockout', 'postman', 'viewmodel', 'movieService'], function (ko, postm
         ms.getTitlesFromGenre(genre.id, genreTitles);
         genreTitles.subscribe(function() {
           // console.log(genreTitles());
-          let altGenreTitles = genreTitles();
-          altGenreTitles.genre = genre;
-          titleCollections.push(altGenreTitles);
+          let newGenreTitles = genreTitles();
+          newGenreTitles.genre = genre;
+          titleCollections.push(newGenreTitles);
         });
       });
     });
